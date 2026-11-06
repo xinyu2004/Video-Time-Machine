@@ -1,0 +1,15 @@
+---
+title: "Film onto television"
+summary: "24 frames are held for 2, 3, 2, 3 fields. The video frames are AA BB BC CD DD. BC and CD are not PsF."
+order: 5
+---
+
+Film is 24 frames a second, and each frame is a whole picture. Television does not share that cadence.
+
+NTSC first treats 24 as 23.976, the same 1000/1001 factor, then spreads it across 59.94 fields with 3:2 pulldown. Four film frames occupy ten fields: A for two, B for three, C for two, D for three. Paired into video frames that is AA, BB, BC, CD, DD. The two fields of BC and of CD come from different film frames, so a weave combs, but the source is pulldown rather than an interlaced camera.
+
+<Pulldown />
+
+In PAL countries the usual path is to speed the whole reel to 25 fps and then split 2:2: both fields come from the same film frame. Audio is about 4% higher as well.
+
+Repeated fields want inverse telecine (fieldmatch + decimate), not a yadif pass over the whole file. A reel that mixes film and video cannot use one cadence for every shot. See <PLink id="ivtc-vs-deinterlace" /> and <PLink id="judder" />.

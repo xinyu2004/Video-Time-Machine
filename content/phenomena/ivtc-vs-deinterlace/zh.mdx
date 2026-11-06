@@ -1,0 +1,36 @@
+---
+title: "反电视电影还是去隔行"
+summary: "重复场走 fieldmatch 和 decimate。真隔行走 bwdif。"
+---
+
+## 你看到什么
+
+画面按 2-3 的节拍顿一下，或者某些帧的两场来自不同胶片格，竖边发梳。硬去隔行之后，胶片格会被拆坏。
+
+## 信号链上的哪一层
+
+3:2 把 24（实际 23.976）格铺成 60 场。视频帧是 AA BB BC CD DD。BC 和 CD 会梳，但正确的处理是找回胶片格，不是把每一场当成摄像机隔行。见 <TLink slug="film" />。
+
+## 如何确认
+
+看样片里的亮条：telecine 之后位置会按 3:2 重复。`idet` 会在 progressive 和 interlaced 之间来回。硬隔行则一直是 interlaced。
+
+## 实验室
+
+下拉图把重复场和混合帧标出来。它不是 PsF。
+
+<Pulldown />
+
+<FrameCompare samples="telecine-23,adjacent-weave" />
+
+## 能否消除
+
+节拍还在、没有被重采样糊掉时，可以还原成 24p 一类的逐行。已经被 yadif 再编码的，写进样点。
+
+## 处理原则
+
+`fieldmatch` 接着 `decimate`。混合了视频镜头的段落不要整段用同一个节拍。
+
+## 不要做的事
+
+不要对 3:2 直接 bwdif。

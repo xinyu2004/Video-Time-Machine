@@ -1,0 +1,36 @@
+---
+title: "Combing"
+summary: "When the two fields are different times, vertical edges split into short teeth."
+---
+
+## What you see
+
+Vertical edges of moving objects break into a row of short horizontal teeth. Fine static lines stay straight.
+
+## Where on the chain
+
+The two interlaced fields are exposed a field apart. Woven into one frame, a moving edge does not agree. PsF, both fields from one instant, does not comb. See <TLink slug="raster" />.
+
+## How to tell
+
+Step the fields: the object has moved. `idet` keeps reporting interlaced rather than a run of progressive.
+
+## Lab
+
+In the samples the window stays still and the person takes a long step. Woven, the window is aligned and the person splits into two fields. After yadif the window is still straight and the teeth ease off. bwdif also looks at the next field. On this short clip it stays close to yadif.
+
+<FieldLoom />
+
+<FrameCompare samples="adjacent-weave,adjacent-bob,adjacent-yadif,adjacent-bwdif" />
+
+## Can it be removed
+
+Attenuation only. A motion-adaptive deinterlacer removes the teeth and cannot keep both vertical detail and motion untouched. Teeth baked in by a bad weave can only be guessed at again.
+
+## What to do
+
+Rule out PsF and 3:2 first. For real interlace, prefer `bwdif=mode=send_field`.
+
+## What not to do
+
+Do not run yadif over the whole file. It damages 3:2 film frames and softens PsF.

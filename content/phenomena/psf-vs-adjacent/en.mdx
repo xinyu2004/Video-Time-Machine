@@ -1,0 +1,36 @@
+---
+title: "Same-frame split and adjacent-frame split"
+summary: "PsF takes both fields from one exposure. Adjacent frames are what comb."
+---
+
+## What you see
+
+An interlaced shell can carry two different goods. PsF looks like a whole progressive picture and fine lines agree. An adjacent-frame split combs on motion.
+
+## Where on the chain
+
+A progressive picture headed for a field-at-a-time link has to be split. Odd lines and even lines from the same frame are PsF: 25PsF, 24PsF, and 30PsF in broadcast. Taking field one from frame N and field two from frame N+1 is real interlace. 1080p25 inside 1080i50 is often the first. See <TLink slug="hd-uhd" />.
+
+## How to tell
+
+`idet` often says progressive or undetermined for PsF. Stepping fields, the object has not moved. The psf-yadif still treats that progressive frame as interlaced, keeps the bottom field, and stretches it. The fine lines live only in the top field, so they are gone here. yadif often weaves a still PsF back together; bob is what actually does this.
+
+## Lab
+
+The lab switches PsF and adjacent frames, and the progressive panel can weave or bob.
+
+<DisplayPath />
+
+<FrameCompare samples="psf-original,psf-yadif,adjacent-weave" />
+
+## Can it be removed
+
+If the shell is intact and nobody has bobbed it, retag and weave: reversible. If it was bobbed and encoded again, it is in the samples.
+
+## What to do
+
+Intact PsF wants weave, or `setfield=prog`. It does not want a deinterlacer.
+
+## What not to do
+
+Do not run bwdif or yadif on PsF. The third still is that mistake.

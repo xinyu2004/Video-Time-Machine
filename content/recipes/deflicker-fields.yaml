@@ -1,0 +1,12 @@
+id: deflicker-fields
+title:
+  zh: 按场 deflicker
+  en: Deflicker per field
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffmpeg -hide_banner -i input.mov -vf separatefields,signalstats,metadata=print -an -f null -
+fix: ffmpeg -i input.mov -vf separatefields,deflicker=size=9:mode=am,weave -c:a copy output.mov
+avoid: |-
+  Only for a whole-field gain. Bands inside the field are untouched. Weave assumes the field order you separated.
+  只适用于整场一个增益。场内横条不动。weave 假定你拆开的场序是对的。

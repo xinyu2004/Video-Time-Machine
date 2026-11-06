@@ -1,0 +1,34 @@
+---
+title: "709 content inside a 2020 tag"
+summary: "A delivery spec can require a 2020 tag while the grade still sits inside the 709 triangle."
+---
+
+## What you see
+
+Converted as 2020 primaries, the picture suddenly oversaturates. Shown as 709, it looks ordinary.
+
+## Where on the chain
+
+Tag and content can disagree. BT.2020 allows a large gamut. This file need not fill it. See <TLink slug="hd-uhd" />.
+
+## How to tell
+
+Read the grading gamut, not only the container tag. Decode once as 709 and once as 2020 and compare skin.
+
+## Lab
+
+These two choices change only the luma row. A retag leaves the three chips alone. The wide and narrow columns of one scene are on <PLink id="primaries" />. The five primary sets are on <TLink slug="hd-uhd" />.
+
+<GamutStack view="matrix" />
+
+## Can it be removed
+
+Numbers that are 709 with a 2020 tag are reversible: put the tag back. A file already run through a full-gamut matrix and re-encoded is in the samples.
+
+## What to do
+
+After you know the content gamut, use setparams to retag, or colorspace to convert primaries. Do not mix the two.
+
+## What not to do
+
+Do not expand saturation 709→2020 just because the tag says bt2020.

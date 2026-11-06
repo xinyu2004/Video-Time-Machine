@@ -1,0 +1,34 @@
+---
+title: "How BT.601 samples"
+summary: "13.5 MHz, 720 luma samples per active line, 4:2:2, Y from 16 to 235."
+---
+
+## What you see
+
+The SD digital grid is fixed: 720 wide, 576 high for 625-line, and commonly 486 or 480 for 525-line.
+
+## Where on the chain
+
+A 13.5 MHz luma clock serves both line rates. A 525 color line has 858 clocks, a 625 line has 864, and both keep 720 active samples. 4:2:2 color-difference is 6.75 MHz. 4:2:0 is not in 601. 8-bit studio range is Y 16–235 and chroma 16–240. See <TLink slug="bt601" />.
+
+## How to tell
+
+Read width, height, and sample_aspect_ratio in ffprobe. Do not stop at the display aspect.
+
+## Lab
+
+The divider chain shows where the 525 and 625 line rates come from. The sampling clock was added on top of that rate.
+
+<DividerChain />
+
+## Can it be removed
+
+The grid is the specification. Treating 720 samples as square and scaling them is a loss described on another page.
+
+## What to do
+
+Interpret the file with 601’s active samples and range, then decide whether you need setsar or colorspace.
+
+## What not to do
+
+Do not call a 4:2:0 disc format “601 sampling”.

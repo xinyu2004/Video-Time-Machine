@@ -1,0 +1,15 @@
+id: tmix
+group: flicker
+era: digital
+removability: attenuate
+tags:
+  - tmix
+related:
+  - deflicker
+  - rolling-bands
+labWidgets:
+  - TemporalWindow
+  - FrameCompare
+recipeIds:
+  - tmix-frames
+displayCaveat: diagram

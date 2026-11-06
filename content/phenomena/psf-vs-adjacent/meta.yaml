@@ -1,0 +1,18 @@
+id: psf-vs-adjacent
+group: progressive
+era: interlace
+removability: invert
+tags:
+  - interlace
+  - psf
+related:
+  - combing
+  - progressive-panel
+  - ivtc-vs-deinterlace
+labWidgets:
+  - DisplayPath
+  - FrameCompare
+recipeIds:
+  - psf-weave
+  - bwdif-field
+displayCaveat: crt

@@ -1,0 +1,16 @@
+id: weave-blend-bob
+group: interlace
+era: interlace
+removability: attenuate
+tags:
+  - interlace
+related:
+  - combing
+  - yadif-bwdif
+  - psf-vs-adjacent
+labWidgets:
+  - FrameCompare
+recipeIds:
+  - bob-blend
+  - psf-weave
+displayCaveat: diagram

@@ -1,0 +1,22 @@
+---
+title: "The raster and the factors of the line count"
+summary: "2:1 interlace needs an odd total. 525 = 3×5×5×7 and 625 = 5⁴, so the divider chain stays short."
+order: 2
+---
+
+A line is scanned, blanked, then the next line. A field is scanned, vertically blanked, then the next field. 2:1 interlace splits a frame into two fields. The total line count has to be odd so each field ends on a half-line and the two fields land a line apart. Lines per field are the total divided by two, and the half stays.
+
+A sync generator divides a master oscillator down by small integers, so the line count has to factor that way. A high line count and a clean factorization are different virtues.
+
+<Raster />
+
+<DividerChain />
+
+- 405 (UK System A) = 5×3⁴. 202.5 lines per field. Line rate 405×25 = 10125 Hz.
+- 525 (US monochrome, later NTSC) = 3×5×5×7. 262.5 lines per field. At a monochrome 30 frames the line rate is 525×30 = 15750 Hz. The chain is ÷3, ÷5, ÷5, ÷7.
+- 625 (CCIR / PAL countries) = 5⁴. 312.5 lines per field. Line rate 625×25 = 15625 Hz, four divide-by-five stages.
+- 819 (French System E) = 3²×7×13. 409.5 lines per field. The factors already include 13.
+
+Active lines are the total minus vertical blanking. Analog 525-line active picture is about 480 to 486 lines. Digital 625-line active picture is 576, so 49 lines are blanked. 576 = 2⁶×3².
+
+Interlace spends the same line rate on more vertical detail. Large-area flicker still follows the field rate, 50 or 60. A fine horizontal line that lives in only one field is refreshed at frame rate: interline twitter. A moving edge that does not agree across the two fields combs when the fields are woven. See <PLink id="combing" /> and <PLink id="area-and-twitter" />.

@@ -1,0 +1,21 @@
+id: yadif-field
+title:
+  zh: yadif 按场输出
+  en: yadif, one frame per field
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffmpeg -hide_banner -i input.mov -vf idet -an -f null -
+fix: ffmpeg -i input.mov -vf yadif=mode=send_field:parity=tff:deint=all -c:a copy output.mov
+avoid: |-
+  Prefer bwdif when it is built in. Do not yadif a progressive frame that was only flagged interlaced.
+  有 bwdif 时优先 bwdif。不要对只是标成隔行的逐行帧做 yadif。
+samples:
+  - id: adjacent-yadif
+    zh: yadif：窗子仍齐，人身上的齿减轻。看的是结果。
+    en: 'yadif: the window stays straight and the teeth on the person ease off. What you see is the result.'
+    command: ffmpeg -y -hide_banner -loglevel error -f lavfi -i 'color=c=0x8e8474:s=480x270:r=50:d=0.4,format=yuv444p,geq=lum='\''clip(148-if(gt(Y\,200)\,50\,0)-if(between(X\,34\,128)*between(Y\,26\,160)\,28\,0)+if(between(X\,76\,82)*between(Y\,26\,160)\,70\,0)+if(between(X\,mod(N*64+150\,380)\,mod(N*64+150\,380)+32)*between(Y\,78\,205)\,80\,0)+if(lt(pow(X-(mod(N*64+166\,380))\,2)+pow(Y-62\,2)\,220)\,40\,0)\,16\,235)'\'':cb=128:cr=128' -vf 'tinterlace=mode=merge,setfield=tff,yadif=mode=send_field:parity=tff:deint=all' -start_number 0 -frames:v 8 media/generated/adjacent-yadif/frame-%02d.png
+  - id: psf-yadif
+    zh: 同一张逐行图被当成隔行后抽出底场再拉高。细线只在顶场，这一格里没了。
+    en: 'The same progressive frame treated as interlaced: bottom field extracted and stretched. The fine lines live only in the top field.'
+    command: ffmpeg -y -hide_banner -loglevel error -f lavfi -i 'color=c=0x8e8474:s=480x270:r=25:d=0.4,format=yuv444p,geq=lum='\''clip(80+if(eq(mod(Y\,4)\,0)\,140\,0)+if(between(X\,mod(N*18+150\,380)\,mod(N*18+150\,380)+32)*between(Y\,90\,210)\,70\,0)+if(lt(pow(X-(mod(N*18+166\,380))\,2)+pow(Y-70\,2)\,200)\,50\,0)\,0\,255)'\'':cb=128:cr=128' -vf 'setfield=tff,field=bottom,scale=480:270:flags=neighbor,setsar=1' -start_number 0 -frames:v 8 media/generated/psf-yadif/frame-%02d.png

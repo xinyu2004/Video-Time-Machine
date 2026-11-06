@@ -1,0 +1,34 @@
+---
+title: "yadif 与 bwdif"
+summary: "两者都假定输入是真隔行。FFmpeg 里优先 bwdif。"
+---
+
+## 你看到什么
+
+齿少了，运动还在。细斜线偶尔还有残留或轻微锯齿。PsF 经过它们会变软。
+
+## 信号链上的哪一层
+
+yadif 和 bwdif 都是运动自适应：静止区域倾向编织，运动区域倾向抛场或插值。bwdif（Bob Weaver）在 FFmpeg 里通常比 yadif 少一点锯齿。`mode=send_frame` 一帧一帧输出，`mode=send_field` 一场一帧、帧率加倍。`parity` 指定 TFF 或 BFF。`deint=interlaced` 只处理标成隔行的帧。
+
+## 如何确认
+
+第三格是同一张逐行图被抽出底场再拉高。细线只在顶场，不该被这场丢掉。静止 PsF 送进 yadif 往往又被编织回去。
+
+## 实验室
+
+前两格是同一隔行源的 yadif 与 bwdif。
+
+<FrameCompare samples="adjacent-yadif,adjacent-bwdif,psf-yadif" />
+
+## 能否消除
+
+只能减轻。它们不恢复被隔行丢掉的那一场里的垂直细节。
+
+## 处理原则
+
+真隔行优先 `bwdif=mode=send_field:parity=tff`。输出要跟源帧率一样时才用 send_frame。
+
+## 不要做的事
+
+不要用在 PsF 上，也不要用在还没拆开的 3:2 上。

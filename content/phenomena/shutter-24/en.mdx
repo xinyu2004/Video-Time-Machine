@@ -1,0 +1,34 @@
+---
+title: "A 24-frame shutter on two mains"
+summary: "Use 172.8° on 50 Hz mains. Use 144° on 60 Hz mains. 180° freezes the bands."
+---
+
+## What you see
+
+24 fps practicals in Europe flicker near 4 Hz. In North America, 180° often does not pulse the whole frame, and a rolling shutter keeps a stationary band.
+
+## Where on the chain
+
+A 100 Hz lamp divided by 24 is not an integer, so the alias is 4 Hz. 172.8° exposes for 1/50 s, two cycles of 100 Hz. A 120 Hz lamp divided by 24 is 5, so every frame starts at the same phase and the frame does not pulse. A 180° exposure is 2.5 cycles, and the bands freeze. 144° is 1/60 s, two cycles of 120 Hz, and the bands go away.
+
+## How to tell
+
+Compare the four 24 fps presets and read the alias and the integer-cycle flag.
+
+## Lab
+
+The verdict line says whether the finished picture can still be repaired.
+
+<LightBeat />
+
+## Can it be removed
+
+The right shutter at capture is avoidable-at-source. Frozen bands already shot at 180° are in the samples.
+
+## What to do
+
+Pick 172.8° or 144° for the region.
+
+## What not to do
+
+Do not assume 24 fps is automatically clear of the mains.

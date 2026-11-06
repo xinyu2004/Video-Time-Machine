@@ -1,0 +1,36 @@
+---
+title: "Three matrices"
+summary: "Encode with one luma row, decode with another. The shift on the shirt and the wall is the difference of the two solutions."
+---
+
+## What you see
+
+R, G, and B on the red shirt, the skin, and the blue wall move. The luma row used to encode and the row used to decode are not the same solution.
+
+## Where on the chain
+
+How the luma row is solved from primaries and white is on <TLink slug="hd-uhd" />. Decoding Y′CbCr that was encoded with the 709 row by using the 601 row applies the 1953 solution to the 1990 solution. In FFmpeg those 601 weights are usually bt470bg (625) or smpte170m (525): two phosphor sets, and the interface is still 0.299 / 0.587 / 0.114. 2020 non-constant luminance is bt2020ncl. `setparams` only retags. `colorspace` or `zscale` changes samples.
+
+## How to tell
+
+Choose an input and an output. Read the red shirt, the skin, and the blue wall. The shirt states the red weight and R, G, B. The wall states the blue weight and R, G, B. The same pair matches on both sides. bars-tag is a retag. The other stills are real conversions.
+
+## Lab
+
+The three chips follow the two solutions. A retag does not move the samples. The wide and narrow columns of one scene are on <PLink id="primaries" />. The curve is another page.
+
+<GamutStack view="matrix" />
+
+<FrameCompare samples="bars-tag,bars-709-as-601,bars-709-as-2020" />
+
+## Can it be removed
+
+A wrong tag on the original numbers is reversible: put the tag back. A file already converted with the wrong matrix and re-encoded is in the samples.
+
+## What to do
+
+Decide whether the numbers or the tag are wrong. To change numbers, set colorspace iall and all.
+
+## What not to do
+
+Do not let setparams impersonate a conversion, and do not write that FFmpeg’s bt601 equals CCIR 601.

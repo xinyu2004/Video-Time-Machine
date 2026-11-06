@@ -1,0 +1,17 @@
+{
+  "name": "video-time-machine",
+  "private": true,
+  "type": "module",
+  "workspaces": ["apps/web"],
+  "scripts": {
+    "dev": "npm --prefix apps/web run dev",
+    "build": "node tools/check-content.mjs && npm --prefix apps/web run build",
+    "check": "node tools/check-content.mjs",
+    "doctor": "node tools/doctor.mjs",
+    "samples": "node tools/render-samples.mjs",
+    "preview": "npm --prefix apps/web run preview"
+  },
+  "devDependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

@@ -1,0 +1,15 @@
+id: slow-roll-5994
+group: flicker
+era: ntsc
+removability: attenuate
+tags:
+  - flicker
+  - '5994'
+related:
+  - light-beat
+  - rolling-bands
+labWidgets:
+  - LightBeat
+recipeIds:
+  - deflicker-am
+displayCaveat: refresh

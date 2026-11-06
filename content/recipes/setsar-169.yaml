@@ -1,0 +1,12 @@
+id: setsar-169
+title:
+  zh: 改 SAR / DAR
+  en: Set SAR / DAR
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffprobe -hide_banner -show_entries stream=width,height,sample_aspect_ratio,display_aspect_ratio -select_streams v input.mov
+fix: ffmpeg -i input.mov -vf setsar=64/45,setdar=16/9 -c:a copy output.mov
+avoid: |-
+  64/45 is one common 16:9 flag for 720×576, not a universal constant. Read the file before copying it.
+  64/45 是 720×576 常见的一种 16:9 标记，不是万能常数。先读文件再抄。

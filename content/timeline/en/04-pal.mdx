@@ -1,0 +1,39 @@
+---
+title: "PAL and SECAM"
+summary: "625 lines make 15625 Hz. Adjacent lines average a phase error away. PAL-M and PAL-N use other subcarriers."
+order: 4
+---
+
+PAL countries use 625 lines, 25 frames, 50 fields, and the line rate is exactly 15625 Hz. The color subcarrier is
+
+fsc = (1135/4 + 1/625) × fh.
+
+1135/4 = 283.75, and 283.75×15625 = 4433593.75 Hz. Adding fh/625 = 25 Hz produces 4433618.75 Hz. That 1/625 of a line is the line count itself. It lets the subcarrier drift against the line structure so the dot pattern is less visible.
+
+PAL inverts (R−Y) on alternate lines. Reflections off buildings, and weather and temperature changing the length of the path, make an NTSC hue drift, because the hue is the subcarrier’s angle against the color burst. The same phase error arrives at a PAL receiver. The decoder inverts (R−Y) back on the next line, so one line’s hue is positive and the neighbor’s is negative. A one-line delay adds the two lines: the hue returns to the angle that was sent, and the amplitude becomes cos φ times the original. Without the delay line the two hues stay opposite. Up close that is Hanover bars, one line after another. From far enough away the eye does the averaging.
+
+The same figure. The warm row is NTSC. The three cool rows are PAL. The color can be chosen. After the next line is flipped back, the average keeps the chosen hue and the amplitude becomes cos φ.
+
+<ChromaPhase />
+
+Brazil’s PAL-M puts that same line-by-line inversion on the 525-line System M raster. The color field rate is NTSC’s 60000/1001, so the color line rate is
+
+fh = 525 × 30000/1001 ≈ 15734.266 Hz.
+
+The subcarrier is 227.25 times that line rate, a quarter line below NTSC’s 227.5, so the inversion still falls in the gaps of the line structure:
+
+fsc = (909/4) × fh.
+
+909/4 = 227.25, and 227.25 × 15734.266 ≈ 3575612 Hz. Video bandwidth is only 4.2 MHz and the sound carrier sits 4.5 MHz above the picture carrier, so the European 4.43361875 MHz would land on the sound. The monochrome raster matches NTSC. The color does not decode.
+
+PAL-N in Argentina, Paraguay, and Uruguay stays at 625 lines and 50 fields, so the line rate is still 15625 Hz. The channel is the narrow System N: 6 MHz, 4.2 MHz of video, sound at +4.5 MHz. The subcarrier moves to
+
+fsc = (917/4 + 1/625) × fh.
+
+917/4 = 229.25, and 229.25 × 15625 = 3582031.25 Hz. Adding fh/625 = 25 Hz produces 3582056.25 Hz. That extra 25 Hz is the same reason as in European PAL; 283.75 has become 229.25. A decoder looking for 4.43361875 MHz does not lock to this color.
+
+SECAM frequency-modulates the two color-difference signals and sends them on alternate lines. It has no NTSC tint knob, and a PAL delay line does not decode it.
+
+25 fps against 24 fps film is 25/24, about 4% fast. After the speed-up, 2:2 splitting takes both fields from the same film frame. NTSC instead uses 3:2. See <TLink slug="film" />.
+
+One 50-field camera pointed at a 50 Hz lamp and at a 60 Hz lamp gets two different pictures. The first exposure is an integer number of lamp cycles. The second beats at about 20 Hz, or about 5 Hz once the fields are woven into 25 frames. See <PLink id="light-beat" />.

@@ -1,0 +1,190 @@
+start: start
+nodes:
+  start:
+    q:
+      zh: 你先看见的是哪一种？
+      en: Which do you see first?
+    choices:
+      - group:
+          zh: 边和运动
+          en: Edges and motion
+        label:
+          zh: 竖边有梳齿
+          en: Combing on vertical edges
+        next: comb
+      - label:
+          zh: 细线在跳，没有梳齿
+          en: Fine lines shimmer, no comb
+        next: shimmer
+      - label:
+          zh: 运动一顿一顿
+          en: Motion hitches
+        next: stutter
+      - group:
+          zh: 亮
+          en: Light
+        label:
+          zh: 灯光在闪，或有横条
+          en: Lamps flicker, or there are bands
+        next: lamp
+      - label:
+          zh: 整幅发灰，或暗部死黑
+          en: The whole frame is gray, or the shadows are dead black
+        leaf: levels
+      - label:
+          zh: 上下或左右有黑边
+          en: Black bars above and below, or at the sides
+        next: bars
+      - group:
+          zh: 形状和颜色
+          en: Shape and color
+        label:
+          zh: 人被拉高或压扁
+          en: People are stretched or squashed
+        leaf: pixel-aspect
+      - label:
+          zh: 颜色偏了
+          en: The colors are wrong
+        next: color
+      - label:
+          zh: 彩色边镶出一条
+          en: A colored fringe along an edge
+        leaf: chroma-siting
+      - label:
+          zh: 点爬、彩虹
+          en: Dots crawl, or a rainbow
+        leaf: composite-leftovers
+      - group:
+          zh: 痕迹
+          en: Traces
+        label:
+          zh: 一块一块，边上有蚊子或振铃
+          en: Blocks, mosquitoes, or ringing
+        leaf: compression-artifacts
+      - label:
+          zh: 渐变变成一圈一圈
+          en: A gradient turns into rings
+        leaf: banding
+      - label:
+          zh: 画面发糊，像被涂过
+          en: The picture looks smeared
+        leaf: denoise-limits
+  comb:
+    q:
+      zh: 两场是不是同一个时刻？
+      en: Are the two fields the same instant?
+    choices:
+      - label:
+          zh: 是，细线是齐的
+          en: Yes, fine lines agree
+        leaf: psf-vs-adjacent
+      - label:
+          zh: 不是，运动处才有齿
+          en: No, teeth appear where things move
+        next: comb-real
+      - label:
+          zh: 有规律的重复帧
+          en: Frames repeat on a pattern
+        leaf: ivtc-vs-deinterlace
+  comb-real:
+    q:
+      zh: 齿确认是真隔行之后，下一步看什么？
+      en: Once the teeth are real interlace, what next?
+    choices:
+      - label:
+          zh: 选 yadif 还是 bwdif
+          en: Choose yadif or bwdif
+        leaf: yadif-bwdif
+      - label:
+          zh: 运动在抖，像场序反了
+          en: Motion twitches, as if field order is reversed
+        leaf: field-order
+      - label:
+          zh: 只想看 weave、blend、bob 的差别
+          en: Compare weave, blend, and bob
+        leaf: weave-blend-bob
+  shimmer:
+    q:
+      zh: 细线的跳更像哪一种？
+      en: Which shimmer is it?
+    choices:
+      - label:
+          zh: 显像管上的大面积闪或行间闪
+          en: Large-area flicker or twitter on a CRT
+        leaf: area-and-twitter
+      - label:
+          zh: 逐行面板把壳读错了
+          en: A progressive panel misread the shell
+        leaf: progressive-panel
+  lamp:
+    q:
+      zh: 闪是整幅一起，还是横条？
+      en: Does the whole frame pulse, or is it bands?
+    choices:
+      - label:
+          zh: 先算灯和帧率
+          en: Compute the lamp against the frame rate
+        leaf: light-beat
+      - label:
+          zh: 横条在滚或钉住
+          en: Bands roll or freeze
+        leaf: rolling-bands
+      - label:
+          zh: 大约几秒才走一圈
+          en: A cycle takes several seconds
+        leaf: slow-roll-5994
+      - label:
+          zh: 确认是整幅增益，想减轻
+          en: It is a whole-frame gain, and you want to attenuate it
+        leaf: deflicker
+  stutter:
+    q:
+      zh: 顿的规律是什么？
+      en: What pattern does the hitch follow?
+    choices:
+      - label:
+          zh: 2-3 重复，像胶片
+          en: A 2-3 repeat, like film
+        leaf: judder
+      - label:
+          zh: 这一段是胶片，下一段是视频
+          en: This shot is film, the next is video
+        leaf: mixed-cadence
+      - label:
+          zh: 要反电视电影
+          en: Undo telecine
+        leaf: ivtc-vs-deinterlace
+  bars:
+    q:
+      zh: 黑带在哪？
+      en: Where is the black?
+    choices:
+      - label:
+          zh: 黑带里没有画面，像后来补在窗口上的
+          en: The bars hold no picture. They look added in the window
+        leaf: pixel-aspect
+      - label:
+          zh: 黑带已经在画面里面
+          en: The bars are already inside the picture
+        leaf: letterbox
+  color:
+    q:
+      zh: 偏色更像哪一种？
+      en: Which color fault is closer?
+    choices:
+      - label:
+          zh: 红蓝走了，像矩阵
+          en: Reds and blues moved, like a matrix
+        leaf: matrices
+      - label:
+          zh: 标着 2020，看起来像 709
+          en: Tagged 2020, looks like 709
+        leaf: tag-2020-content-709
+      - label:
+          zh: 暗部不对，像曲线
+          en: Shadows are wrong, like a curve
+        leaf: transfer-curves
+      - label:
+          zh: 整体发灰
+          en: The whole picture is gray
+        leaf: levels

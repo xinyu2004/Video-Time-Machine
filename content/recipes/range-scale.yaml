@@ -1,0 +1,21 @@
+id: range-scale
+title:
+  zh: 展开或保持演播范围
+  en: Expand or keep studio range
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffprobe -hide_banner -show_entries stream=color_range -select_streams v input.mov
+fix: ffmpeg -i input.mov -vf scale=in_range=tv:out_range=pc -c:a copy output.mov
+avoid: |-
+  Expanding full-range data as if it were studio range clips both ends.
+  把全幅数据当成演播范围再展开，两端会被裁掉。
+samples:
+  - id: bars-limited-ok
+    zh: 黑底上一个人。16 按演播范围展开后黑是黑。
+    en: A person on black. Studio range puts code 16 at black.
+    command: ffmpeg -y -hide_banner -loglevel error -f lavfi -i 'color=c=black:s=640x360:r=1:d=1,format=yuv444p,geq=lum='\''clip(if(lt(pow(X-220\,2)+pow(Y-170\,2)\,2800)\,180\,16)\,16\,235)'\'':cb=128:cr=128' -vf 'scale=in_range=tv:out_range=pc,format=rgb24' -start_number 0 -frames:v 1 media/generated/bars-limited-ok/frame-%02d.png
+  - id: bars-limited-as-full
+    zh: 同一张被当成全幅留下，黑发灰。
+    en: The same frame left as full range. Black stays gray.
+    command: ffmpeg -y -hide_banner -loglevel error -f lavfi -i 'color=c=black:s=640x360:r=1:d=1,format=yuv444p,geq=lum='\''clip(if(lt(pow(X-220\,2)+pow(Y-170\,2)\,2800)\,180\,16)\,16\,235)'\'':cb=128:cr=128' -vf 'scale=in_range=full:out_range=full,format=rgb24' -start_number 0 -frames:v 1 media/generated/bars-limited-as-full/frame-%02d.png

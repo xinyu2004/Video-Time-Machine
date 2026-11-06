@@ -1,0 +1,13 @@
+id: banding
+group: clean
+era: digital
+removability: attenuate
+tags:
+  - banding
+related:
+  - denoise-limits
+  - levels
+labWidgets: []
+recipeIds:
+  - gradfun-fix
+displayCaveat: diagram

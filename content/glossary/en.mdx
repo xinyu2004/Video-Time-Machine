@@ -1,0 +1,86 @@
+---
+title: "Glossary"
+summary: "Stations on the diagram are grouped by line. The mechanism is on the timeline. Filter names stay in English."
+---
+
+## Basics
+
+- **Interlace**：a frame split into two fields. Odd and even lines are exposed and shown apart.
+- **Progressive**：every line of a frame comes from one exposure.
+- **Field**：one half of an interlaced scan.
+
+## Clock and raster
+
+- **50 Hz and 60 Hz**：mains frequencies. In the analog era the field rate locked to them. See <TLink slug="mains" />.
+- **29.97**：NTSC color multiplies 30 frames by 1000/1001. See <TLink slug="ntsc" />.
+- **525 and 625**：total line counts. 525 carries the NTSC subcarrier. 625 carries PAL and SECAM. See <TLink slug="raster" />.
+- **1080 and 2160**：active lines for HD and UHD. See <TLink slug="hd-uhd" />.
+
+## Analog color
+
+- **NTSC**：the 1953 color subcarrier on 525 lines. See <TLink slug="ntsc" />.
+- **PAL and SECAM**：the two subcarriers on 625 lines. See <TLink slug="pal" />.
+- **Shutdown**：after analog terrestrial transmission stops, that subcarrier is no longer on the air. The year differs by country. Dot crawl and rainbows already recorded stay in the samples. See <TLink slug="composite" />.
+
+## Gamut
+
+- **1953 primaries**：the NTSC primaries on paper, with illuminant C as white. 0.299 / 0.587 / 0.114 was solved from them. See <TLink slug="hd-uhd" />.
+- **Illuminant C**：the older daylight white, about 6774 K, at (0.310, 0.316). See <TLink slug="hd-uhd" />.
+- **D65**：CIE daylight white, 6504 K, at (0.3127, 0.3290). See <TLink slug="hd-uhd" />.
+- **EBU**：the studio-monitor phosphors for 625 lines. See <TLink slug="hd-uhd" />.
+- **SMPTE-C**：the later monitor phosphors for 525 lines. See <TLink slug="hd-uhd" />.
+- **BT.709**：the 1990 HDTV exchange primaries and camera curve. The luma row is solved again from those primaries and D65. See <TLink slug="hd-uhd" />.
+- **BT.2020**：the 2012 primaries on spectral wavelengths. The curve is still SDR (Standard Dynamic Range). See <TLink slug="hd-uhd" />.
+
+## Digital component
+
+- **BT.601**：studio sampling for standard definition, 13.5 MHz, 720 luma samples on the active line, 4:2:2. CCIR 601 is the name from before the institution changed. The luma row is still the 1953 solution. See <TLink slug="bt601" />.
+- **74.25 MHz and 297 / 594 MHz**：the clocks commonly used for 1080 and 2160. See <TLink slug="hd-uhd" />.
+
+## Compression
+
+- **MPEG-2**：the 1995 compression for discs and digital broadcast. See <TLink slug="compression" />.
+- **H.264 (AVC)**：the 2003 compression used for HD delivery. See <TLink slug="compression" />.
+- **HEVC (H.265)**：the 2013 compression used for UHDTV. See <TLink slug="compression" />.
+- **AV1**：a later generation common on the web from 2018. See <TLink slug="compression" />.
+
+## Curves
+
+- **OETF (Opto-Electronic Transfer Function), EOTF (Electro-Optical Transfer Function)**：the camera writes light as a signal, and the display turns that signal back into light.
+- **BT.1886**：the reference-display electro-optical curve, about 2.4. See <PLink id="transfer-curves" />.
+- **BT.2100**：PQ (Perceptual Quantizer) or HLG (Hybrid Log-Gamma) in a 2020 color container. See <PLink id="bt2100-boundary" />.
+
+## Film
+
+- **24 fps**：the film frame rate. Into 50 fields it is sped up to 25. Into 60 fields it takes the 3:2 path. See <TLink slug="film" />.
+
+## Interlace
+
+- **TFF (Top Field First)**：the even-line field is sent first. `field_order` in the bitstream can say this.
+- **BFF (Bottom Field First)**：the odd-line field is sent first. Like TFF, it is a flag in the bitstream.
+- **Combing**：the two fields are different times, so a woven vertical edge splits.
+- **Weave**：stack the two fields into one frame. Still areas and PsF stay aligned. A moving edge grows teeth.
+- **Bob**：stretch each field to a full frame. The teeth go away, half the vertical detail goes with them, and the picture bobs.
+- **yadif (yet another deinterlacing filter)**：weave the still areas and interpolate the moving ones.
+- **bwdif (Bob Weaver Deinterlacing Filter)**：the same split, and it also uses the next field. Prefer it when it is available. Do not use it on PsF or on intact 3:2.
+- **Twitter**：a thin horizontal line lives in one field and flickers at frame rate.
+
+## Progressive
+
+- **PsF (Progressive segmented Frame)**：one frame split into two fields and carried in an interlaced shell. Both fields are the same instant.
+- **3:2 pulldown**：24 frames spread across 60 fields, held for 2, 3, 2, 3 fields.
+
+## Flicker
+
+- **Beat**：when the lamp frequency and the shooting frequency disagree, brightness rises and falls at their difference.
+- **Whole-frame flicker**：with a global shutter, the whole frame changes brightness together.
+- **Rolling bands**：with a rolling shutter, the brightness difference lands on different rows.
+- **deflicker**：pulls whole-frame brightness toward the window mean. It does not flatten bands.
+
+## Color
+
+- **SAR (Sample Aspect Ratio), DAR (Display Aspect Ratio)**：one is the shape of a sample, the other is the shape on screen.
+- **Limited / tv range**：8-bit Y from 16 to 235.
+- **Full / pc range**：0 to 255, usual for computer graphics.
+- **Matrix**：the coefficients between RGB and Y′CbCr. 601, 709, and 2020 each have a set.
+- **Primaries**：the red, green, and blue vertices on the chromaticity diagram.

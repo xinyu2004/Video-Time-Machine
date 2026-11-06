@@ -1,0 +1,36 @@
+---
+title: "Inverse telecine or deinterlace"
+summary: "Repeated fields take fieldmatch and decimate. Real interlace takes bwdif."
+---
+
+## What you see
+
+The picture stutters in a 2-3 cadence, or some frames comb because their fields come from different film frames. A hard deinterlace then breaks the film frames.
+
+## Where on the chain
+
+3:2 spreads 24 (actually 23.976) frames across 60 fields. Video frames are AA BB BC CD DD. BC and CD comb, and the repair is to recover the film frame, not to treat every field as a camera field. See <TLink slug="film" />.
+
+## How to tell
+
+Watch the bar in the telecine stills: after telecine its position repeats in the 3:2 pattern. `idet` alternates progressive and interlaced. Hard interlace stays interlaced.
+
+## Lab
+
+The pulldown figure marks repeated fields and mixed frames. It is not PsF.
+
+<Pulldown />
+
+<FrameCompare samples="telecine-23,adjacent-weave" />
+
+## Can it be removed
+
+While the cadence is intact, recovery to a 24p-style progressive sequence is reversible. After yadif and a re-encode, it is in the samples.
+
+## What to do
+
+Run `fieldmatch` then `decimate`. Do not use one cadence on a reel that also contains video shots.
+
+## What not to do
+
+Do not bwdif 3:2 directly.

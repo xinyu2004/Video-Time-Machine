@@ -1,0 +1,17 @@
+id: fieldmatch-decimate
+title:
+  zh: fieldmatch 然后 decimate
+  en: fieldmatch then decimate
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffmpeg -hide_banner -i input.mov -vf idet -an -f null -
+fix: ffmpeg -i input.mov -vf fieldmatch,decimate -c:a copy output.mov
+avoid: |-
+  Do not run this across a timeline that also contains real video interlace.
+  不要对同时含有真隔行视频的整段时间线使用。
+samples:
+  - id: telecine-23
+    zh: 走动的人经过 pattern=23。混合帧里能看到两个人叠在一起。
+    en: A walking figure after pattern=23. Mixed frames show two figures overlapping.
+    command: ffmpeg -y -hide_banner -loglevel error -f lavfi -i 'color=c=0x8e8474:s=480x270:r=24:d=0.5,format=yuv444p,geq=lum='\''clip(70+if(between(X\,mod(N*48+150\,380)\,mod(N*48+150\,380)+36)*between(Y\,80\,220)\,120\,0)+if(lt(pow(X-(mod(N*48+168\,380))\,2)+pow(Y-58\,2)\,280)\,70\,0)\,16\,235)'\'':cb=128:cr=140,telecine=pattern=23,format=yuv420p' -start_number 0 -frames:v 10 media/generated/telecine-23/frame-%02d.png

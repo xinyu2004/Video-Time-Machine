@@ -1,0 +1,34 @@
+---
+title: "59.94 against a 60 Hz lamp"
+summary: "A 120 Hz lamp against 59.94 fields walks around in about 8.3 seconds."
+---
+
+## What you see
+
+A bar or the whole frame drifts over several seconds. It is not the hard beat of 50 against 60.
+
+## Where on the chain
+
+120 − 2×(60000/1001) = 120/1001 ≈ 0.1199 Hz, a period near 8.3 seconds. Lock the camera to integer 60 and the difference is zero. The same 59.94 camera on a 100 Hz lamp (50 Hz mains) aliases near 20 Hz. See <TLink slug="ntsc" />.
+
+## How to tell
+
+Select the 59.94 preset and read the alias. Compare it with PAL on a 60 Hz lamp at 20 Hz.
+
+## Lab
+
+What rolls is phase, not this panel’s refresh.
+
+<LightBeat />
+
+## Can it be removed
+
+A slow whole-frame change can be attenuated with a long deflicker window: long enough to see the cycle, short of eating a real lighting change. Per-row bands are still in the samples.
+
+## What to do
+
+Lock to the mains when you can. In post, process only the stretch you have confirmed is a whole-frame gain.
+
+## What not to do
+
+Do not chase 0.12 Hz with a very short deflicker window. It cannot see the cycle.

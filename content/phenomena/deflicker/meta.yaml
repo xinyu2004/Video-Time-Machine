@@ -1,0 +1,17 @@
+id: deflicker
+group: flicker
+era: digital
+removability: attenuate
+tags:
+  - deflicker
+related:
+  - light-beat
+  - rolling-bands
+  - tmix
+  - field-phase-lamps
+labWidgets:
+  - TemporalWindow
+  - FrameCompare
+recipeIds:
+  - deflicker-am
+displayCaveat: diagram

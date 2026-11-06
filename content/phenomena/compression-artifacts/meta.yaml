@@ -1,0 +1,18 @@
+id: compression-artifacts
+group: clean
+era: digital
+removability: baked
+tags:
+  - compression
+related:
+  - banding
+  - denoise-limits
+  - composite-leftovers
+labWidgets: []
+recipeIds: []
+displayCaveat: diagram
+noRecipeReason:
+  zh: 块、蚊噪、振铃是量化已经丢掉的变换系数。滤镜只能掩盖。这里不展开成编码教程。
+  en: >-
+    Blocks, mosquito noise, and ringing are transform coefficients quantization already discarded. A filter can only
+    hide them. This is not a codec tutorial.

@@ -1,0 +1,21 @@
+id: colorspace-convert
+title:
+  zh: colorspace 真转换
+  en: Convert with colorspace
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffprobe -hide_banner -show_entries stream=color_space,color_primaries,color_transfer,color_range -select_streams v input.mov
+fix: ffmpeg -i input.mov -vf colorspace=iall=bt709:all=bt601-6-625 -c:a copy output.mov
+avoid: |-
+  iall is the data you actually have. all is the data you want. Swapping them is a second conversion, not an undo, once you re-encode.
+  iall 是你手头的数值。all 是你要的数值。重新编码之后，把两者对调是又一次转换，不是撤销。
+samples:
+  - id: bars-709-as-601
+    zh: 709 彩条按 601 矩阵解开。
+    en: 709 bars decoded with the 601 matrix.
+    command: ffmpeg -y -hide_banner -loglevel error -f lavfi -i 'smptebars=size=640x360:rate=1' -vf 'format=yuv444p,colorspace=iall=bt709:all=bt601-6-625,format=rgb24' -start_number 0 -frames:v 1 media/generated/bars-709-as-601/frame-%02d.png
+  - id: bars-709-as-2020
+    zh: 709 彩条按 2020 解开。
+    en: 709 bars decoded as 2020.
+    command: ffmpeg -y -hide_banner -loglevel error -f lavfi -i 'smptebars=size=640x360:rate=1' -vf 'format=yuv444p,colorspace=iall=bt709:all=bt2020,format=rgb24' -start_number 0 -frames:v 1 media/generated/bars-709-as-2020/frame-%02d.png

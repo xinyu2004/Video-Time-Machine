@@ -1,0 +1,15 @@
+id: judder
+group: progressive
+era: film
+removability: attenuate
+tags:
+  - judder
+  - 24p
+related:
+  - ivtc-vs-deinterlace
+  - mixed-cadence
+labWidgets:
+  - Pulldown
+recipeIds:
+  - fieldmatch-decimate
+displayCaveat: diagram

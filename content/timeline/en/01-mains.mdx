@@ -1,0 +1,29 @@
+---
+title: "In the analog era, the mains was the best clock"
+summary: "Britain started electronic scanning in 1936. The United States fixed 525 lines in 1941. The field rate locked to the mains from there. Lamp brightness runs at twice that."
+order: 1
+---
+
+In 1936 Britain started electronic television. In 1941 the United States fixed 525 lines. From there the field rate locked to the mains. The mains was the reference already in every room, and it was steady enough to hold. The current reverses direction 50 or 60 times a second, and the generators on one grid have to turn in step or that reference will not hold. A sync generator used it as the reference of a phase lock. What the lock held was the field rate, not the clock pin of a digital circuit.
+
+The generator has a faster master oscillator. Dividers make the line rate, then the field rate from the number of lines in a field. The field rate is compared with the zero crossings at the socket, and any difference pulls the master until the field rate equals the mains. Line rate is the field rate times the lines in a field. The later color subcarrier is the line rate times a rational number. Those faster oscillators are not wired to the socket.
+
+Power-supply ripple and the lamps sit at the mains frequency. A scan at 50.2 Hz lets the faint bar from the ripple crawl at 0.2 Hz. Once the field rate is locked, the bar sits at one height. Studio sync was locked to the local mains first, and the receiver locked to those sync pulses. A 50 Hz place therefore has 50 fields a second, 25 pictures. A 60 Hz place has 60 fields, 30 pictures. The 25-frame and 30-frame rates still used today are those two numbers, kept. A camera’s crystal is not connected to the socket. North America and part of Japan are 60 Hz. Europe and China are 50 Hz.
+
+In an alternator the coil turns through the field and the induced voltage is a sine. Frequency is poles times revolutions per minute, divided by 120. Four poles at 1500 rpm is 50 Hz. Four poles at 1800 rpm is 60 Hz.
+
+<Alternator />
+
+Mains frequency and the analog color system are two colorings. Under the map, choose “Mains frequency” or “Color system”; the country buttons take on that same coloring. Japan is NTSC on both sides, while the mains splits near the Fuji River. Brazil is PAL-M on 60 Hz. Argentina, Paraguay, and Uruguay are PAL-N on 50 Hz. How those subcarriers are multiplied is in <TLink slug="pal" />. Chile and Bolivia are NTSC on 50 Hz mains. France and the Soviet region are SECAM at 50 Hz. Click a country, or let the browser supply a longitude and latitude. The lookup stays on this machine.
+
+<MainsMap />
+
+Incandescent lamps and magnetically ballasted fluorescents follow instantaneous power, and power follows the square of voltage. Voltage reverses 50 times a second, power pulses 100 times, so the lamp is 100 Hz. A 60 Hz mains makes 120 Hz. Half-wave supplies, poor LEDs, and low-frequency PWM can sit at 1× mains, or at a frequency that has nothing to do with the socket.
+
+If the mains fell from 50 Hz to 49 Hz, the lamp would be 2×49 = 98 Hz. A 1/50 s exposure covers 98/50 = 1.96 cycles, not an integer. Against 50 fields a second, 98 − 2×50 = −2, so the beat is a 2 Hz whole-frame pulse. A normal grid sits within about 0.05 Hz of 50 Hz. 49 Hz is the band where automatic load shedding starts, not the flicker of a busy evening.
+
+<SignalChain />
+
+A PAL camera exposing each field for about 1/50 s covers an integer number of 100 Hz cycles, so a 50 Hz lamp does not flicker. The same camera on a 120 Hz lamp does not land on an integer, and the field-rate beat is about 20 Hz. An integer shutter can remove it at capture. Bands already in the samples are not something FFmpeg can honestly erase. The arithmetic and the presets are on <PLink id="light-beat" />.
+
+What remains: two frame-rate families, and the beat between lamp frequency and sample rate.

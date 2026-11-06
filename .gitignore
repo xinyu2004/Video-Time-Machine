@@ -1,0 +1,7 @@
+node_modules/
+apps/web/node_modules/
+apps/web/dist/
+media/generated/**
+!media/generated/.gitkeep
+*.log
+.DS_Store

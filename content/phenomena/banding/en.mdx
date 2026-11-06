@@ -1,0 +1,32 @@
+---
+title: "Banding"
+summary: "A smooth ramp becomes rings. gradfun and deband trade the steps for dither."
+---
+
+## What you see
+
+Sky or a shadow ramp shows contour lines.
+
+## Where on the chain
+
+After too little bit depth, or after quantizing again and again, the steps between code values become visible. Wide gamut in 8 bits shows them sooner, which is one reason 2020 asks for 10 or 12 bits.
+
+## How to tell
+
+You can count the steps on a ramp. A block edge looks more like compression.
+
+## Lab
+
+There is no separate lab. The recipe is gradfun or deband.
+
+## Can it be removed
+
+Attenuation only. Dither hides the steps and adds fine noise. The missing code values do not come back.
+
+## What to do
+
+Use a light pass and look at the shadows.
+
+## What not to do
+
+Do not treat banding as blur to be sharpened.

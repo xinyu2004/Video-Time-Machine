@@ -1,0 +1,16 @@
+id: transfer-curves
+group: color
+era: digital
+removability: invert
+tags:
+  - gamma
+  - srgb
+related:
+  - primaries
+  - levels
+  - bt2100-boundary
+labWidgets:
+  - ToneMap
+recipeIds:
+  - transfer-srgb
+displayCaveat: diagram

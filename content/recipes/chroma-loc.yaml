@@ -1,0 +1,12 @@
+id: chroma-loc
+title:
+  zh: 指定色度站点
+  en: Set chroma location
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffprobe -hide_banner -show_entries stream=chroma_location,pix_fmt -select_streams v input.mov
+fix: ffmpeg -i input.mov -vf scale=iw:ih:in_chroma_loc=left:out_chroma_loc=center -c:a copy output.mov
+avoid: |-
+  Guessing the site and resampling bakes the opposite fringe.
+  猜错站点再重采样，会把相反的色边写进去。

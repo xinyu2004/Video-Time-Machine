@@ -1,0 +1,34 @@
+---
+title: "Large-area flicker and interline twitter"
+summary: "Field rate sets large-area flicker. A line that lives in one field flickers at frame rate."
+---
+
+## What you see
+
+A flat gray area flickers harder on a 50-field CRT than on a 60-field CRT. A thin horizontal line shimmers on its own, and vertical edges do not comb.
+
+## Where on the chain
+
+Interlace buys large-area flicker at field rate and refreshes fine lines at frame rate. PsF twitters on a CRT too, because a thin line is still drawn in one field. This is not a lamp beat, so it is not a deflicker job.
+
+## How to tell
+
+Teeth that follow motion are combing. A fine line that shimmers in a still is twitter.
+
+## Lab
+
+The raster explains lines and fields. It cannot emit 50 Hz from this LCD.
+
+<Raster />
+
+## Can it be removed
+
+The CRT sensation cannot be removed in post. Detail that exists in one field of the file can be shown at field rate with bob or bwdif, and vertical resolution drops.
+
+## What to do
+
+If the structure is in the file, go to <PLink id="yadif-bwdif" />. If it exists only on the CRT, change the display.
+
+## What not to do
+
+Do not run deflicker on interline twitter.

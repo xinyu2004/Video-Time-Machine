@@ -1,0 +1,15 @@
+id: levels
+group: color
+era: digital
+removability: invert
+tags:
+  - range
+related:
+  - matrices
+  - bt601-sampling
+  - transfer-curves
+labWidgets:
+  - FrameCompare
+recipeIds:
+  - range-scale
+displayCaveat: diagram

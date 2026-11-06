@@ -1,0 +1,34 @@
+---
+title: "Film judder and repeated frames"
+summary: "The 3:2 hitch is the cadence. Interpolation invents a different artifact."
+---
+
+## What you see
+
+Motion hitches on a fixed beat, usually a two-frame and three-frame repeat, not a random drop.
+
+## Where on the chain
+
+24 frames on 60 fields hold some frames for two fields and some for three. The eye sees uneven time. PAL sped up to 25 and split 2:2 is even, and 4% fast.
+
+## How to tell
+
+In the pulldown figure, BC and CD are mixed frames. AA, BB, and DD are repeats. The bar in telecine-23 pauses where the repeat is.
+
+## Lab
+
+Step the figure and mark the repeated fields.
+
+<Pulldown />
+
+## Can it be removed
+
+Undoing 3:2 back to film frames is reversible. Interpolating 24p up to 60p estimates motion, only softens the hitch, and leaves interpolation traces.
+
+## What to do
+
+Repeated fields take fieldmatch and decimate. Confirm it is not real interlace.
+
+## What not to do
+
+Do not treat minterpolate as a lossless way to smooth 24-frame film.

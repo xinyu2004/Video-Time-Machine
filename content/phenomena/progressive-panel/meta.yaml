@@ -1,0 +1,17 @@
+id: progressive-panel
+group: interlace
+era: display
+removability: attenuate
+tags:
+  - interlace
+  - display
+related:
+  - psf-vs-adjacent
+  - weave-blend-bob
+  - yadif-bwdif
+labWidgets:
+  - DisplayPath
+recipeIds:
+  - bwdif-field
+  - psf-weave
+displayCaveat: crt

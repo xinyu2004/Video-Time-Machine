@@ -1,0 +1,12 @@
+id: chroma-denoise
+title:
+  zh: 只减色度噪声
+  en: Attenuate chroma only
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffprobe -hide_banner -show_entries stream=pix_fmt -select_streams v input.mov
+fix: ffmpeg -i input.mov -vf hqdn3d=0:0:3:3 -c:a copy output.mov
+avoid: |-
+  The luma spatial and temporal strengths are 0 here. Raising them treats composite crawl as if it were grain in the picture.
+  这里亮度和时间的强度是 0。把它们开大会把点爬当成画面颗粒来抹。

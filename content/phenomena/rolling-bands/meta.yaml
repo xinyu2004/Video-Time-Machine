@@ -1,0 +1,19 @@
+id: rolling-bands
+group: flicker
+era: camera
+removability: baked
+tags:
+  - rolling-shutter
+related:
+  - light-beat
+  - deflicker
+  - tmix
+labWidgets:
+  - LightBeat
+recipeIds: []
+displayCaveat: refresh
+noRecipeReason:
+  zh: FFmpeg 没有按行跟踪灯相位的滤镜。deflicker 只归一整帧亮度。tmix 用拖影换一点幅度，横条还在。
+  en: >-
+    FFmpeg has no filter that tracks lamp phase per row. deflicker normalizes whole-frame luma. tmix trades smear for a
+    little amplitude, and the bands remain.

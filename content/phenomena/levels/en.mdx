@@ -1,0 +1,34 @@
+---
+title: "Studio range and full range"
+summary: "In 8-bit 601 and 709, black is 16 and white is 235. In 10-bit, 64 to 940."
+---
+
+## What you see
+
+Gray: black is lifted and white is not white. Crushed: contrast is heavy and the shadows die.
+
+## Where on the chain
+
+Studio range reserves 0 and 255 for the interface. Computer graphics often use 0–255. Displaying 16–235 as 0–255 leaves black at 16, so the picture looks gray. Stretching 0–255 as if it were 16–235 clips both ends.
+
+## How to tell
+
+ffprobe color_range is tv or pc. The first still expands studio range correctly. The second leaves studio data in place as if it were full range.
+
+## Lab
+
+Both frames are one black field and one person. Expanded as studio range, black is black. Left as full range, black stays gray.
+
+<FrameCompare samples="bars-limited-ok,bars-limited-as-full" />
+
+## Can it be removed
+
+A wrong range tag on legal code values is reversible. A file already stretched or clipped and re-encoded is in the samples.
+
+## What to do
+
+Use scale in_range and out_range, or colorspace range. Confirm whether the source is tv or pc.
+
+## What not to do
+
+Do not stretch limited a second time to make it “brighter”.

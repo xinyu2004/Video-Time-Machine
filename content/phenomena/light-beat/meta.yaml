@@ -1,0 +1,17 @@
+id: light-beat
+group: flicker
+era: mains
+removability: prevent
+tags:
+  - flicker
+  - pal
+related:
+  - rolling-bands
+  - deflicker
+  - shutter-24
+  - field-phase-lamps
+labWidgets:
+  - LightBeat
+recipeIds:
+  - deflicker-am
+displayCaveat: refresh

@@ -1,0 +1,19 @@
+id: shutter-24
+group: flicker
+era: film
+removability: prevent
+tags:
+  - shutter
+  - 24p
+related:
+  - light-beat
+  - judder
+labWidgets:
+  - LightBeat
+recipeIds: []
+displayCaveat: refresh
+noRecipeReason:
+  zh: 172.8° 和 144° 是拍摄时的快门，不是成片上的滤镜。已经按 180° 拍完的整幅闪，见 deflicker。
+  en: >-
+    172.8° and 144° are capture shutters, not a filter on the finished file. Whole-frame flicker already shot at 180° is
+    the deflicker entry.

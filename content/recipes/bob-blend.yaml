@@ -1,0 +1,17 @@
+id: bob-blend
+title:
+  zh: 抛场与场混合
+  en: Bob and field blend
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffmpeg -hide_banner -i input.mov -vf idet -an -f null -
+fix: ffmpeg -i input.mov -vf separatefields,scale=iw:ih*2:flags=neighbor,setsar=1 -c:a copy output-bob.mov
+avoid: |-
+  Blend hides teeth by averaging fields. It is not a finished deinterlace.
+  混合用平均把齿涂掉，不是完成的去隔行。
+samples:
+  - id: adjacent-bob
+    zh: 抛场（bob）：每一场拉成整幅，齿没了，细节少一半。
+    en: 'Bob: each field stretched to a frame. The teeth go, and so does half the detail.'
+    command: ffmpeg -y -hide_banner -loglevel error -f lavfi -i 'color=c=0x8e8474:s=480x270:r=50:d=0.4,format=yuv444p,geq=lum='\''clip(148-if(gt(Y\,200)\,50\,0)-if(between(X\,34\,128)*between(Y\,26\,160)\,28\,0)+if(between(X\,76\,82)*between(Y\,26\,160)\,70\,0)+if(between(X\,mod(N*64+150\,380)\,mod(N*64+150\,380)+32)*between(Y\,78\,205)\,80\,0)+if(lt(pow(X-(mod(N*64+166\,380))\,2)+pow(Y-62\,2)\,220)\,40\,0)\,16\,235)'\'':cb=128:cr=128' -vf 'tinterlace=mode=merge,setfield=tff,separatefields,scale=480:270:flags=neighbor,setsar=1' -start_number 0 -frames:v 8 media/generated/adjacent-bob/frame-%02d.png

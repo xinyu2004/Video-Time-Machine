@@ -1,0 +1,32 @@
+---
+title: "Chroma siting"
+summary: "Left and center siting, used the wrong way, leaves a colored fringe."
+---
+
+## What you see
+
+High-contrast type or a diagonal carries a fringe of fixed direction, whether or not anything moves.
+
+## Where on the chain
+
+A 4:2:0 chroma sample can sit to the left or in the center of the grid. MPEG-2 and MPEG-1 conventions differ. Upsampling to RGB with the wrong site shifts chroma by half a pixel against luma.
+
+## How to tell
+
+The fringe is on a still vertical edge. Interlaced chroma, by contrast, shows up where things moved.
+
+## Lab
+
+There is no separate animation. The recipe sets scale in_chroma_loc and out_chroma_loc.
+
+## Can it be removed
+
+A wrong site that has not been resampled yet can be repaired by upsampling correctly. Chroma already baked into RGB and re-encoded is in the samples.
+
+## What to do
+
+Upsample only after you know the source site. If you do not, look at one high-contrast vertical edge first.
+
+## What not to do
+
+Do not sharpen the fringe away.

@@ -1,0 +1,12 @@
+id: denoise-light
+title:
+  zh: 轻降噪
+  en: Light denoise
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffprobe -hide_banner -show_entries stream=width,height,pix_fmt -select_streams v input.mov
+fix: ffmpeg -i input.mov -vf hqdn3d=1.5:1.5:3:3 -c:a copy output.mov
+avoid: |-
+  nlmeans and atadenoise are available and still remove texture at the scale of the noise. Start here, do not start at hqdn3d=4:4:8:8.
+  nlmeans 和 atadenoise 也在，它们仍会抹掉与噪声同尺度的纹理。从这里开始，不要从 hqdn3d=4:4:8:8 开始。

@@ -1,0 +1,19 @@
+id: bt2100-boundary
+group: color
+era: hdr
+removability: prevent
+tags:
+  - hdr
+  - pq
+  - hlg
+related:
+  - tag-2020-content-709
+  - transfer-curves
+  - primaries
+labWidgets:
+  - ToneMap
+recipeIds: []
+displayCaveat: diagram
+noRecipeReason:
+  zh: PQ 和 HLG 的色调映射不在本期配方里。要换的是曲线，不是再套一次 2020 矩阵。
+  en: PQ and HLG tone mapping is not a recipe in this pass. What changes is the curve, not another 2020 matrix.

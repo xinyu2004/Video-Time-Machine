@@ -1,0 +1,77 @@
+import type { Dict } from './zh'
+
+const en: Dict = {
+  siteName: 'Video Time Machine',
+  siteMark: '视频演变图鉴',
+  nav: {
+    timeline: 'Timeline',
+    phenomena: 'Phenomena',
+    decide: 'From the look',
+    glossary: 'Glossary',
+  },
+  home: {
+    kicker: 'From mains frequency to samples',
+    lede: 'Why pictures look the way they do: the power grid, interlace, color subcarriers, CCIR 601, BT.709, and BT.2020. Each defect still visible today has a cause, a removability grade, and an FFmpeg command you can rerun.',
+    timeline: 'Read in time order',
+    timelineBody: '50 Hz and 60 Hz, the factors of 525 and 625, NTSC 29.97, the PAL subcarrier, then what each digital recommendation actually specified.',
+    phenomena: 'Look up a symptom',
+    phenomenaBody: 'Combing, field order, lamp beat, a wrong matrix. Identify the source, then copy a command.',
+  },
+  caveat: {
+    refresh: 'This panel’s refresh cannot stand in for a 50 Hz lamp or a CRT field. The figure is phase and integration.',
+    crt: 'An LCD does not emit one field at a time. Field stepping stands in for the CRT.',
+    diagram: 'This is a mechanism diagram. Real filter output is the FFmpeg contact sheet.',
+    mechanism: 'This is a diagram, not a real alternator.',
+    phase: 'The chips paint phase as hue. The warm row is NTSC. The three cool rows are PAL. This is not a decoded picture, and not a measurement of one building.',
+  },
+  removability: {
+    prevent: 'Avoidable at capture',
+    invert: 'Reversible',
+    attenuate: 'Attenuation only',
+    baked: 'Already in the samples',
+  },
+  recipe: {
+    diagnose: 'Detect',
+    fix: 'Process',
+    avoid: 'Do not',
+    requires: 'Requires',
+    copy: 'Copy',
+    copied: 'Copied',
+    none: 'No FFmpeg repair for this one.',
+  },
+  frames: {
+    missing: 'Samples are not generated yet. From the repo root run npm run samples.',
+    frame: 'Frame',
+  },
+  lab: {
+    play: 'Play',
+    pause: 'Pause',
+    step: 'Step',
+    alternator: 'Alternator',
+    atlas: 'Mains and system',
+    phase: 'Chroma phase',
+    raster: 'Raster',
+    divider: 'Divider chain',
+    loom: 'Field loom',
+    display: 'Split and panel',
+    pulldown: '3:2 pulldown',
+    light: 'Lamp beat',
+    window: 'Temporal window',
+    gamut: 'Primaries',
+    tone: 'Curves',
+    compare: 'Contact sheet',
+  },
+  groups: {
+    basic: 'Basics',
+    interlace: 'Interlace',
+    progressive: 'Progressive',
+    flicker: 'Flicker',
+    color: 'Color',
+    clean: 'Compression and cleanup',
+  },
+  related: 'Related',
+  chainTitle: 'Signal chain',
+  chain: ['Light and shutter', 'Analog encode', 'Record / transmit', 'Capture', 'Digital labels', 'Player processing', 'Display'],
+}
+
+export default en

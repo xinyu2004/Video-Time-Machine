@@ -1,0 +1,32 @@
+---
+title: "Interlaced chroma"
+summary: "4:2:0 interlaced chroma is stored per field. Scaled as progressive, color edges land on the wrong line."
+---
+
+## What you see
+
+The color edge of a moving object separates from the luma edge, or a faint color comb appears.
+
+## Where on the chain
+
+MPEG-style 4:2:0 can site chroma per frame or per field. Interlaced 4:2:0 aligns chroma with the fields. Upsampling the whole frame as progressive pulls color from the wrong field. BT.601 itself is 4:2:2. 4:2:0 came later, for emission.
+
+## How to tell
+
+The color edge is wrong only where things moved. Stills look fine. `ffprobe` shows chroma subsampling and field_order.
+
+## Lab
+
+There is no separate animation. `interl=1` on scale is the switch that processes fields.
+
+## Can it be removed
+
+Attenuation only. Chroma already lost half its vertical resolution at sampling time. Field-aware scale merely stops using the wrong half.
+
+## What to do
+
+Scale interlaced 4:2:0 with `scale=interl=1`. If you deinterlace first, keep the chroma path consistent with luma.
+
+## What not to do
+
+Do not `scale=w=iw*2:h=ih*2` an interlaced 4:2:0 frame as if it were progressive.

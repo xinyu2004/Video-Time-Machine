@@ -1,0 +1,14 @@
+id: denoise-limits
+group: clean
+era: digital
+removability: attenuate
+tags:
+  - denoise
+related:
+  - compression-artifacts
+  - banding
+  - composite-leftovers
+labWidgets: []
+recipeIds:
+  - denoise-light
+displayCaveat: diagram

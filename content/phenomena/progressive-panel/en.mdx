@@ -1,0 +1,34 @@
+---
+title: "Interlace on a progressive panel"
+summary: "An LCD has no fields. Weave, bob, and motion-adaptive processing leave different pictures."
+---
+
+## What you see
+
+On the panel you either see teeth, softened fine lines, or fine lines that bob up and down.
+
+## Where on the chain
+
+An LCD frame is progressive, so interlaced material has to become progressive first. Weave stacks the fields: right for PsF and for still areas, combing where real interlace moved. Bob stretches each field to a frame, doubles the rate, and halves vertical detail. Motion-adaptive filters weave still areas and interpolate motion.
+
+## How to tell
+
+Compare weave, bob, and bwdif on one source. PsF mistaken for real interlace and then bobbed looks soft in the fine lines.
+
+## Lab
+
+Set the split to PsF and the panel to bob. That is the misread.
+
+<DisplayPath />
+
+## Can it be removed
+
+A player’s one-pass deinterlace only attenuates. A file that still has the original fields can take a better path. Reversible applies to a shell that has not been processed yet.
+
+## What to do
+
+Real interlace goes to bwdif. PsF goes to weave.
+
+## What not to do
+
+Do not treat the panel’s default deinterlacer as a source identification.

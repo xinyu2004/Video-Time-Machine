@@ -1,0 +1,32 @@
+---
+title: "Blocks, mosquitoes, ringing"
+summary: "Once quantization is in the samples, a filter can hide it and cannot fetch the coefficients back."
+---
+
+## What you see
+
+Flat areas break into squares. High-contrast edges shed fine mosquitoes. A sharp edge grows an overshoot.
+
+## Where on the chain
+
+That is quantization of a transform code, not interlace and not a composite subcarrier. Block edges line up with macroblocks or transform units. When MPEG-2, H.264, HEVC, and AV1 each entered the file is on <TLink slug="compression" />.
+
+## How to tell
+
+Blocks are square. Dot crawl is colored dots walking an edge. Both can be present. The sources differ.
+
+## Lab
+
+There is no filter contact sheet, so this does not become “one command repairs compression”.
+
+## Can it be removed
+
+Already in the samples.
+
+## What to do
+
+If you must attenuate, use <PLink id="denoise-limits" /> and accept the detail loss.
+
+## What not to do
+
+Do not treat a deblocker as a deinterlacer, and do not promise the original picture back.

@@ -1,0 +1,34 @@
+---
+title: "Mixed cadence"
+summary: "When one shot is film and the next is video, do not IVTC the whole file."
+---
+
+## What you see
+
+Some shots hitch on a regular beat. Others are ordinary 50-field or 60-field motion. Forcing 3:2 drops frames out of those shots.
+
+## Where on the chain
+
+One master can switch between film pulldown and camera interlace. Cadence is not a file-level property.
+
+## How to tell
+
+Read idet per shot, and look for repeated frames per shot. One pattern report for the whole file does not describe every shot.
+
+## Lab
+
+The pulldown figure explains only the film stretch.
+
+<Pulldown />
+
+## Can it be removed
+
+After the split, each stretch keeps its own grade. One filter on the whole file bakes the damage into one of the sources.
+
+## What to do
+
+Cut by shot. Film uses <PLink id="ivtc-vs-deinterlace" />. Video uses <PLink id="yadif-bwdif" />.
+
+## What not to do
+
+Do not fieldmatch and decimate the entire timeline.

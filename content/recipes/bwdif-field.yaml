@@ -1,0 +1,21 @@
+id: bwdif-field
+title:
+  zh: bwdif 按场输出
+  en: bwdif, one frame per field
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffmpeg -hide_banner -i input.mov -vf idet -an -f null -
+fix: ffmpeg -i input.mov -vf bwdif=mode=send_field:parity=tff:deint=all -c:a copy output.mov
+avoid: |-
+  Skip this on PsF and on intact 3:2. parity must match the file; use bff when the scan is bottom-field first.
+  PsF 和还没拆开的 3:2 不要走这条。场序是底场先行时把 parity 改成 bff。
+samples:
+  - id: adjacent-weave
+    zh: 编织：窗子是齐的，人裂成两场。
+    en: 'Weave: the window stays aligned, and the person splits into two fields.'
+    command: ffmpeg -y -hide_banner -loglevel error -f lavfi -i 'color=c=0x8e8474:s=480x270:r=50:d=0.4,format=yuv444p,geq=lum='\''clip(148-if(gt(Y\,200)\,50\,0)-if(between(X\,34\,128)*between(Y\,26\,160)\,28\,0)+if(between(X\,76\,82)*between(Y\,26\,160)\,70\,0)+if(between(X\,mod(N*64+150\,380)\,mod(N*64+150\,380)+32)*between(Y\,78\,205)\,80\,0)+if(lt(pow(X-(mod(N*64+166\,380))\,2)+pow(Y-62\,2)\,220)\,40\,0)\,16\,235)'\'':cb=128:cr=128' -vf 'tinterlace=mode=merge,setfield=tff' -start_number 0 -frames:v 8 media/generated/adjacent-weave/frame-%02d.png
+  - id: adjacent-bwdif
+    zh: bwdif：看窗子和人。它多看了下一场。这段短图上和 yadif 很接近。
+    en: 'bwdif: look at the window and the person. It also uses the next field. On this short clip it stays close to yadif.'
+    command: ffmpeg -y -hide_banner -loglevel error -f lavfi -i 'color=c=0x8e8474:s=480x270:r=50:d=0.4,format=yuv444p,geq=lum='\''clip(148-if(gt(Y\,200)\,50\,0)-if(between(X\,34\,128)*between(Y\,26\,160)\,28\,0)+if(between(X\,76\,82)*between(Y\,26\,160)\,70\,0)+if(between(X\,mod(N*64+150\,380)\,mod(N*64+150\,380)+32)*between(Y\,78\,205)\,80\,0)+if(lt(pow(X-(mod(N*64+166\,380))\,2)+pow(Y-62\,2)\,220)\,40\,0)\,16\,235)'\'':cb=128:cr=128' -vf 'tinterlace=mode=merge,setfield=tff,bwdif=mode=send_field:parity=tff:deint=all' -start_number 0 -frames:v 8 media/generated/adjacent-bwdif/frame-%02d.png

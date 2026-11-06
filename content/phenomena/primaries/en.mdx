@@ -1,0 +1,34 @@
+---
+title: "Primaries"
+summary: "Five primary sets on one diagram. The two columns show how far green comes back on one scene."
+---
+
+## What you see
+
+On one scene, a green that 2020 can name comes back in on this screen. Skin fits on both sides.
+
+## Where on the chain
+
+The five primary sets, the white points, and the solved luma rows are on <TLink slug="hd-uhd" />. sRGB primaries are the 709 primaries.
+
+## How to tell
+
+A name thickens that triangle. SMPTE-C is the later phosphor of 525-line monitors. EBU is the studio phosphor of 625-line plants. 709 sits against EBU. The 2020 green is on the spectrum.
+
+## Lab
+
+The two columns below treat this screen as 2020, then shrink by how far the 709 primaries reach inside 2020 coordinates. Green comes back in, and skin matches. Real 2020 is wider than this screen.
+
+<GamutStack view="primaries" />
+
+## Can it be removed
+
+When tag and numbers agree, converting to another primary set is a defined color transform. A wrong tag on untouched numbers is fixed by restoring the tag.
+
+## What to do
+
+When you change primaries, let colorspace convert primaries together with the matrix. Do not change only the matrix.
+
+## What not to do
+
+Do not treat the 2020 triangle as a more correct 709. They are two sets of primaries.

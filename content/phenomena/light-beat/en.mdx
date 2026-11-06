@@ -1,0 +1,34 @@
+---
+title: "Lamp beat"
+summary: "PAL on a 50 Hz lamp can be clean. On a 60 Hz lamp, a 180° shutter does not remove it."
+---
+
+## What you see
+
+The whole frame breathes, or a band rolls. The frequency depends on the lamp and the sample rate. One flicker filter does not cover both.
+
+## Where on the chain
+
+Incandescent and magnetically ballasted lamps run at twice the mains: 100 Hz from 50 Hz, 120 Hz from 60 Hz. When exposure equals an integer number of lamp cycles, every row integrates the same amount and both whole-frame flicker and rolling bands disappear. When the sample rate divides the lamp frequency, every frame starts at the same phase, so the frame does not pulse; if the exposure is not an integer number of cycles, rolling-shutter bands freeze in place. Otherwise the alias is the absolute difference from the nearest multiple of the sample rate, folded into 0 to half the sample rate. See <TLink slug="mains" />.
+
+## How to tell
+
+PAL, about 1/50 s for a field: a 100 Hz lamp divides evenly (100/50 = 2) and 1/50 s is two cycles, so it is clean. A 120 Hz lamp aliases to 20 Hz at a 50 Hz sample, and to 5 Hz once woven to 25 frames (120 − 5×25). At 25 fps, 150° (1/60 s) or 300° (1/30 s) is an integer exposure. If the mains were 49 Hz, the lamp would be 2×49 = 98 Hz, and 1/50 s would cover 98/50 = 1.96 cycles. Against a 50 Hz sample, 98 − 2×50 = −2, a 2 Hz beat. A normal grid sits within about 0.05 Hz of 50 Hz and does not reach 49 Hz.
+
+## Lab
+
+Presets include PAL with 50 Hz lamps, PAL with 60 Hz lamps, 59.94, and 24 fps at 172.8° and 144°. The figure is the integral, not the lamp on this panel.
+
+<LightBeat />
+
+## Can it be removed
+
+An integer exposure at capture is avoidable-at-source. A finished shot that is one gain per frame can only be attenuated with deflicker. Bands written per row are already in the samples.
+
+## What to do
+
+Reshoot with the shutter or with a high-frequency lamp when you can. In post, use deflicker only after you know the flicker is a whole-frame gain.
+
+## What not to do
+
+Do not aim deflicker at rolling bands, and do not call a tmix smear a repair.

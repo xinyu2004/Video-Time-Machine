@@ -1,0 +1,15 @@
+id: fieldorder-swap
+title:
+  zh: 改场序
+  en: Change field order
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffprobe -hide_banner -show_entries stream=field_order -select_streams v input.mov
+fix: |-
+  ffmpeg -i input.mov -vf setfield=tff -c:a copy output.mov
+  # samples themselves stored bottom-first:
+  ffmpeg -i input.mov -vf fieldorder=tff -c:a copy output.mov
+avoid: |-
+  setfield only retags. fieldorder moves picture lines. Pick the one that matches the fault.
+  setfield 只改标签。fieldorder 会挪动扫描行。按故障选一个。

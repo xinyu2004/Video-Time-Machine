@@ -1,0 +1,32 @@
+---
+title: "Non-square pixels"
+summary: "601 widescreen makes the 720 samples wider. It does not add samples."
+---
+
+## What you see
+
+People are stretched tall or squashed. Circles become ellipses. A player that keeps the circle round pads the window with black. Those bars are not in the samples.
+
+## Where on the chain
+
+Display aspect, sample aspect, and stored width decide the picture together. 720×576 can be 4:3 or 16:9. From 709 onward, HDTV program exchange uses square pixels, SAR 1.
+
+## How to tell
+
+Read both sample_aspect_ratio and display_aspect_ratio. A player stretch can hide a tag that is still wrong.
+
+## Lab
+
+This is tag and display geometry. There is no field animation.
+
+## Can it be removed
+
+A wrong SAR on a grid that has not been resampled is reversible. A file already scaled to square pixels with the wrong SAR and re-encoded is in the samples.
+
+## What to do
+
+Change the tag with setsar and setdar. Scale only when you actually want square pixels.
+
+## What not to do
+
+Do not setdar alone and leave SAR and stored width contradicting each other.

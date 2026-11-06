@@ -1,0 +1,34 @@
+---
+title: "Three curves"
+summary: "709 is the camera curve. 1886 is the display gamma. sRGB shares the primaries and not the curve or the range."
+---
+
+## What you see
+
+The same file looks different in the shadows on a video monitor and in a browser. One is gray, the other is dull.
+
+## Where on the chain
+
+The BT.709 OETF is the camera’s piecewise curve, about a 0.45 power in the highlights. BT.1886 is the reference display EOTF, about 2.4. sRGB copied the 709 primaries, uses a different set of constants, and uses 0–255. Those are not one gamma.
+
+## How to tell
+
+ffprobe color_transfer is a tag. color_range is a different field.
+
+## Lab
+
+Look at the shadows. The slider is a power. 2.2 and 2.4 are two marks. sRGB is a different piece near black, and it is not on the slider. Read color_transfer, not the matrix weights.
+
+<ToneMap />
+
+## Can it be removed
+
+A wrong curve tag on samples that still follow the original curve is reversible. Code values already passed through the wrong curve are in the samples.
+
+## What to do
+
+Between video and sRGB, set colorspace trc and account for range.
+
+## What not to do
+
+Do not swap 2.2 and 2.4 as if they were one gamma, and do not replace this curve with PQ.

@@ -1,0 +1,34 @@
+---
+title: "yadif and bwdif"
+summary: "Both assume real interlace. In FFmpeg, prefer bwdif."
+---
+
+## What you see
+
+The teeth are gone and the motion is still there. Fine diagonals may keep a little residual or a slight stair. PsF run through either filter goes soft.
+
+## Where on the chain
+
+yadif and bwdif are motion adaptive: still areas tend to weave, moving areas tend to bob or interpolate. bwdif (Bob Weaver) usually stairs less than yadif in FFmpeg. `mode=send_frame` emits one frame per input frame. `mode=send_field` emits one frame per field and doubles the rate. `parity` selects TFF or BFF. `deint=interlaced` touches only frames flagged interlaced.
+
+## How to tell
+
+The third still is the same progressive picture with the bottom field extracted and stretched. The fine lines live only in the top field, so this field should not have been the one a player kept. yadif often weaves a still PsF back together.
+
+## Lab
+
+The first two stills are yadif and bwdif on one interlaced source.
+
+<FrameCompare samples="adjacent-yadif,adjacent-bwdif,psf-yadif" />
+
+## Can it be removed
+
+Attenuation only. They do not restore vertical detail the other field never captured.
+
+## What to do
+
+For real interlace prefer `bwdif=mode=send_field:parity=tff`. Use send_frame only when the output rate must match the source.
+
+## What not to do
+
+Do not use them on PsF, or on 3:2 that has not been undone.

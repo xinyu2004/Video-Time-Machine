@@ -1,0 +1,31 @@
+---
+title: "BT.709, BT.2020, and the HDR boundary"
+summary: "The luma row is solved from the primaries and the white point. 1953 solved it once. 709 and 2020 each solve it again. The curve changes only at BT.2100."
+order: 8
+---
+
+A code becomes light in three steps. The primaries and the white point place (1, 0, 0) on the chromaticity diagram. Solving that set produces the luma row, the share of R, G, and B inside Y. The opto-electronic curve writes light as code and turns code back into light. Peak brightness belongs to the third step.
+
+Each primary is first written as the XYZ direction whose own luminance is 1: (x/y, 1, (1−x−y)/y). The three columns form P. The white point is written as XYZ with Y = 1. The solution of P · (kr, kg, kb) = white sums to 1, and that is Y = kr R + kg G + kb B. Move the white point or any primary, and the row has to be solved again. Studio Y′CbCr applies the same coefficients to R′G′B′ after the curve.
+
+The 1953 NTSC primaries are red (0.67, 0.33), green (0.21, 0.71), blue (0.14, 0.08), with illuminant C at about 6774 K, (0.310, 0.316). Solving them produces 0.299 / 0.587 / 0.114. 525 is a line count. NTSC is the subcarrier carried on that raster. The tubes later changed phosphors. SMPTE 170M records the SMPTE-C phosphors actually used in American 525-line monitors: red (0.630, 0.340), green (0.310, 0.595), blue (0.155, 0.070), white D65. Solving those phosphors gives 0.2124 / 0.7011 / 0.0866. The interface did not switch to that row.
+
+625 is a line count. PAL and SECAM are two subcarriers, both on 625 lines. EBU specified the European studio-monitor phosphors, and BT.470 uses that one set for both systems: red (0.640, 0.330), green (0.290, 0.600), blue (0.150, 0.060), white D65. Solving them gives 0.2220 / 0.7067 / 0.0713. That is not the SMPTE-C gamut. The blue coefficients are 0.087 and 0.071. The 601 interface still uses the 1953 row on both sides.
+
+D65 is the CIE daylight white, correlated color temperature 6504 K, at (0.3127, 0.3290). When R, G, and B are all full, the light is meant to land there. The same 1953 primaries balanced to D65 instead of C move the row from 0.299 / 0.587 / 0.114 to about 0.290 / 0.606 / 0.105. The white point alone changes the coefficients.
+
+In 1990, BT.709 set one primary set for HDTV exchange, at D65: red (0.640, 0.330), green (0.300, 0.600), blue (0.150, 0.060). Red and blue match EBU. Green’s x differs by 0.01. Solving these primaries and D65 gives 0.2126 / 0.7152 / 0.0722, and the interface uses that row. The gap from the 601 coefficients is the recomputation. The 601 row was still the 1953 solution. sRGB copied these primaries. Its curve and its full-range codes are separate. The camera curve is the piecewise 0.45-power function. The display gamma near 2.4 is BT.1886, from 2011.
+
+In 2012, BT.2020 placed the vertices on the spectral locus, at red 630 nm, green 532 nm, and blue 467 nm: red (0.708, 0.292), green (0.170, 0.797), blue (0.131, 0.046). Solving again at D65 gives 0.2627 / 0.6780 / 0.0593. The curve keeps the shape of the 709 camera curve. The green vertex moves the furthest. Coverage is about 75.8% of CIE 1931, against about 35.9% for 709.
+
+<GamutStack view="history" />
+
+BT.709 also replaced the incompatible early HD systems. SMPTE 240M was 1035 active lines inside 1125, with different primaries and a different curve. 709 sets the active picture at 1080. The total stays 1125 = 3²×5³, so 1080i is still 562.5 lines per field. 1080 = 2³×3³×5, which is not divisible by 16, so coded height is often padded to 1088. The raster is 1920×1080, 16:9, square pixels. Interlace and progressive are both in the recommendation, at 24, 25, 30, 50, 60, and the 1000/1001 family. 1280×720 is not in BT.709. It is BT.1543 / SMPTE 296M, and it borrows 709 color. 720p has 750 total lines, 2×3×5³. Quantization stays 16–235. A common 1080i 4:2:2 clock is 74.25 MHz, divided by 1.001 for the fractional rates.
+
+BT.2020’s rasters are 3840×2160 and 7680×4320, square pixels, progressive only, 10 or 12 bits, frame rates up to 120. What you actually meet in delivery is non-constant-luminance Y′CbCr. The 2160p30 family is commonly 297 MHz, the 2160p60 family 594 MHz.
+
+A file tagged 2020 may have been graded entirely inside the 709 triangle. Converting it as if the wide primaries were fully used oversaturates the picture. See <PLink id="tag-2020-content-709" />. The same scene in the wide and narrow columns is <PLink id="primaries" />. Encoding with one row and decoding with another is <PLink id="matrices" />.
+
+BT.2100 keeps the 2020 primaries and replaces the curve with PQ or HLG. A file that says 2020 can be any of three: the SDR curve, PQ, or HLG. Recipes in this project stop at the SDR matrices. See <PLink id="bt2100-boundary" />.
+
+Interlace still exists as a shell in HD. 1080p25 can travel as 1080i50 PsF. A 1080i50 camera really did expose two times. 24p into 1080i60 is usually 3:2. See <PLink id="psf-vs-adjacent" />.

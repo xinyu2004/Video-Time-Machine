@@ -1,0 +1,17 @@
+id: setparams-retag
+title:
+  zh: 只改标签
+  en: Retag only
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffprobe -hide_banner -show_entries stream=color_space,color_primaries,color_transfer,color_range -select_streams v input.mov
+fix: ffmpeg -i input.mov -vf setparams=colorspace=bt709:color_primaries=bt709:color_trc=bt709 -c:a copy output.mov
+avoid: |-
+  The samples do not move. Use this only when the numbers were already right.
+  样点不动。只有数值本来就对的时候才用。
+samples:
+  - id: bars-tag
+    zh: 彩条原样，标签可以另说。
+    en: Bars unchanged. The tag can say something else.
+    command: ffmpeg -y -hide_banner -loglevel error -f lavfi -i 'smptebars=size=640x360:rate=1' -vf 'format=rgb24' -start_number 0 -frames:v 1 media/generated/bars-tag/frame-%02d.png

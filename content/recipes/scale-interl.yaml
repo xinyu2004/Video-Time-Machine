@@ -1,0 +1,12 @@
+id: scale-interl
+title:
+  zh: 按场缩放
+  en: Scale per field
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffprobe -hide_banner -show_entries stream=field_order,pix_fmt -select_streams v input.mov
+fix: ffmpeg -i input.mov -vf scale=iw*2:ih*2:interl=1:flags=bicubic -c:a copy output.mov
+avoid: |-
+  interl=1 is for interlaced chroma and luma. A progressive file does not want it.
+  interl=1 给隔行亮度和色度。逐行文件不要加。

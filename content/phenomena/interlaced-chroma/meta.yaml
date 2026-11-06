@@ -1,0 +1,15 @@
+id: interlaced-chroma
+group: interlace
+era: digital
+removability: attenuate
+tags:
+  - chroma
+  - '420'
+related:
+  - combing
+  - chroma-siting
+  - bt601-sampling
+labWidgets: []
+recipeIds:
+  - scale-interl
+displayCaveat: diagram

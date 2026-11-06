@@ -1,0 +1,15 @@
+id: primaries
+group: color
+era: digital
+removability: invert
+tags:
+  - primaries
+related:
+  - matrices
+  - tag-2020-content-709
+  - transfer-curves
+labWidgets:
+  - GamutStack
+recipeIds:
+  - colorspace-convert
+displayCaveat: diagram

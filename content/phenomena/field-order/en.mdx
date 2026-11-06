@@ -1,0 +1,34 @@
+---
+title: "Field order reversed"
+summary: "TFF and BFF swapped, as a flag or in the samples, makes motion twitch every field."
+---
+
+## What you see
+
+Motion does not track. It twitches once a field. A still frame often looks fine.
+
+## Where on the chain
+
+TFF and BFF are the field_order flag in the bitstream. ffprobe reports that flag. It only says which field is earlier. A wrong flag on correctly stored lines makes a deinterlacer walk backwards in time. setfield rewrites the flag and leaves the samples alone. If the lines themselves were stored backwards, the picture jumps between fields, and that takes fieldorder, which moves lines.
+
+## How to tell
+
+Watch the two walks, not the still. `ffprobe` `field_order` is the flag in the bitstream. An unchanged still only means setfield did not move the samples.
+
+## Lab
+
+The top plays setfield=tff and setfield=bff. A matching flag walks forward. A mismatched flag steps back each field. Paused, both sides hold one field. Bottom left is setfield, set to TFF: the still does not move, and the short walk underneath is the only difference. Bottom right is fieldorder: the shirt edge at four times, before and after. Swapping the lines flips the teeth. The window matches in both fields, so a zoom there shows nothing. The step is stretched past a real 1/50 s.
+
+<FieldLoom />
+
+## Can it be removed
+
+A wrong field_order flag on intact samples is reversible with `setfield`. A file re-encoded in the wrong order is already in the samples, and that takes `fieldorder`.
+
+## What to do
+
+Fix a flag with `setfield=tff` or `bff`. Fix stored order with `fieldorder`, which changes the picture.
+
+## What not to do
+
+Do not treat `bwdif` with parity=auto as finished before the field order is checked.

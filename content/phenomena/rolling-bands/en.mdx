@@ -1,0 +1,34 @@
+---
+title: "Rolling-shutter bands"
+summary: "Each row’s exposure window is delayed. Bands in the finished picture do not come out cleanly."
+---
+
+## What you see
+
+Light and dark bands lie across the frame. They freeze when the rates lock, and they roll when the alias is not zero.
+
+## Where on the chain
+
+A rolling shutter gives every row a different integration start. An integer number of lamp cycles makes the start irrelevant, and the bands disappear. Otherwise each row has its own gain. That is capture structure, not one global multiplier for post.
+
+## How to tell
+
+Switch LightBeat to a rolling shutter. An integer exposure flattens the right-hand image. Anything else shows bands.
+
+## Lab
+
+The right-hand image is the integral after a per-row delay.
+
+<LightBeat />
+
+## Can it be removed
+
+Already in the samples. An integer exposure at capture would have avoided it.
+
+## What to do
+
+Reshoot, or keep the bands.
+
+## What not to do
+
+Do not read a deflicker output as proof the bands are gone.

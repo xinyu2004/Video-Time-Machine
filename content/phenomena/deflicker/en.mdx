@@ -1,0 +1,36 @@
+---
+title: "deflicker"
+summary: "Pulls whole-frame luma toward a temporal window. It does not flatten bands."
+---
+
+## What you see
+
+Timelapse or whole-frame flicker gets flatter. A shot with large motion gets flattened too. Bands remain.
+
+## Where on the chain
+
+The filter estimates the luma this frame should have from recent frames (arithmetic mean by default, window 5, maximum 129) and applies one gain. It cannot tell a flickering lamp from a scene that really got brighter.
+
+## How to tell
+
+The first pair is a 4 Hz whole-frame flicker and the same frames after deflicker. The second pair is the same filter on bands. The bands remain.
+
+## Lab
+
+Held on the lamp’s darkest frame. A longer window pulls the lamp and the room toward the average and lengthens the ghosts. The bands stay.
+
+<TemporalWindow />
+
+<FrameCompare samples="flicker-global,flicker-global-deflicker,flicker-bands,flicker-bands-deflicker" />
+
+## Can it be removed
+
+Attenuation only. Eating a real exposure change is why it sits in that grade.
+
+## What to do
+
+Use `deflicker=size=9:mode=am` for a whole-frame gain with little motion. If the two fields see different lamp phases, process fields first.
+
+## What not to do
+
+Do not use it on rolling bands, and do not open a huge window on a scene that is actually going dark.

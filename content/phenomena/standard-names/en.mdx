@@ -1,0 +1,32 @@
+---
+title: "CCIR, ITU-R, Rec., and BT."
+summary: "601 changed letterhead. Rec.709 and BT.709 are one recommendation."
+---
+
+## What you see
+
+Four names stacked together look like four generations of picture. The recommendations were revised, and the institution was renamed.
+
+## Where on the chain
+
+CCIR Recommendation 601 is from 1982. In 1992 CCIR was absorbed into ITU-R, and television recommendations use BT numbers. CCIR 601 continued as ITU-R BT.601. Rec.709 is BT.709. Rec.2020 is BT.2020. See <TLink slug="bt601" /> and <TLink slug="hd-uhd" />.
+
+## How to tell
+
+Cite the number and the revision (for example BT.601-7). Do not invent an “ITU-R format”.
+
+## Lab
+
+This page has no lab. The triangles are on <PLink id="primaries" />.
+
+## Can it be removed
+
+A wrong name does not damage samples. Converting according to the wrong document does.
+
+## What to do
+
+Keep FFmpeg’s enum names in the commands: bt470bg, smpte170m, bt709, bt2020ncl. Do not write that the bt601 filter equals the whole of CCIR 601.
+
+## What not to do
+
+Do not use BT.2020 as the name of HDR. The HDR curves are in BT.2100.

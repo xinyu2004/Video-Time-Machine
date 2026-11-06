@@ -1,0 +1,15 @@
+id: pixel-aspect
+group: color
+era: sd
+removability: invert
+tags:
+  - sar
+  - dar
+related:
+  - bt601-sampling
+  - letterbox
+  - standard-names
+labWidgets: []
+recipeIds:
+  - setsar-169
+displayCaveat: diagram

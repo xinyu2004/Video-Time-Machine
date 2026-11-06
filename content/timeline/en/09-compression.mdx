@@ -1,0 +1,17 @@
+---
+title: "Compression into the file"
+summary: "MPEG-2, H.264, HEVC, and AV1 entered the file in that order. A later one does not retire the earlier one. Compression does not change the gamut."
+order: 9
+---
+
+Compression is the layer after digital component. It turns sampled pictures into transform coefficients and quantizes them. Blocks, mosquito noise, and ringing are the coefficients quantization discarded. See <PLink id="compression-artifacts" />. This layer does not set new primaries and does not solve the luma row again. Gamut and the curve stay tags in the file.
+
+MPEG-2, from 1995 (ISO/IEC 13818, the video part also called H.262), is the disc and digital-broadcast generation. It can code 4:2:0 by frame or by field. Whether the chroma sample sits left or center differs from the MPEG-1 habit. See <PLink id="chroma-siting" />. The tag is often still the 601-era matrix.
+
+H.264, from 2003 (AVC, MPEG-4 part 10), cuts the blocks finer and deblocks inside the loop. A lot of HD delivery uses it. The usual tag is BT.709. It does not replace the 709 triangle.
+
+HEVC (H.265), from 2013, uses a larger coding tree and is common in UHDTV files. The tag may say BT.2020 while the grade still sits inside 709. See <PLink id="tag-2020-content-709" />. A PQ or HLG curve is BT.2100, not a property of HEVC itself.
+
+AV1, from 2018, is a later generation common on the web. It also only makes the samples smaller. Gamut, curve, and whether the picture is interlaced remain separate tags in the container.
+
+When a later one comes into use, the earlier one is still on the air and on discs. MPEG-2 did not end in 2003.

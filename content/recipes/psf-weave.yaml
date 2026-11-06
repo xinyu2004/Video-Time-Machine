@@ -1,0 +1,17 @@
+id: psf-weave
+title:
+  zh: PsF 当逐行
+  en: Treat PsF as progressive
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffmpeg -hide_banner -i input.mov -vf idet -an -f null -
+fix: ffmpeg -i input.mov -vf setfield=prog -c:a copy output.mov
+avoid: |-
+  setfield does not rebuild samples. If a previous pass already bobbed the frame, the damage stays.
+  setfield 不重建样点。前面已经 bob 过的损失还在。
+samples:
+  - id: psf-original
+    zh: 细横线和竖边来自同一帧。
+    en: Fine lines and the edge from one frame.
+    command: ffmpeg -y -hide_banner -loglevel error -f lavfi -i 'color=c=0x8e8474:s=480x270:r=25:d=0.4,format=yuv444p,geq=lum='\''clip(80+if(eq(mod(Y\,4)\,0)\,140\,0)+if(between(X\,mod(N*18+150\,380)\,mod(N*18+150\,380)+32)*between(Y\,90\,210)\,70\,0)+if(lt(pow(X-(mod(N*18+166\,380))\,2)+pow(Y-70\,2)\,200)\,50\,0)\,0\,255)'\'':cb=128:cr=128' -start_number 0 -frames:v 8 media/generated/psf-original/frame-%02d.png

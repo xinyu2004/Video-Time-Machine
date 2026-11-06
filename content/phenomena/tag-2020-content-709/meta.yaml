@@ -1,0 +1,15 @@
+id: tag-2020-content-709
+group: color
+era: uhd
+removability: invert
+tags:
+  - '2020'
+related:
+  - primaries
+  - matrices
+  - bt2100-boundary
+labWidgets:
+  - GamutStack
+recipeIds:
+  - setparams-retag
+displayCaveat: diagram

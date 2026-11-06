@@ -1,0 +1,14 @@
+id: detect-idet
+title:
+  zh: 用 idet 看隔行
+  en: Detect interlace with idet
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: |-
+  ffprobe -hide_banner -show_streams -select_streams v input.mov
+  ffmpeg -hide_banner -i input.mov -vf idet -an -f null -
+fix: ffmpeg -hide_banner -i input.mov -vf idet -an -f null -
+avoid: |-
+  Do not treat a single idet line as a verdict. PsF and 3:2 both flicker between progressive and interlaced.
+  不要凭一行 idet 下结论。PsF 和 3:2 都会在 progressive 与 interlaced 之间摆动。

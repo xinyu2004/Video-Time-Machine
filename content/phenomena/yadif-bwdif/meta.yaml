@@ -1,0 +1,18 @@
+id: yadif-bwdif
+group: interlace
+era: digital
+removability: attenuate
+tags:
+  - deinterlace
+  - yadif
+  - bwdif
+related:
+  - combing
+  - weave-blend-bob
+  - psf-vs-adjacent
+labWidgets:
+  - FrameCompare
+recipeIds:
+  - bwdif-field
+  - yadif-field
+displayCaveat: diagram

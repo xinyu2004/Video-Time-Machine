@@ -1,0 +1,14 @@
+id: letterbox
+group: color
+era: sd
+removability: invert
+tags:
+  - letterbox
+  - crop
+related:
+  - pixel-aspect
+labWidgets: []
+recipeIds: []
+noRecipeReason:
+  zh: 黑带占多少行，每条片子不一样。这里不给一条通用的 crop。
+  en: How many lines the bars take differs for every picture. There is no single crop command here.

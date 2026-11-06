@@ -1,0 +1,34 @@
+---
+title: "Weave, blend, bob"
+summary: "The three naive paths throw away different information."
+---
+
+## What you see
+
+Weave keeps the teeth. Blend smears them. Bob removes the teeth, thickens fine lines, and makes them jump.
+
+## Where on the chain
+
+Weave stacks the fields and leaves the time offset in the samples. Blend averages the fields, so the teeth shrink and so do vertical detail and motion. Bob discards the other field, stretches each field, and doubles the rate.
+
+## How to tell
+
+The first still is the weave, the second is the bob. Compare them with the adaptive third and fourth.
+
+## Lab
+
+All four come from one adjacent-frame split.
+
+<FrameCompare samples="adjacent-weave,adjacent-bob,adjacent-yadif,adjacent-bwdif" />
+
+## Can it be removed
+
+All three only attenuate, and they attenuate different things. Weave on PsF is a restoration, not one of these three treatments of real interlace.
+
+## What to do
+
+Do not stop at blend for real interlace. For motion, use bob or bwdif send_field. For one picture per frame, accept what send_frame loses.
+
+## What not to do
+
+Do not tblend the teeth away and call the file deinterlaced.

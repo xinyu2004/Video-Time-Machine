@@ -1,0 +1,86 @@
+---
+title: "术语"
+summary: "图上的站按线排列。过程在时间线里。滤镜名保持英文。"
+---
+
+## 基础
+
+- **隔行扫描（interlace）**：一帧分成两场，奇数行和偶数行分开曝光、分开显示。
+- **逐行（progressive）**：一帧里所有行来自同一次曝光。
+- **场（field）**：隔行的一半扫描。
+
+## 节拍与扫描
+
+- **50 Hz 与 60 Hz**：市电频率。模拟时代的场频锁在这上面。见 <TLink slug="mains" />。
+- **29.97**：NTSC 彩色把 30 帧乘上 1000/1001。见 <TLink slug="ntsc" />。
+- **525 与 625**：总行数。525 走 NTSC 的副载波，625 走 PAL 和 SECAM。见 <TLink slug="raster" />。
+- **1080 与 2160**：高清和超高清的有效行。见 <TLink slug="hd-uhd" />。
+
+## 模拟彩色
+
+- **NTSC**：1953 年加在 525 行上的彩色副载波。见 <TLink slug="ntsc" />。
+- **PAL 与 SECAM**：625 行上的两种副载波。见 <TLink slug="pal" />。
+- **停播**：地面模拟发射停止之后，空中不再有这路副载波。各国年份不同。已经录下的点爬和彩虹还在样点里。见 <TLink slug="composite" />。
+
+## 色域
+
+- **1953 基色**：NTSC 纸面上的红绿蓝，白点是光源 C。0.299 / 0.587 / 0.114 按它们解出。见 <TLink slug="hd-uhd" />。
+- **光源 C（illuminant C）**：大约 6774 K 的旧日光白，坐标 (0.310, 0.316)。见 <TLink slug="hd-uhd" />。
+- **D65**：CIE 日光白，6504 K，坐标 (0.3127, 0.3290)。见 <TLink slug="hd-uhd" />。
+- **EBU**：625 行演播监视器的荧光粉。见 <TLink slug="hd-uhd" />。
+- **SMPTE-C**：525 行监视器后来使用的荧光粉。见 <TLink slug="hd-uhd" />。
+- **BT.709**：1990 年高清节目交换的一套三基色和摄像机曲线。亮度行按这套基色和 D65 重解。见 <TLink slug="hd-uhd" />。
+- **BT.2020**：2012 年把三基色放到光谱上的波长。曲线仍是 SDR（Standard Dynamic Range，标准动态范围）。见 <TLink slug="hd-uhd" />。
+
+## 数字分量
+
+- **BT.601**：标清演播采样，13.5 MHz、每行 720 个亮度样点、4:2:2。CCIR 601 是它换机构之前的名字。亮度行仍用 1953 年的解。见 <TLink slug="bt601" />。
+- **74.25 MHz 与 297 / 594 MHz**：1080 和 2160 常见的采样钟。见 <TLink slug="hd-uhd" />。
+
+## 压缩
+
+- **MPEG-2**：1995 年的光盘和数字播出压缩。见 <TLink slug="compression" />。
+- **H.264（AVC）**：2003 年的高清交付压缩。见 <TLink slug="compression" />。
+- **HEVC（H.265）**：2013 年的超高清压缩。见 <TLink slug="compression" />。
+- **AV1**：2018 年起在网上常见的后一代。见 <TLink slug="compression" />。
+
+## 曲线
+
+- **OETF（Opto-Electronic Transfer Function，光-电转换）、EOTF（Electro-Optical Transfer Function，电-光转换）**：摄像机把光写成电，显示器把电还原成光。
+- **BT.1886**：参考显示器的电光曲线，大约 2.4。见 <PLink id="transfer-curves" />。
+- **BT.2100**：在 2020 色容器上使用 PQ（Perceptual Quantizer，感知量化）或 HLG（Hybrid Log-Gamma，混合对数伽马）。见 <PLink id="bt2100-boundary" />。
+
+## 胶片
+
+- **24 格**：电影的画格率。进 50 场会先加快到 25，进 60 场走 3:2。见 <TLink slug="film" />。
+
+## 隔行
+
+- **TFF（Top Field First，顶场先行）**：先传送偶数行这一场。码流里的 `field_order` 可以写成这个值。
+- **BFF（Bottom Field First，底场先行）**：先传送奇数行这一场。和 TFF 一样，是码流里的标签。
+- **梳齿（combing）**：两场时间不同，编织后竖边错开。
+- **编织（weave）**：两场叠成一帧。静止和 PsF 是齐的，运动的竖边出齿。
+- **抛场（bob）**：每一场拉成整幅。齿没了，垂直细节少一半，画面会上下跳。
+- **yadif（yet another deinterlacing filter）**：静止的地方编织，动的地方插值。
+- **bwdif（Bob Weaver Deinterlacing Filter）**：也按动静分开，但会用到下一场。有它时优先用它。PsF 和还没拆开的 3:2 不要上。
+- **行间闪烁（twitter）**：细横线只活在一场里，按帧频闪。
+
+## 逐行
+
+- **PsF（Progressive segmented Frame，逐行分段帧）**：同一帧拆成两场，装在隔行壳里。两场是同一时刻。
+- **3:2 下拉（pulldown）**：24 格铺到 60 场，占场数是 2、3、2、3。
+
+## 频闪
+
+- **拍频（beat）**：灯的频率和拍摄频率对不齐时，亮度按它们的差频起伏。
+- **整幅闪（whole-frame flicker）**：全局快门下，一帧里的亮度一起变。
+- **滚动横条（rolling bands）**：滚动快门下，亮度差落在不同的行上。
+- **deflicker**：按时间把整帧亮度拉向窗口均值。横条拉不平。
+
+## 颜色
+
+- **SAR（Sample Aspect Ratio，样点宽高比）、DAR（Display Aspect Ratio，显示宽高比）**：一个是样点的宽高比，一个是显示出来的宽高比。
+- **演播范围（limited / tv）**：8 bit 的 Y 从 16 到 235。
+- **全幅（full / pc）**：0 到 255，计算机图形常用。
+- **矩阵（matrix）**：RGB 和 Y′CbCr 之间的系数。601、709、2020 各一套。
+- **三基色（primaries）**：红绿蓝在色度图上的顶点。

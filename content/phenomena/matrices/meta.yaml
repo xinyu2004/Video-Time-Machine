@@ -1,0 +1,17 @@
+id: matrices
+group: color
+era: digital
+removability: invert
+tags:
+  - matrix
+related:
+  - primaries
+  - levels
+  - tag-2020-content-709
+labWidgets:
+  - GamutStack
+  - FrameCompare
+recipeIds:
+  - colorspace-convert
+  - setparams-retag
+displayCaveat: diagram

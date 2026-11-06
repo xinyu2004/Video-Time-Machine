@@ -1,0 +1,20 @@
+id: area-and-twitter
+group: interlace
+era: crt
+removability: attenuate
+tags:
+  - crt
+  - twitter
+related:
+  - combing
+  - psf-vs-adjacent
+labWidgets:
+  - Raster
+recipeIds: []
+displayCaveat: crt
+noRecipeReason:
+  zh: 显像管上的大面积场闪是显示刷新，不是样点里的增益。细横线的行间闪烁来自「只活在一场」。后期去隔行或垂直低通只能减轻文件里的行间结构，不能把 50 Hz 的 CRT 变成 100 Hz。
+  en: >-
+    Large-area field flicker on a CRT is the display, not a gain in the samples. Interline twitter is a detail that
+    lives in one field. Deinterlace or a vertical lowpass can only soften that structure in the file. It cannot turn a
+    50 Hz CRT into 100 Hz.

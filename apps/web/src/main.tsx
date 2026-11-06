@@ -1,0 +1,56 @@
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { BrowserRouter, Navigate, Route, Routes, useParams } from 'react-router-dom'
+import { Layout } from './components/Layout'
+import { isLang } from './i18n'
+import { Decide } from './routes/Decide'
+import { Glossary } from './routes/Glossary'
+import { Home } from './routes/Home'
+import { phenomenonList } from './content/load'
+import { PhenomenonIndex, PhenomenonPage } from './routes/Phenomena'
+import { TimelineChapter, TimelineIndex } from './routes/Timeline'
+import './styles.css'
+
+function ToPhenomena() {
+  const { lang } = useParams()
+  return <Navigate to={isLang(lang) ? `/${lang}/phenomena` : '/en'} replace />
+}
+
+function ToRecipe() {
+  const { lang, id = '' } = useParams()
+  const home = isLang(lang) ? `/${lang}/phenomena` : '/en'
+  if (!isLang(lang)) return <Navigate to="/en" replace />
+  const items = phenomenonList(lang).filter((item) => item.meta.recipeIds.includes(id))
+  const owner = items.find((item) => item.meta.recipeIds[0] === id) ?? items[0]
+  return <Navigate to={owner ? `/${lang}/phenomena/${owner.meta.id}` : home} replace />
+}
+
+function LangGate() {
+  const { lang } = useParams()
+  if (!isLang(lang)) return <Navigate to="/en" replace />
+  return <Layout lang={lang} />
+}
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
+      <Routes>
+        <Route path="/" element={<Navigate to="/en" replace />} />
+        <Route path="/:lang" element={<LangGate />}>
+          <Route index element={<Home />} />
+          <Route path="timeline" element={<TimelineIndex />} />
+          <Route path="timeline/:slug" element={<TimelineChapter />} />
+          <Route path="phenomena" element={<PhenomenonIndex />} />
+          <Route path="phenomena/:id" element={<PhenomenonPage />} />
+          <Route path="lab" element={<ToPhenomena />} />
+          <Route path="lab/:widget" element={<ToPhenomena />} />
+          <Route path="recipes" element={<ToPhenomena />} />
+          <Route path="recipes/:id" element={<ToRecipe />} />
+          <Route path="decide" element={<Decide />} />
+          <Route path="glossary" element={<Glossary />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/en" replace />} />
+      </Routes>
+    </BrowserRouter>
+  </StrictMode>,
+)

@@ -1,0 +1,19 @@
+id: ivtc-vs-deinterlace
+group: progressive
+era: film
+removability: invert
+tags:
+  - telecine
+  - ivtc
+related:
+  - judder
+  - combing
+  - mixed-cadence
+  - psf-vs-adjacent
+labWidgets:
+  - Pulldown
+  - FrameCompare
+recipeIds:
+  - fieldmatch-decimate
+  - detect-idet
+displayCaveat: diagram

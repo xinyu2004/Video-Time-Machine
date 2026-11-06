@@ -1,0 +1,34 @@
+---
+title: "Two fields, two lamp phases"
+summary: "Integer cycles make both fields equally bright. Otherwise odd and even lines alternate."
+---
+
+## What you see
+
+After a weave it looks like a faint comb, or a 25 Hz shimmer between lines, and the object has not moved.
+
+## Where on the chain
+
+PAL on a 100 Hz lamp with a 1/50 s exposure covers an integer number of cycles in both fields, so the integrals match. PAL on a 120 Hz lamp spaces the fields by 1/50 s, and odd and even lines see different phases.
+
+## How to tell
+
+Step the fields and look at brightness. The edge has not shifted the way a motion comb shifts.
+
+## Lab
+
+The person is still. Matching fields stay even. Press “Lines alternate” and only the brightness changes; the outline does not split. This is lamp phase, not field order. Compute the beat in LightBeat.
+
+<FieldLoom view="lamp" />
+
+## Can it be removed
+
+Per-field gain normalization only attenuates, and it will eat a real exposure change. deflicker after the weave averages the two fields together.
+
+## What to do
+
+The recipe is separatefields, then deflicker, then weave. Confirm the flicker is a whole-field gain, not a band.
+
+## What not to do
+
+Do not send this faint comb to yadif, and do not deflicker the woven frame.

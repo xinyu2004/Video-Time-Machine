@@ -1,0 +1,36 @@
+---
+title: "tmix"
+summary: "Mixes successive frames. Flicker shrinks and motion trails."
+---
+
+## What you see
+
+Fast whole-frame flicker dulls, and moving objects leave a trail. Bands only get fainter. They do not disappear.
+
+## Where on the chain
+
+tmix is a frame mix, not a luma normalization. Every frame in the window stays in the picture, so the trail grows with the frame count.
+
+## How to tell
+
+Compare the whole-frame flicker with the tmix stills. The orange block in the temporal window is the same smear.
+
+## Lab
+
+Move the window length.
+
+<TemporalWindow />
+
+<FrameCompare samples="flicker-global,flicker-global-tmix" />
+
+## Can it be removed
+
+Attenuation only, paid for with motion.
+
+## What to do
+
+Use it when you accept the trail, for example `tmix=frames=5`.
+
+## What not to do
+
+Do not treat tmix as a stronger deflicker, and do not use it to clear bands.

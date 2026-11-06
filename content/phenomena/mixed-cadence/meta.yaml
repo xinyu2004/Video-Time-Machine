@@ -1,0 +1,19 @@
+id: mixed-cadence
+group: progressive
+era: film
+removability: attenuate
+tags:
+  - cadence
+related:
+  - ivtc-vs-deinterlace
+  - judder
+  - combing
+labWidgets:
+  - Pulldown
+recipeIds: []
+displayCaveat: diagram
+noRecipeReason:
+  zh: 没有一条命令能同时反电视电影和去隔行。必须按镜头切开，胶片段走 fieldmatch/decimate，视频段走 bwdif。
+  en: >-
+    No single command both inverse-telecines and deinterlaces. Split by shot. Film shots take fieldmatch/decimate. Video
+    shots take bwdif.

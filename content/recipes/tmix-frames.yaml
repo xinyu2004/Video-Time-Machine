@@ -1,0 +1,17 @@
+id: tmix-frames
+title:
+  zh: tmix 混合帧
+  en: Mix frames with tmix
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffprobe -hide_banner -show_entries stream=r_frame_rate -select_streams v input.mov
+fix: ffmpeg -i input.mov -vf tmix=frames=5 -c:a copy output.mov
+avoid: |-
+  The trail is the filter working. It does not remove spatial bands.
+  拖影就是滤镜在起作用。它不去掉空间上的横条。
+samples:
+  - id: flicker-global-tmix
+    zh: 整幅闪经过 tmix=5。
+    en: Whole-frame flicker after tmix=5.
+    command: ffmpeg -y -hide_banner -loglevel error -f lavfi -i 'color=c=gray:s=480x270:r=25:d=0.64,format=yuv444p,geq=lum='\''clip(70+90*sin(2*PI*4*T)\,16\,235)'\'':cb=128:cr=128,tmix=frames=5' -start_number 0 -frames:v 12 media/generated/flicker-global-tmix/frame-%02d.png

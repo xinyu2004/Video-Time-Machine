@@ -1,0 +1,13 @@
+id: composite-leftovers
+group: color
+era: analog
+removability: attenuate
+tags:
+  - composite
+related:
+  - bt601-sampling
+  - denoise-limits
+labWidgets: []
+recipeIds:
+  - chroma-denoise
+displayCaveat: diagram

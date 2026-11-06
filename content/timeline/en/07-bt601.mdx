@@ -1,0 +1,19 @@
+---
+title: "CCIR 601 / ITU-R BT.601"
+summary: "13.5 MHz, 720 luma samples per active line, 4:2:2. The luma row stays the 1953 values, 0.299 / 0.587 / 0.114."
+order: 7
+---
+
+In 1982, CCIR Recommendation 601 specified how a studio samples 525-line and 625-line component signals. In 1992 CCIR was absorbed into ITU-R, and the same recommendation continued as ITU-R BT.601. The -5 and -7 editions are revisions, not a new sampling grid. “Rec.” and “BT.” are two names for one document. The naming note is <PLink id="standard-names" />.
+
+601 samples Y and two color-difference signals. It does not sample composite.
+
+- One luma clock for the world: 13.5 MHz. In 4:2:2 each color difference is 6.75 MHz. In 4:4:4 all three are 13.5 MHz. 4:2:0 is not in this recommendation; MPEG added it later to save bitrate.
+- A 525 color line has 858 samples, a 625 line has 864, and both keep 720 active luma samples. 720 = 2⁴×3²×5.
+- 625-line digital active picture is 576 lines. 525-line studio practice is often 486, and DVD is often 480. 720×480 is not the only 601 height.
+- In 8 bits, Y black is 16 and nominal white is 235. Chroma is centered on 128, spanning 16–240. Codes 0 and 255 are reserved for the interface. In 10 bits, Y is 64–940. That is limited range.
+- Luma is Y = 0.299 R + 0.587 G + 0.114 B. That row was solved in 1953 from the NTSC primaries and illuminant C. Later 525-line monitors used SMPTE-C phosphors, and 625-line studio monitors used EBU phosphors, both at D65. Solving again from those phosphors and D65 produces a different row. The 601 interface did not recompute it, so 525 and 625 share this one. The primaries remain in SMPTE 170M and BT.470. The five sets of coordinates and the two coefficient columns are in <TLink slug="hd-uhd" />.
+
+The widescreen revision, around 1995, did not add samples. It made those 720 samples wider. So 720×576 can be 4:3 or 16:9, and the difference is the sample aspect ratio. See <PLink id="pixel-aspect" /> and <PLink id="matrices" />.
+
+601 does not specify compression, square pixels, an HDTV raster, one worldwide set of primaries, or HDR.

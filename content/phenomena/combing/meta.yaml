@@ -1,0 +1,17 @@
+id: combing
+group: interlace
+era: interlace
+removability: attenuate
+tags:
+  - interlace
+related:
+  - psf-vs-adjacent
+  - yadif-bwdif
+  - ivtc-vs-deinterlace
+labWidgets:
+  - FieldLoom
+  - FrameCompare
+recipeIds:
+  - detect-idet
+  - bwdif-field
+displayCaveat: crt

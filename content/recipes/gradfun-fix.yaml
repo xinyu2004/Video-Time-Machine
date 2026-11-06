@@ -1,0 +1,12 @@
+id: gradfun-fix
+title:
+  zh: gradfun 减轻色带
+  en: Attenuate banding with gradfun
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffprobe -hide_banner -show_entries stream=pix_fmt,bits_per_raw_sample -select_streams v input.mov
+fix: ffmpeg -i input.mov -vf gradfun=strength=1.2 -c:a copy output.mov
+avoid: |-
+  Dither is visible if you push strength. deband exists on this FFmpeg build if you need a different trade.
+  强度过大时抖动可见。这块 FFmpeg 也有 deband，需要另一种交换时再用。

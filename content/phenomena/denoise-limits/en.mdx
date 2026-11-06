@@ -1,0 +1,32 @@
+---
+title: "Where denoise stops"
+summary: "hqdn3d, nlmeans, and atadenoise all eat detail. Ask whether the noise is something you meant to keep."
+---
+
+## What you see
+
+There is less noise, and less hair, cloth, and film grain. Motion can smear.
+
+## Where on the chain
+
+hqdn3d smooths in space and time. nlmeans averages similar patches. It is slower, and it still removes texture the size of the noise. atadenoise averages along time and smears motion it does not compensate.
+
+## How to tell
+
+Compare a still fine texture, not only a flat wall. Flat areas oversell the filter.
+
+## Lab
+
+There is no demonstration of lossless denoise. The recipe uses a light setting.
+
+## Can it be removed
+
+Attenuation only. Texture that was averaged away does not return.
+
+## What to do
+
+Start small. Restrict the filter to chroma when that is enough.
+
+## What not to do
+
+Do not default to a heavy hqdn3d=4:4:8:8 on the whole program.

@@ -1,0 +1,17 @@
+id: field-phase-lamps
+group: flicker
+era: interlace
+removability: attenuate
+tags:
+  - interlace
+  - flicker
+related:
+  - light-beat
+  - combing
+  - deflicker
+labWidgets:
+  - LightBeat
+  - FieldLoom
+recipeIds:
+  - deflicker-fields
+displayCaveat: crt

@@ -1,0 +1,12 @@
+id: transfer-srgb
+title:
+  zh: 视频曲线与 sRGB
+  en: Video curve and sRGB
+requires:
+  - ffmpeg
+minVersion: '6.1'
+diagnose: ffprobe -hide_banner -show_entries stream=color_transfer,color_range,color_primaries -select_streams v input.mov
+fix: ffmpeg -i input.mov -vf colorspace=iall=bt709:all=bt709:trc=iec61966-2-1:range=pc -c:a copy output.mov
+avoid: |-
+  Primaries may already match sRGB. The curve and the range still differ. This is not a PQ tone map.
+  sRGB 的三基色可能已经和 709 一样。曲线和范围仍然不同。这不是 PQ 色调映射。

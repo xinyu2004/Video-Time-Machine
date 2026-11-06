@@ -1,0 +1,17 @@
+id: field-order
+group: interlace
+era: interlace
+removability: invert
+tags:
+  - interlace
+  - tff
+  - bff
+related:
+  - combing
+  - yadif-bwdif
+labWidgets:
+  - FieldLoom
+recipeIds:
+  - fieldorder-swap
+  - detect-idet
+displayCaveat: crt

@@ -1,0 +1,13 @@
+id: chroma-siting
+group: color
+era: digital
+removability: attenuate
+tags:
+  - chroma
+related:
+  - interlaced-chroma
+  - matrices
+labWidgets: []
+recipeIds:
+  - chroma-loc
+displayCaveat: diagram

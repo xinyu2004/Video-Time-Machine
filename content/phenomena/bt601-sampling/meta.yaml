@@ -1,0 +1,20 @@
+id: bt601-sampling
+group: color
+era: sd
+removability: prevent
+tags:
+  - '601'
+related:
+  - standard-names
+  - pixel-aspect
+  - levels
+  - interlaced-chroma
+labWidgets:
+  - DividerChain
+recipeIds: []
+displayCaveat: diagram
+noRecipeReason:
+  zh: 13.5 MHz 和 720 样点是采样规格。成片里改不回模拟行周期。幅面和矩阵的处理见相邻词条。
+  en: >-
+    13.5 MHz and 720 samples are the sampling spec. A finished file cannot grow its analog line period back. Raster and
+    matrix repairs live on the neighboring entries.
