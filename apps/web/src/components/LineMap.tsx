@@ -41,7 +41,7 @@ type Thread = {
 
 const THREADS: Thread[] = [
   {
-    zh: '50 Hz', en: '50 Hz', groupZh: '节拍', groupEn: 'Clock', color: '#8a5a12', from: 1936,
+    zh: '50 Hz', en: '50 Hz', groupZh: '场频', groupEn: 'Fields', color: '#8a5a12', from: 1936,
     stations: [{ year: 1936, zh: '50 Hz', en: '50 Hz', to: 'timeline/mains' }],
   },
   {
@@ -52,7 +52,7 @@ const THREADS: Thread[] = [
     ],
   },
   {
-    zh: '525', en: '525', groupZh: '扫描', groupEn: 'Raster', color: '#1f4e79', from: 1936,
+    zh: '525', en: '525', groupZh: '光栅', groupEn: 'Raster', color: '#1f4e79', from: 1936,
     stations: [
       { year: 1936, zh: '电子扫描', en: 'Electronic scan', to: 'timeline/mains' },
       { year: 1941, zh: '525', en: '525', to: 'timeline/raster', side: 'down', tipZh: '3×5×5×7', tipEn: '3×5×5×7' },
@@ -269,7 +269,7 @@ export function LineMap() {
           const noteY = up ? labelY - 16 : labelY + 16
           const anchor = station.anchor ?? 'start'
           const labelX = anchor === 'end' ? cx - 6 : cx + 6
-          const dest = `/${lang}/${station.to}`
+          const dest = `${import.meta.env.BASE_URL}${lang}/${station.to}`
           const id = stationId(station)
           return (
             <a

@@ -58,12 +58,13 @@ code, pre, .brand span, .readout, .equation, .kicker { font-family: "IBM Plex Mo
   color-scheme: light;
 }
 .page.wide { width: min(1120px, calc(100% - 2rem)); }
-.home { margin-bottom: 2rem; }
+.home { margin-bottom: 0; }
 .linemap { margin: 0; overflow-x: auto; background: transparent; border: 0; padding: 0; }
 .linemap svg {
   width: 100%;
   min-width: 920px;
   height: auto;
+  max-height: calc(100vh - 4rem);
   display: block;
   background: var(--paper);
   color-scheme: light;
