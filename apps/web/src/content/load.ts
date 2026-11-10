@@ -23,9 +23,20 @@ function fileOf(path: string): string {
   return path.split('/').pop() ?? path
 }
 
+/** Year order of the eight chapters on the dial. The bottom pager uses TIMELINE_WALK. */
+const CHAPTER_YEAR: Record<string, number> = {
+  film: 1893,
+  mains: 1936,
+  raster: 1941,
+  ntsc: 1953,
+  pal: 1967,
+  bt601: 1982,
+  'hd-uhd': 1990,
+  compression: 1995,
+}
+
 export type TimelineChapter = {
   slug: string
-  order: number
   title: string
   summary: string
   Component: MdxModule['default']
@@ -43,15 +54,13 @@ const phenomena = new Map<Lang, Map<string, PhenomenonDoc>>()
 const glossaries = new Map<Lang, MdxModule>()
 
 for (const [path, mod] of Object.entries(mdxModules)) {
-  const time = path.match(/content\/timeline\/(zh|en)\/(\d+)-([a-z0-9-]+)\.mdx$/)
+  const time = path.match(/content\/timeline\/(zh|en)\/([a-z0-9-]+)\.mdx$/)
   if (time) {
     const lang = time[1] as Lang
-    const order = Number(mod.frontmatter?.order ?? time[2])
-    const slug = time[3]
+    const slug = time[2]
     const list = timeline.get(lang) ?? []
     list.push({
       slug,
-      order,
       title: mod.frontmatter?.title ?? slug,
       summary: mod.frontmatter?.summary ?? '',
       Component: mod.default,
@@ -93,7 +102,7 @@ const metaCache = phenomenaMeta()
 
 for (const lang of ['zh', 'en'] as const) {
   const list = timeline.get(lang) ?? []
-  list.sort((a, b) => a.order - b.order)
+  list.sort((a, b) => (CHAPTER_YEAR[a.slug] ?? 9999) - (CHAPTER_YEAR[b.slug] ?? 9999))
   timeline.set(lang, list)
 }
 
@@ -106,6 +115,44 @@ for (const [path, raw] of Object.entries(recipeModules)) {
 let decideTree: DecideTree | null = null
 for (const raw of Object.values(treeModule)) {
   decideTree = yaml.load(raw) as DecideTree
+}
+
+/**
+ * Bottom prev/next. One stop per page, in year order, so the film thread
+ * (hand crank, 24 fps, pulldown, IMAX) sits among the chapters.
+ */
+const TIMELINE_WALK: Array<{ kind: 'timeline' | 'phenomena'; slug: string }> = [
+  { kind: 'timeline', slug: 'film' },
+  { kind: 'phenomena', slug: 'hand-crank' },
+  { kind: 'phenomena', slug: 'twenty-four' },
+  { kind: 'timeline', slug: 'mains' },
+  { kind: 'timeline', slug: 'raster' },
+  { kind: 'timeline', slug: 'ntsc' },
+  { kind: 'phenomena', slug: 'composite-leftovers' },
+  { kind: 'timeline', slug: 'pal' },
+  { kind: 'phenomena', slug: 'film-to-60' },
+  { kind: 'phenomena', slug: 'film-to-50' },
+  { kind: 'phenomena', slug: 'imax-film' },
+  { kind: 'timeline', slug: 'bt601' },
+  { kind: 'timeline', slug: 'hd-uhd' },
+  { kind: 'timeline', slug: 'compression' },
+  { kind: 'phenomena', slug: 'parameter-sets' },
+  { kind: 'phenomena', slug: 'imax-digital' },
+  { kind: 'phenomena', slug: 'transfer-curves' },
+  { kind: 'phenomena', slug: 'bt2100-boundary' },
+]
+
+export type TimelineStop = { key: string; href: string; title: string }
+
+export function timelineStops(lang: Lang): TimelineStop[] {
+  return TIMELINE_WALK.map((stop) => {
+    if (stop.kind === 'timeline') {
+      const item = chapter(lang, stop.slug)
+      return { key: `timeline/${stop.slug}`, href: `/${lang}/timeline/${stop.slug}`, title: item?.title ?? stop.slug }
+    }
+    const item = phenomenon(lang, stop.slug)
+    return { key: `phenomena/${stop.slug}`, href: `/${lang}/phenomena/${stop.slug}`, title: item?.title ?? stop.slug }
+  })
 }
 
 export function chapters(lang: Lang): TimelineChapter[] {

@@ -19,8 +19,9 @@ summary: "Stations on the diagram are grouped by line. The mechanism is on the t
 ## Analog color
 
 - **NTSC**：the 1953 color subcarrier on 525 lines. See <TLink slug="ntsc" />.
+- **CVBS**：color, video, blanking, and sync on one wire. NTSC, PAL, and SECAM can all leave the studio on that wire. See <TLink slug="ntsc" />.
 - **PAL and SECAM**：the two subcarriers on 625 lines. See <TLink slug="pal" />.
-- **Shutdown**：after analog terrestrial transmission stops, that subcarrier is no longer on the air. The year differs by country. Dot crawl and rainbows already recorded stay in the samples. See <TLink slug="composite" />.
+- **Shutdown**：after analog terrestrial transmission stops, that subcarrier is no longer on the air. The year differs by country. Dot crawl and rainbows already recorded stay in the samples. See <PLink id="composite-leftovers" />. The shutdown itself is on <TLink slug="ntsc" />.
 
 ## Gamut
 
@@ -39,9 +40,10 @@ summary: "Stations on the diagram are grouped by line. The mechanism is on the t
 
 ## Compression
 
-- **MPEG-2**：the 1995 compression for discs and digital broadcast. See <TLink slug="compression" />.
-- **H.264 (AVC)**：the 2003 compression used for HD delivery. See <TLink slug="compression" />.
-- **HEVC (H.265)**：the 2013 compression used for UHDTV. See <TLink slug="compression" />.
+- **MPEG-2**：the 1995 compression for discs and digital broadcast. The sequence header sits in the stream. See <PLink id="parameter-sets" />.
+- **H.264 (AVC)**：the 2003 compression used for HD delivery. The SPS is the sequence. The PPS is this picture’s tools. See <PLink id="parameter-sets" />.
+- **HEVC (H.265)**：the 2013 compression used for UHDTV. The VPS says how many layers there are. Each layer’s size is in its own SPS. See <PLink id="parameter-sets" />.
+- **Profile and level**：profile is the allowed tools. Level is the ceiling on samples, buffer, and bitrate. Above the pair a decoder declares, a complete header still leaves the picture dark. See <PLink id="parameter-sets" />.
 - **AV1**：a later generation common on the web from 2018. See <TLink slug="compression" />.
 
 ## Curves
@@ -52,7 +54,9 @@ summary: "Stations on the diagram are grouped by line. The mechanism is on the t
 
 ## Film
 
-- **24 fps**：the film frame rate. Into 50 fields it is sped up to 25. Into 60 fields it takes the 3:2 path. See <TLink slug="film" />.
+- **Four perfs**：four perforations to a 35mm frame. The silent picture is about 24.9 × 18.7 mm, 4:3. See <TLink slug="film" />.
+- **24 fps**：the projection rate locked in with sound. The crank is <PLink id="hand-crank" />. The lock is <PLink id="twenty-four" />. Into 50 fields, see <PLink id="film-to-50" />. Into 60 fields, see <PLink id="film-to-60" />.
+- **15/70**：IMAX in 1970. 70mm run sideways, fifteen perforations to a frame, about 1.43:1. See <PLink id="imax-film" />. Digital rooms are <PLink id="imax-digital" />.
 
 ## Interlace
 
@@ -68,7 +72,7 @@ summary: "Stations on the diagram are grouped by line. The mechanism is on the t
 ## Progressive
 
 - **PsF (Progressive segmented Frame)**：one frame split into two fields and carried in an interlaced shell. Both fields are the same instant.
-- **3:2 pulldown**：24 frames spread across 60 fields, held for 2, 3, 2, 3 fields.
+- **3:2 pulldown**：24 frames spread across 60 fields, held for 2, 3, 2, 3 fields. See <PLink id="film-to-60" />.
 
 ## Flicker
 

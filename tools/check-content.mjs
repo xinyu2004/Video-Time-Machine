@@ -19,7 +19,7 @@ function frontmatter(text) {
 
 const removability = new Set(['prevent', 'invert', 'attenuate', 'baked'])
 const groups = new Set(['interlace', 'progressive', 'flicker', 'color', 'clean'])
-const widgets = new Set(['Alternator', 'MainsMap', 'ChromaPhase', 'Raster', 'DividerChain', 'FieldLoom', 'DisplayPath', 'Pulldown', 'LightBeat', 'TemporalWindow', 'GamutStack', 'ToneMap', 'FrameCompare'])
+const widgets = new Set(['Alternator', 'MainsMap', 'ChromaPhase', 'Raster', 'DividerChain', 'FieldLoom', 'DisplayPath', 'Pulldown', 'LightBeat', 'TemporalWindow', 'GamutStack', 'ToneMap', 'FrameCompare', 'FilmGate', 'HandCrank', 'ImaxGauge', 'ParameterSets'])
 
 const phenDir = path.join(root, 'content/phenomena')
 const ids = fs.readdirSync(phenDir).filter((name) => fs.statSync(path.join(phenDir, name)).isDirectory())
@@ -71,7 +71,7 @@ if (zhSlugs.join() !== enSlugs.join()) fail(`timeline slug mismatch ${zhSlugs} v
 for (const name of zhSlugs) {
   for (const lang of ['zh', 'en']) {
     const fm = frontmatter(read(`content/timeline/${lang}/${name}`))
-    if (!fm?.title || fm.order == null) fail(`timeline ${lang}/${name} frontmatter`)
+    if (!fm?.title || !fm.summary) fail(`timeline ${lang}/${name} frontmatter`)
   }
 }
 

@@ -6,10 +6,14 @@ import {
   DisplayPath,
   DividerChain,
   FieldLoom,
+  FilmGate,
   FrameCompare,
   GamutStack,
+  HandCrank,
+  ImaxGauge,
   LightBeat,
   MainsMap,
+  ParameterSets,
   Pulldown,
   Raster,
   TemporalWindow,
@@ -30,6 +34,10 @@ const WIDGETS = {
   GamutStack,
   ToneMap,
   FrameCompare,
+  FilmGate,
+  HandCrank,
+  ImaxGauge,
+  ParameterSets,
 } as const
 
 type WidgetId = keyof typeof WIDGETS
@@ -87,6 +95,22 @@ const BLURB: Record<WidgetId, { zh: string; en: string }> = {
     zh: '这些帧由 FFmpeg 生成。没有文件时，先在仓库根目录运行 npm run samples。',
     en: 'These frames come from FFmpeg. If the files are missing, run npm run samples from the repo root.',
   },
+  FilmGate: {
+    zh: '宽卷对切，两边打孔，四个齿孔定下一格的高。声带再占掉旁边一条。',
+    en: 'A wide roll is slit, holes go on both edges, and four perforations set the height. The soundtrack then takes a strip at the side.',
+  },
+  HandCrank: {
+    zh: '拍摄时刻疏密不匀，放映时刻均匀。摇得慢的那一段会被挤短。',
+    en: 'Exposures are uneven and projection is even. A slow crank is squeezed on the way out.',
+  },
+  ImaxGauge: {
+    zh: '35 毫米四齿孔和 15/70 同一比例尺。数字厅是 1.90 或铺满 1.43。',
+    en: 'Four-perf 35mm and 15/70 on one scale. A digital room is 1.90, or it fills 1.43.',
+  },
+  ParameterSets: {
+    zh: '缺头则不亮。重发的是 SPS 和 PPS。超出 profile 或 level，重发同一套头仍不亮。',
+    en: 'A missing header leaves the picture dark. What is resent is the SPS and PPS. Above the profile or level, the same headers still leave it dark.',
+  },
 }
 
 export function LabIndex() {
@@ -127,7 +151,7 @@ function isWidget(value: string): value is WidgetId {
   return value in WIDGETS
 }
 
-function labelKey(id: WidgetId): 'alternator' | 'atlas' | 'phase' | 'raster' | 'divider' | 'loom' | 'display' | 'pulldown' | 'light' | 'window' | 'gamut' | 'tone' | 'compare' {
+function labelKey(id: WidgetId): 'alternator' | 'atlas' | 'phase' | 'raster' | 'divider' | 'loom' | 'display' | 'pulldown' | 'light' | 'window' | 'gamut' | 'tone' | 'compare' | 'filmgate' | 'crank' | 'imax' | 'sets' {
   const map = {
     Alternator: 'alternator',
     MainsMap: 'atlas',
@@ -142,6 +166,10 @@ function labelKey(id: WidgetId): 'alternator' | 'atlas' | 'phase' | 'raster' | '
     GamutStack: 'gamut',
     ToneMap: 'tone',
     FrameCompare: 'compare',
+    FilmGate: 'filmgate',
+    HandCrank: 'crank',
+    ImaxGauge: 'imax',
+    ParameterSets: 'sets',
   } as const
   return map[id]
 }

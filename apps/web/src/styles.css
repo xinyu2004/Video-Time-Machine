@@ -262,7 +262,8 @@ h3 { font-size: 1.15rem; }
 }
 
 .scope { background: var(--scope); color: var(--scope-ink); padding: 0.8rem; margin: 1rem 0; }
-.scope canvas, .scope img, .sheet img { width: 100%; height: auto; background: #0c0e09; image-rendering: pixelated; }
+.scope canvas, .scope img, .sheet img, .scope svg { width: 100%; height: auto; background: #0c0e09; }
+.scope canvas, .scope img, .sheet img { image-rendering: pixelated; }
 .caveat { color: #e7c27a; font-family: ui-monospace, monospace; font-size: 0.82rem; }
 .controls, .factors { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-top: 0.6rem; }
 .controls button, .factors span, .lang, .choices button, .back {
@@ -356,7 +357,20 @@ h3 { font-size: 1.15rem; }
 .recipe { border-top: 1px solid var(--line); margin-top: 1.4rem; }
 .recipe header { display: flex; justify-content: space-between; align-items: center; }
 .recipe pre { overflow: auto; background: #241c14; color: #f3ecdf; padding: 0.8rem; }
-.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; }
+.pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 2.4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-family: "Noto Sans CJK SC", "Source Han Sans SC", "PingFang SC", sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+.pager a { text-decoration: none; }
+.pager a:hover { text-decoration: underline; }
+.pager .next { margin-left: auto; text-align: end; }
 
 .timeline-dial {
   background: var(--scope);
@@ -599,6 +613,8 @@ h3 { font-size: 1.15rem; }
 .dial-figures span { color: #9aab78; font-size: 0.75rem; }
 .dial-plate h2 { margin: 0.55rem 0 0.3rem; border: 0; padding: 0; font-size: 1.15rem; color: #f4efe6; }
 .dial-slot p { margin: 0; color: #c5d4a4; line-height: 1.45; }
+.dial-notes { margin-top: 0.7rem; }
+.dial-notes p + p { margin-top: 0.45rem; }
 .dial-doors {
   display: flex; flex-direction: column;
   margin: 1.35rem -0.9rem -1rem; padding: calc(3px + 0.7rem) 0.9rem 0.85rem;
@@ -620,6 +636,24 @@ h3 { font-size: 1.15rem; }
 }
 .choices { display: grid; gap: 0.5rem; }
 .back { margin-top: 1rem; }
+
+.film-gate, .crank, .gauge { width: 100%; height: auto; background: #0c0e09; }
+.nodes text { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+.nodes .node { fill: #14180f; stroke: #445034; stroke-width: 1.5; }
+.nodes .node-name { fill: #9aab78; font-size: 13px; }
+.nodes .wire { stroke: #9aab78; stroke-width: 2; }
+.nodes .wire.faint { stroke: #3a4430; stroke-width: 1.5; }
+.nodes .gap-end { stroke: #e7c27a; stroke-width: 2; }
+.nodes .pkt { fill: #1c2218; stroke: #c5d4a4; stroke-width: 1.5; }
+.nodes .pkt.slice { fill: #24341c; }
+.nodes .pkt.back { stroke: #e7c27a; }
+.nodes .pkt polygon { fill: #e7c27a; }
+.nodes .pkt text { fill: #f4efe6; font-size: 12px; }
+.nodes .pkt.back text { fill: #e7c27a; }
+.nodes .scr rect { fill: #0c0e09; stroke: #445034; stroke-width: 1.5; }
+.nodes .scr.on rect { fill: #d5e8a8; stroke: #d5e8a8; }
+.nodes .scr text { fill: #6d7860; font-size: 13px; }
+.nodes .scr.on text { fill: #12150e; }
 
 @media (max-width: 720px) {
   .top { align-items: flex-start; flex-wrap: wrap; }

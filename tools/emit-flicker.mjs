@@ -5,7 +5,7 @@ const add = (e) => P.push(e)
 
 add({
   id: 'light-beat', group: 'flicker', era: 'mains', removability: 'prevent',
-  tags: ['flicker', 'pal'], related: ['rolling-bands', 'deflicker', 'shutter-24', 'field-phase-lamps'],
+  tags: ['flicker', 'pal'], related: ['rolling-bands', 'deflicker', 'field-phase-lamps'],
   labWidgets: ['LightBeat'], recipeIds: ['deflicker-am'], displayCaveat: 'refresh',
   widget: '<LightBeat />',
   zh: {
@@ -13,7 +13,7 @@ add({
     parts: [
       '整幅一起亮暗，或者一道横条在滚。频率取决于灯和采样，不是一个固定的「闪烁滤镜」能通吃。',
       '白炽灯和电感镇流荧光灯的亮度是市电的两倍频：50 Hz 市电是 100 Hz 灯，60 Hz 市电是 120 Hz 灯。曝光时长等于整数个灯周期时，每一行的积分与起始相位无关，整幅闪和滚动横条一起消失。采样率整除灯频时，每一帧起始相位相同，整幅不随时间跳；曝光若不是整数周期，滚动快门的横条会钉在同一高度。其余情况，拍频是 |f − k×采样率| 折进 0 到采样率一半的最小值。见 <TLink slug="mains" />。',
-      'PAL、全场约 1/50 秒：100 Hz 灯，100/50 = 2，1/50 秒等于两个周期，不闪。120 Hz 灯，按 50 Hz 采样是 20 Hz；编织成 25 帧后折成 5 Hz（120 − 5×25）。把 25 fps 的快门改成 150°（1/60 秒）或 300°（1/30 秒）才是整数周期。',
+      'PAL、全场约 1/50 秒：100 Hz 灯，100/50 = 2，1/50 秒等于两个周期，不闪。120 Hz 灯，按 50 Hz 采样是 20 Hz；编织成 25 帧后折成 5 Hz（120 − 5×25）。把 25 fps 的快门改成 150°（1/60 秒）或 300°（1/30 秒）才是整数周期。24 格另有两个角度。50 Hz 用 172.8°，曝光 1/50 秒，盖住两个 100 Hz 周期。60 Hz 用 144°，曝光 1/60 秒，盖住两个 120 Hz 周期。180° 在 120 Hz 上是 2.5 个周期，横条钉住。100 Hz 除以 24 不是整数，整幅大约按 4 Hz 闪。',
       '预设里有 PAL+50 Hz 灯、PAL+60 Hz 灯、59.94、24 fps 的 172.8° 和 144°。图是积分，不是这块屏幕上的灯。',
       '拍摄时盖住整数周期，标成可以避免。成片若只是整帧一个增益，deflicker 只能减轻。横条按行写进去之后，标成已经写进样点。',
       '能重拍就改快门或换高频灯。只能后期时，确认是整幅增益再用 deflicker。',
@@ -25,7 +25,7 @@ add({
     parts: [
       'The whole frame breathes, or a band rolls. The frequency depends on the lamp and the sample rate. One flicker filter does not cover both.',
       'Incandescent and magnetically ballasted lamps run at twice the mains: 100 Hz from 50 Hz, 120 Hz from 60 Hz. When exposure equals an integer number of lamp cycles, every row integrates the same amount and both whole-frame flicker and rolling bands disappear. When the sample rate divides the lamp frequency, every frame starts at the same phase, so the frame does not pulse; if the exposure is not an integer number of cycles, rolling-shutter bands freeze in place. Otherwise the alias is the absolute difference from the nearest multiple of the sample rate, folded into 0 to half the sample rate. See <TLink slug="mains" />.',
-      'PAL, about 1/50 s for a field: a 100 Hz lamp divides evenly (100/50 = 2) and 1/50 s is two cycles, so it is clean. A 120 Hz lamp aliases to 20 Hz at a 50 Hz sample, and to 5 Hz once woven to 25 frames (120 − 5×25). At 25 fps, 150° (1/60 s) or 300° (1/30 s) is an integer exposure.',
+      'PAL, about 1/50 s for a field: a 100 Hz lamp divides evenly (100/50 = 2) and 1/50 s is two cycles, so it is clean. A 120 Hz lamp aliases to 20 Hz at a 50 Hz sample, and to 5 Hz once woven to 25 frames (120 − 5×25). At 25 fps, 150° (1/60 s) or 300° (1/30 s) is an integer exposure. 24 fps has two further angles. On 50 Hz, 172.8° exposes for 1/50 s, two cycles of 100 Hz. On 60 Hz, 144° exposes for 1/60 s, two cycles of 120 Hz. 180° on 120 Hz is 2.5 cycles, and the bands freeze. 100 Hz divided by 24 is not an integer, so the whole frame flickers at about 4 Hz.',
       'Presets include PAL with 50 Hz lamps, PAL with 60 Hz lamps, 59.94, and 24 fps at 172.8° and 144°. The figure is the integral, not the lamp on this panel.',
       'An integer exposure at capture is avoidable-at-source. A finished shot that is one gain per frame can only be attenuated with deflicker. Bands written per row are already in the samples.',
       'Reshoot with the shutter or with a high-frequency lamp when you can. In post, use deflicker only after you know the flicker is a whole-frame gain.',
@@ -61,41 +61,6 @@ add({
       'A slow whole-frame change can be attenuated with a long deflicker window: long enough to see the cycle, short of eating a real lighting change. Per-row bands are still in the samples.',
       'Lock to the mains when you can. In post, process only the stretch you have confirmed is a whole-frame gain.',
       'Do not chase 0.12 Hz with a very short deflicker window. It cannot see the cycle.',
-    ],
-  },
-})
-
-add({
-  id: 'shutter-24', group: 'flicker', era: 'film', removability: 'prevent',
-  tags: ['shutter', '24p'], related: ['light-beat', 'judder'],
-  labWidgets: ['LightBeat'], recipeIds: [], displayCaveat: 'refresh',
-  noRecipeReason: {
-    zh: '172.8° 和 144° 是拍摄时的快门，不是成片上的滤镜。已经按 180° 拍完的整幅闪，见 deflicker。',
-    en: '172.8° and 144° are capture shutters, not a filter on the finished file. Whole-frame flicker already shot at 180° is the deflicker entry.',
-  },
-  widget: '<LightBeat />',
-  zh: {
-    title: '24 帧在两种市电下的快门', summary: '50 Hz 地区用 172.8°。60 Hz 地区用 144°，180° 会把横条钉住。',
-    parts: [
-      '欧洲实景里 24 fps 会以大约 4 Hz 闪。北美实景里 180° 常常整幅不跳，但滚动快门上有一道不动的横条。',
-      '100 Hz 灯除以 24 不是整数，拍频 4 Hz。172.8° 使曝光为 1/50 秒，等于两个 100 Hz 周期。120 Hz 灯除以 24 等于 5，每一帧起始相位相同，所以整幅不随时间跳；180° 曝光是 2.5 个周期，横条钉死。144° 是 1/60 秒，两个 120 Hz 周期，横条也消失。',
-      '用 LightBeat 的四个 24 fps 预设对照拍频和「整数周期」读数。',
-      '结论行会给出成片还能不能修。',
-      '快门在拍摄时就对了：可以避免。180° 已拍完的钉死横条：写进样点。',
-      '按地区选 172.8° 或 144°。',
-      '不要以为 24 fps 高档就自动避开市电。',
-    ],
-  },
-  en: {
-    title: 'A 24-frame shutter on two mains', summary: 'Use 172.8° on 50 Hz mains. Use 144° on 60 Hz mains. 180° freezes the bands.',
-    parts: [
-      '24 fps practicals in Europe flicker near 4 Hz. In North America, 180° often does not pulse the whole frame, and a rolling shutter keeps a stationary band.',
-      'A 100 Hz lamp divided by 24 is not an integer, so the alias is 4 Hz. 172.8° exposes for 1/50 s, two cycles of 100 Hz. A 120 Hz lamp divided by 24 is 5, so every frame starts at the same phase and the frame does not pulse. A 180° exposure is 2.5 cycles, and the bands freeze. 144° is 1/60 s, two cycles of 120 Hz, and the bands go away.',
-      'Compare the four 24 fps presets and read the alias and the integer-cycle flag.',
-      'The verdict line says whether the finished picture can still be repaired.',
-      'The right shutter at capture is avoidable-at-source. Frozen bands already shot at 180° are in the samples.',
-      'Pick 172.8° or 144° for the region.',
-      'Do not assume 24 fps is automatically clear of the mains.',
     ],
   },
 })
@@ -204,7 +169,7 @@ add({
 add({
   id: 'judder', group: 'progressive', era: 'film', removability: 'attenuate',
   tags: ['judder', '24p'], related: ['ivtc-vs-deinterlace', 'mixed-cadence'],
-  labWidgets: ['Pulldown'], recipeIds: ['fieldmatch-decimate'], displayCaveat: 'diagram',
+  labWidgets: ['Pulldown'], recipeIds: ['fieldmatch-decimate'],
   widget: '<Pulldown />',
   zh: {
     title: '胶片抖动与重复帧', summary: '3:2 的顿是节拍本身。插帧会另造痕迹。',
@@ -235,10 +200,10 @@ add({
 add({
   id: 'deflicker', group: 'flicker', era: 'digital', removability: 'attenuate',
   tags: ['deflicker'], related: ['light-beat', 'rolling-bands', 'tmix', 'field-phase-lamps'],
-  labWidgets: ['TemporalWindow', 'FrameCompare'], recipeIds: ['deflicker-am'], displayCaveat: 'diagram',
+  labWidgets: ['TemporalWindow', 'FrameCompare'], recipeIds: ['deflicker-am'],
   widget: '<TemporalWindow />\n\n<FrameCompare samples="flicker-global,flicker-global-deflicker,flicker-bands,flicker-bands-deflicker" />',
   zh: {
-    title: 'deflicker', summary: '按时间把整帧亮度拉向窗口均值。横条拉不平。',
+    title: '减轻整幅闪', summary: '按时间把整帧亮度拉向窗口均值。横条拉不平。',
     parts: [
       '延时摄影或整幅闪的镜头，亮度起伏变小。运动大的镜头会跟着被拉平。横条还在。',
       '滤镜用最近若干帧的亮度统计（默认算术平均，窗口默认 5，最大 129）估计这一帧该有的亮度，再做整帧增益。它分不清「灯在闪」和「画面真的亮了」。',
@@ -250,7 +215,7 @@ add({
     ],
   },
   en: {
-    title: 'deflicker', summary: 'Pulls whole-frame luma toward a temporal window. It does not flatten bands.',
+    title: 'Ease whole-frame flicker', summary: 'Pulls whole-frame luma toward a temporal window. It does not flatten bands.',
     parts: [
       'Timelapse or whole-frame flicker gets flatter. A shot with large motion gets flattened too. Bands remain.',
       'The filter estimates the luma this frame should have from recent frames (arithmetic mean by default, window 5, maximum 129) and applies one gain. It cannot tell a flickering lamp from a scene that really got brighter.',
@@ -266,10 +231,10 @@ add({
 add({
   id: 'tmix', group: 'flicker', era: 'digital', removability: 'attenuate',
   tags: ['tmix'], related: ['deflicker', 'rolling-bands'],
-  labWidgets: ['TemporalWindow', 'FrameCompare'], recipeIds: ['tmix-frames'], displayCaveat: 'diagram',
+  labWidgets: ['TemporalWindow', 'FrameCompare'], recipeIds: ['tmix-frames'],
   widget: '<TemporalWindow />\n\n<FrameCompare samples="flicker-global,flicker-global-tmix" />',
   zh: {
-    title: 'tmix', summary: '把连续几帧混在一起。闪会变小，运动会拖尾。',
+    title: '闪变钝，运动拖影', summary: '把连续几帧混在一起。闪会变小，运动会拖尾。',
     parts: [
       '快速的整幅闪变钝，运动物体后面拖着残影。横条只是变淡，并不消失。',
       'tmix 是帧混合，不是亮度归一。窗口里的每一帧都留在画面上，所以拖影长度跟着帧数走。',
@@ -281,7 +246,7 @@ add({
     ],
   },
   en: {
-    title: 'tmix', summary: 'Mixes successive frames. Flicker shrinks and motion trails.',
+    title: 'Flicker dulls, motion trails', summary: 'Mixes successive frames. Flicker shrinks and motion trails.',
     parts: [
       'Fast whole-frame flicker dulls, and moving objects leave a trail. Bands only get fainter. They do not disappear.',
       'tmix is a frame mix, not a luma normalization. Every frame in the window stays in the picture, so the trail grows with the frame count.',
@@ -297,14 +262,14 @@ add({
 add({
   id: 'mixed-cadence', group: 'progressive', era: 'film', removability: 'attenuate',
   tags: ['cadence'], related: ['ivtc-vs-deinterlace', 'judder', 'combing'],
-  labWidgets: ['Pulldown'], recipeIds: [], displayCaveat: 'diagram',
+  labWidgets: ['Pulldown'], recipeIds: [],
   noRecipeReason: {
     zh: '没有一条命令能同时反电视电影和去隔行。必须按镜头切开，胶片段走 fieldmatch/decimate，视频段走 bwdif。',
     en: 'No single command both inverse-telecines and deinterlaces. Split by shot. Film shots take fieldmatch/decimate. Video shots take bwdif.',
   },
   widget: '<Pulldown />',
   zh: {
-    title: '混合节拍', summary: '一段胶片、一段视频时，不要整段用同一个 IVTC。',
+    title: '一段胶片，一段视频', summary: '一段胶片、一段视频时，不要整段用同一个 IVTC。',
     parts: [
       '有的镜头顿得有规律，有的镜头是正常的 50 场或 60 场运动，硬套 3:2 之后那些镜头被抽帧。',
       '同一条母带可以在胶片下拉和摄像机隔行之间切换。节拍不是文件级属性。',
@@ -316,7 +281,7 @@ add({
     ],
   },
   en: {
-    title: 'Mixed cadence', summary: 'When one shot is film and the next is video, do not IVTC the whole file.',
+    title: 'Film in one shot, video in the next', summary: 'When one shot is film and the next is video, do not IVTC the whole file.',
     parts: [
       'Some shots hitch on a regular beat. Others are ordinary 50-field or 60-field motion. Forcing 3:2 drops frames out of those shots.',
       'One master can switch between film pulldown and camera interlace. Cadence is not a file-level property.',

@@ -2,9 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { phenomenon, type TimelineChapter } from '../content/load'
 import type { Lang } from '../i18n'
-
-const YEAR_MIN = 1927
-const YEAR_MAX = 2026
+import { tToYear, YEAR_MAX, yearToT } from './yearScale'
 
 type Figure = { zh: string; en: string; noteZh: string; noteEn: string }
 type Pin = {
@@ -16,18 +14,38 @@ type Pin = {
   figures: Figure[]
   blurbZh?: string
   blurbEn?: string
+  /** Chapter this pin's essay door opens. Defaults to slug when that chapter exists. */
+  essay?: string
+  /** Shown in the finder. Defaults from the shape. */
+  kicker?: string
+  /** Dial plate only. No essay link and no doors under the pin. */
+  plate?: boolean
   phenomena?: string[]
 }
 
 /** Index-only. Drop a row to take that chapter off this dial; the essay stays. */
 const PINS: Pin[] = [
   {
-    slug: 'film', year: 1927, lane: 'up', zh: '胶片', en: 'Film',
+    slug: 'film', year: 1893, lane: 'down', zh: '四齿孔', en: '4-perf',
+    essay: 'film',
+    figures: [
+      { zh: '24.9×18.7', en: '24.9×18.7', noteZh: '毫米，4:3', noteEn: 'mm, 4:3' },
+      { zh: '4', en: '4', noteZh: '齿孔一格', noteEn: 'perfs a frame' },
+    ],
+    blurbZh: '宽卷对切成 35 毫米。两边打孔，中间剩下的是画面宽，大约 24.9 毫米。一格四个齿孔，高大约 18.7 毫米。这个格子是 4:3。',
+    blurbEn: 'The roll was slit into 35mm. Holes on both edges leave a picture about 24.9 mm wide. Four perforations make one frame, about 18.7 mm high. That frame is 4:3.',
+    phenomena: ['hand-crank'],
+  },
+  {
+    slug: 'twenty-four', year: 1927, lane: 'up', zh: '24 格', en: '24 fps',
+    kicker: '24',
     figures: [
       { zh: '24', en: '24', noteZh: '格', noteEn: 'fps' },
-      { zh: '2 3 2 3', en: '2 3 2 3', noteZh: '场', noteEn: 'fields' },
+      { zh: '1.37:1', en: '1.37:1', noteZh: '学院片窗', noteEn: 'Academy' },
     ],
-    phenomena: ['judder', 'psf-vs-adjacent', 'ivtc-vs-deinterlace', 'mixed-cadence', 'shutter-24'],
+    blurbZh: '光学声带要恒定的线速度，格率锁在每秒 24 格。声带占掉旁边一条，学院片窗大约 1.37:1。宽银幕仍是这条四齿孔上的遮幅或压缩。',
+    blurbEn: 'An optical track needs a constant speed, so the rate locked at 24 frames a second. The track takes a strip at the side. The Academy aperture is about 1.37:1. Widescreen is a mask or a squeeze on the same four-perf strip.',
+    phenomena: ['twenty-four'],
   },
   {
     slug: 'mains', year: 1936, lane: 'down', zh: '场频', en: 'Fields',
@@ -38,12 +56,12 @@ const PINS: Pin[] = [
     phenomena: ['light-beat', 'field-phase-lamps'],
   },
   {
-    slug: 'raster', year: 1941, lane: 'up', zh: '光栅', en: 'Raster',
+    slug: 'raster', year: 1941, lane: 'up', zh: '黑白电视', en: 'B&W',
     figures: [
       { zh: '3×5×5×7', en: '3×5×5×7', noteZh: '525', noteEn: '525' },
       { zh: '5⁴', en: '5⁴', noteZh: '625', noteEn: '625' },
     ],
-    phenomena: ['combing', 'field-order', 'area-and-twitter', 'progressive-panel'],
+    phenomena: ['combing', 'psf-vs-adjacent', 'field-order', 'area-and-twitter', 'progressive-panel'],
   },
   {
     slug: 'ntsc', year: 1953, lane: 'up', zh: 'NTSC', en: 'NTSC',
@@ -51,7 +69,7 @@ const PINS: Pin[] = [
       { zh: '455/2', en: '455/2', noteZh: '副载波', noteEn: 'subcarrier' },
       { zh: '30000/1001', en: '30000/1001', noteZh: '帧率', noteEn: 'frame rate' },
     ],
-    phenomena: ['slow-roll-5994'],
+    phenomena: ['film-to-60', 'judder', 'ivtc-vs-deinterlace', 'mixed-cadence', 'slow-roll-5994'],
   },
   {
     slug: 'composite', year: 1953, lane: 'down', zh: 'CVBS', en: 'Composite',
@@ -66,6 +84,18 @@ const PINS: Pin[] = [
   {
     slug: 'pal', year: 1967, lane: 'up', zh: 'PAL', en: 'PAL',
     figures: [{ zh: '15625 Hz', en: '15625 Hz', noteZh: '行频', noteEn: 'line rate' }],
+    phenomena: ['film-to-50', 'mixed-cadence'],
+  },
+  {
+    slug: 'imax', year: 1970, lane: 'down', zh: 'IMAX', en: 'IMAX',
+    kicker: '1.43',
+    figures: [
+      { zh: '15/70', en: '15/70', noteZh: '横走', noteEn: 'horizontal' },
+      { zh: '1.43:1', en: '1.43:1', noteZh: '69.6×48.5 mm', noteEn: '69.6×48.5 mm' },
+    ],
+    blurbZh: '拍摄用 65 毫米，拷贝用 70 毫米，片子横着走，一格 15 个齿孔。画幅大约 69.6 × 48.5 毫米。',
+    blurbEn: 'Shot on 65mm, printed on 70mm, the strip runs sideways, fifteen perforations to a frame. The picture is about 69.6 × 48.5 mm.',
+    phenomena: ['imax-film', 'imax-digital'],
   },
   {
     slug: 'bt601', year: 1982, lane: 'down', zh: 'BT.601', en: 'BT.601',
@@ -90,19 +120,18 @@ const PINS: Pin[] = [
     figures: [
       { zh: 'MPEG-2', en: 'MPEG-2', noteZh: '后来的留着它', noteEn: 'later ones leave it' },
     ],
-    phenomena: ['compression-artifacts'],
+    phenomena: ['parameter-sets', 'compression-artifacts'],
   },
 ]
 
 function at(year: number) {
-  const t = (year - YEAR_MIN) / (YEAR_MAX - YEAR_MIN)
-  return `calc(3.2rem + (100% - 6.4rem) * ${t})`
+  return `calc(3.2rem + (100% - 6.4rem) * ${yearToT(year)})`
 }
 
 type Shape = 'film' | 'lamp' | 'raster' | 'ntsc' | 'pal' | 'composite' | 'both' | 'wide' | 'blocks'
 
 function shapeOf(slug: string): Shape {
-  if (slug === 'film') return 'film'
+  if (slug === 'film' || slug === 'twenty-four' || slug === 'imax') return 'film'
   if (slug === 'mains') return 'lamp'
   if (slug === 'raster') return 'raster'
   if (slug === 'ntsc') return 'ntsc'
@@ -114,7 +143,7 @@ function shapeOf(slug: string): Shape {
 }
 
 function toneOf(slug: string) {
-  if (slug === 'film') return ' tone-film'
+  if (slug === 'film' || slug === 'twenty-four' || slug === 'imax') return ' tone-film'
   if (slug === 'mains') return ' tone-lamp'
   if (slug === 'ntsc') return ' tone-ntsc'
   if (slug === 'pal') return ' tone-pal'
@@ -124,18 +153,20 @@ function toneOf(slug: string) {
 }
 
 function finderLeft(year: number) {
-  const t = (year - YEAR_MIN) / (YEAR_MAX - YEAR_MIN)
-  return `clamp(4rem, calc(3.2rem + (100% - 6.4rem) * ${t}), calc(100% - 4rem))`
+  return `clamp(4rem, calc(3.2rem + (100% - 6.4rem) * ${yearToT(year)}), calc(100% - 4rem))`
+}
+
+function pickLane(tied: Pin[], clientY: number, axisMid: number) {
+  if (tied.length === 1) return tied[0]
+  const above = clientY < axisMid
+  return tied.find((pin) => pin.lane === (above ? 'up' : 'down')) ?? tied[0]
 }
 
 function chapterAt(pins: Pin[], year: number, clientY: number, axisMid: number) {
   const open = pins.filter((pin) => pin.year <= year)
-  const pool = open.length > 0 ? open : pins
-  const latest = Math.max(...pool.map((pin) => pin.year))
-  const tied = pool.filter((pin) => pin.year === latest)
-  if (tied.length === 1) return tied[0]
-  const above = clientY < axisMid
-  return tied.find((pin) => pin.lane === (above ? 'up' : 'down')) ?? tied[0]
+  const pool = open.length > 0 ? open : pins.filter((pin) => pin.year === Math.min(...pins.map((item) => item.year)))
+  const mark = open.length > 0 ? Math.max(...pool.map((pin) => pin.year)) : pool[0]?.year
+  return pickLane(pool.filter((pin) => pin.year === mark), clientY, axisMid)
 }
 
 function RollYear({ year }: { year: number }) {
@@ -156,7 +187,7 @@ function RollYear({ year }: { year: number }) {
 export function TimelineDial({ lang, chapters }: { lang: Lang; chapters: TimelineChapter[] }) {
   const zh = lang === 'zh'
   const bySlug = new Map(chapters.map((item) => [item.slug, item]))
-  const pins = PINS.filter((pin) => bySlug.has(pin.slug))
+  const pins = PINS.filter((pin) => bySlug.has(pin.essay ?? pin.slug) || (pin.phenomena?.length ?? 0) > 0)
   const axisRef = useRef<HTMLDivElement>(null)
   const playRef = useRef(1936)
   const frame = useRef(0)
@@ -183,7 +214,7 @@ export function TimelineDial({ lang, chapters }: { lang: Lang; chapters: Timelin
     stop()
     const box = axis.getBoundingClientRect()
     const t = Math.min(1, Math.max(0, (clientX - box.left) / box.width))
-    const year = Math.round(YEAR_MIN + t * (YEAR_MAX - YEAR_MIN))
+    const year = tToYear(t)
     const next = chapterAt(pins, year, clientY, box.top + box.height / 2)
     if (year !== playRef.current) commit(year)
     setSlug((current) => (current === next.slug ? current : next.slug))
@@ -209,12 +240,11 @@ export function TimelineDial({ lang, chapters }: { lang: Lang; chapters: Timelin
 
   const pin = pins.find((item) => item.slug === slug) ?? pins[0]
   if (!pin) return null
-  const chapter = bySlug.get(pin.slug)
-  if (!chapter) return null
+  const chapter = bySlug.get(pin.essay ?? pin.slug)
   const shared = (year: number) => pins.filter((item) => item.year === year).length > 1
   const blurb = zh ? pin.blurbZh : pin.blurbEn
   const shape = shapeOf(pin.slug)
-  const ratio = shape === 'wide' ? '16:9' : shape === 'lamp' ? '×2' : shape === 'blocks' ? '' : '4:3'
+  const ratio = pin.kicker ?? (shape === 'wide' ? '16:9' : shape === 'lamp' ? '×2' : shape === 'blocks' ? '' : '4:3')
   const doors = (pin.phenomena ?? []).flatMap((id) => {
     const item = phenomenon(lang, id)
     return item ? [item] : []
@@ -305,18 +335,28 @@ export function TimelineDial({ lang, chapters }: { lang: Lang; chapters: Timelin
                 </p>
               ))}
             </div>
-            <h2>{chapter.title}</h2>
-            <p>{blurb ?? chapter.summary}</p>
-            <ul className="dial-doors">
-              <li>
-                <Link to={`/${lang}/timeline/${chapter.slug}`}>{zh ? '正文' : 'Essay'}</Link>
-              </li>
-              {doors.map((item) => (
-                <li key={item.meta.id}>
-                  <Link to={`/${lang}/phenomena/${item.meta.id}`}>{item.title}</Link>
-                </li>
-              ))}
-            </ul>
+            {pin.plate ? (
+              <div className="dial-notes">
+                {(blurb ?? '').split(/\n\n/).map((text) => <p key={text}>{text}</p>)}
+              </div>
+            ) : (
+              <>
+                <h2>{zh ? pin.zh : pin.en}</h2>
+                <p>{blurb ?? chapter?.summary}</p>
+                <ul className="dial-doors">
+                  {chapter ? (
+                    <li>
+                      <Link to={`/${lang}/timeline/${chapter.slug}`}>{chapter.title}</Link>
+                    </li>
+                  ) : null}
+                  {doors.map((item) => (
+                    <li key={item.meta.id}>
+                      <Link to={`/${lang}/phenomena/${item.meta.id}`}>{item.title}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
           </div>
         </div>
       </div>

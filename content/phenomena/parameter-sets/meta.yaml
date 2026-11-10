@@ -1,0 +1,17 @@
+id: parameter-sets
+group: clean
+era: digital
+removability: prevent
+tags:
+  - sps
+  - pps
+  - vps
+  - profile
+related:
+  - compression-artifacts
+labWidgets:
+  - ParameterSets
+recipeIds: []
+noRecipeReason:
+  zh: 缺的是头，不是量化丢掉的系数。这里不给一条命令去补 SPS。
+  en: What is missing is a header, not a coefficient quantization discarded. There is no command here that pastes an SPS back.

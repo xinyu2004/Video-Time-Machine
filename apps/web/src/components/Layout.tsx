@@ -1,15 +1,19 @@
 import { MDXProvider } from '@mdx-js/react'
+import { useLayoutEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { mdxComponents } from './mdx'
 import { text, type Lang } from '../i18n'
 
-const links = ['timeline', 'phenomena', 'decide', 'glossary'] as const
+const links = ['timeline', 'phenomena', 'recipes', 'decide', 'glossary'] as const
 
 export function Layout({ lang }: { lang: Lang }) {
   const i18n = text(lang)
   const other: Lang = lang === 'zh' ? 'en' : 'zh'
   const { pathname } = useLocation()
   const swapped = pathname.replace(/^\/(zh|en)/, `/${other}`)
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
   return (
     <MDXProvider components={mdxComponents}>
       <div className="shell">

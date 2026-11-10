@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { RecipeBlock } from '../components/RecipeBlock'
+import { TimelinePager } from '../components/TimelinePager'
 import { chapters, phenomenon, phenomenonList, recipe } from '../content/load'
 import type { Group, Removability } from '../content/types'
 import { useI18n, useLang } from '../i18n'
@@ -11,13 +11,11 @@ function Track({
   to,
   title,
   summary,
-  commands,
   mark,
 }: {
   to: string
   title: string
   summary: string
-  commands?: string
   mark?: { kind: Removability; label: string }
 }) {
   return (
@@ -31,7 +29,6 @@ function Track({
       <span className="track-peek" aria-hidden="true">
         <strong>{title}</strong>
         <small>{summary}</small>
-        {commands ? <span className="track-cmd">{commands}</span> : null}
         {mark ? <em className={`badge ${mark.kind}`}>{mark.label}</em> : null}
       </span>
     </li>
@@ -63,19 +60,15 @@ export function PhenomenonIndex() {
         <section key={group}>
           <h2>{i18n.groups[group]}</h2>
           <ul className="tracks">
-            {items.filter((item) => item.meta.group === group).map((item) => {
-              const commands = item.meta.recipeIds.map((id) => recipe(id)?.title[lang] ?? id).join(' · ')
-              return (
+            {items.filter((item) => item.meta.group === group).map((item) => (
                 <Track
                   key={item.meta.id}
                   to={`/${lang}/phenomena/${item.meta.id}`}
                   title={item.title}
                   summary={item.summary}
-                  commands={commands}
                   mark={{ kind: item.meta.removability, label: i18n.removability[item.meta.removability] }}
                 />
-              )
-            })}
+            ))}
           </ul>
         </section>
       ))}
@@ -104,8 +97,19 @@ export function PhenomenonPage() {
           <li key={related}><Link to={`/${lang}/phenomena/${related}`}>{phenomenon(lang, related)?.title ?? related}</Link></li>
         ))}
       </ul>
-      {item.meta.recipeIds.length === 0 ? <p>{item.meta.noRecipeReason?.[lang] ?? i18n.recipe.none}</p> : null}
-      {item.meta.recipeIds.map((recipeId) => <RecipeBlock key={recipeId} id={recipeId} />)}
+      {item.meta.recipeIds.length > 0 ? (
+        <>
+          <h2>{i18n.nav.recipes}</h2>
+          <ul>
+            {item.meta.recipeIds.map((recipeId) => (
+              <li key={recipeId}>
+                <Link to={`/${lang}/recipes/${recipeId}`}>{recipe(recipeId)?.title[lang] ?? recipeId}</Link>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+      <TimelinePager here={`phenomena/${id}`} />
     </main>
   )
 }

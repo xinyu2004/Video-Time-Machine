@@ -1,0 +1,16 @@
+id: imax-digital
+group: progressive
+era: digital
+removability: prevent
+tags:
+  - imax
+  - 2k
+  - 4k
+related:
+  - imax-film
+labWidgets:
+  - ImaxGauge
+recipeIds: []
+noRecipeReason:
+  zh: 这是放映机的样点和幕的比例。这里没有要跑的滤镜。
+  en: This is the projector’s sample grid and the screen ratio. There is no filter to run here.

@@ -1,9 +1,7 @@
 import { useRef, useState } from 'react'
 import { PRIMARIES } from '../content/standards'
 import { useLang } from '../i18n'
-
-const YEAR_MIN = 1924
-const YEAR_MAX = 2026
+import { tToYear, YEAR_MAX, YEAR_MIN, yearToT } from './yearScale'
 const X0 = 118
 const X1 = 980
 const TOP = 42
@@ -67,7 +65,7 @@ const THREADS: Thread[] = [
   },
   {
     zh: 'NTSC', en: 'NTSC', groupZh: '模拟彩色', groupEn: 'Analog color', color: '#8d2f2f', from: 1953, dashAfter: 2009,
-    stations: [{ year: 1953, zh: 'NTSC', en: 'NTSC', to: 'timeline/ntsc' }],
+    stations: [{ year: 1953, zh: 'NTSC', en: 'NTSC', to: 'timeline/ntsc', noteZh: 'CVBS', noteEn: 'CVBS' }],
   },
   {
     zh: 'PAL', en: 'PAL', color: '#8d2f2f', from: 1967, dashAfter: 2009,
@@ -99,9 +97,9 @@ const THREADS: Thread[] = [
   {
     zh: '', en: '', groupZh: '压缩', groupEn: 'Compression', color: '#c45c28', from: 1995,
     stations: [
-      { year: 1995, zh: 'MPEG-2', en: 'MPEG-2', to: 'timeline/compression', tipZh: 'MPEG-2 (H.262)', tipEn: 'MPEG-2 (H.262)' },
-      { year: 2003, zh: 'H.264', en: 'H.264', to: 'timeline/compression', side: 'down', tipZh: 'H.264 (AVC)，MPEG-4 第 10 部分', tipEn: 'H.264 (AVC), MPEG-4 part 10' },
-      { year: 2013, zh: 'H.265', en: 'H.265', to: 'timeline/compression', tipZh: 'H.265 (HEVC)，MPEG-H 第 2 部分', tipEn: 'H.265 (HEVC), MPEG-H part 2' },
+      { year: 1995, zh: 'MPEG-2', en: 'MPEG-2', to: 'phenomena/parameter-sets', tipZh: 'MPEG-2 (H.262)。sequence header 在码流里', tipEn: 'MPEG-2 (H.262). Sequence header in the stream' },
+      { year: 2003, zh: 'H.264', en: 'H.264', to: 'phenomena/parameter-sets', side: 'down', tipZh: 'H.264 (AVC)。SPS 与 PPS', tipEn: 'H.264 (AVC). SPS and PPS' },
+      { year: 2013, zh: 'H.265', en: 'H.265', to: 'phenomena/parameter-sets', tipZh: 'H.265 (HEVC)。VPS、SPS、PPS', tipEn: 'H.265 (HEVC). VPS, SPS, PPS' },
       { year: 2018, zh: 'AV1', en: 'AV1', to: 'timeline/compression', side: 'down' },
       { year: 2020, zh: 'H.266', en: 'H.266', to: 'timeline/compression', tipZh: 'H.266 (VVC)', tipEn: 'H.266 (VVC)' },
       { year: 2026, zh: 'AV2', en: 'AV2', to: 'timeline/compression', side: 'down' },
@@ -116,21 +114,25 @@ const THREADS: Thread[] = [
     ],
   },
   {
-    zh: '胶片', en: 'Film', groupZh: '胶片', groupEn: 'Film', color: '#1a2408', from: 1927, fromEdge: true,
+    zh: '胶片', en: 'Film', groupZh: '胶片', groupEn: 'Film', color: '#1a2408', from: 1889, fromEdge: true,
     stations: [
-      { year: 1927, zh: '24 格', en: '24 fps', to: 'timeline/film' },
-      { year: 1967, zh: '3:2', en: '3:2', to: 'timeline/film', noteZh: '60 场', noteEn: '60 fields', side: 'down', tipZh: '含 23.976', tipEn: 'includes 23.976' },
-      { year: 1967, zh: '2:2', en: '2:2', to: 'timeline/film', noteZh: '50 场', noteEn: '50 fields', tipZh: '24 拉成 25', tipEn: '24 pulled to 25' },
+      { year: 1893, zh: '四齿孔', en: '4-perf', to: 'timeline/film', side: 'down' },
+      { year: 1894, zh: '手摇', en: 'Crank', to: 'phenomena/hand-crank' },
+      { year: 1927, zh: '24 格', en: '24 fps', to: 'phenomena/twenty-four', side: 'down' },
+      { year: 1967, zh: '3:2', en: '3:2', to: 'phenomena/film-to-60', noteZh: '60 场', noteEn: '60 fields', side: 'down', tipZh: '含 23.976', tipEn: 'includes 23.976' },
+      { year: 1967, zh: '2:2', en: '2:2', to: 'phenomena/film-to-50', noteZh: '50 场', noteEn: '50 fields', tipZh: '24 拉成 25', tipEn: '24 pulled to 25' },
+      { year: 1970, zh: '15/70', en: '15/70', to: 'phenomena/imax-film', side: 'down' },
+      { year: 2008, zh: '双 2K', en: 'Dual 2K', to: 'phenomena/imax-digital', tipZh: '2015 激光双 4K 可铺满 1.43', tipEn: '2015 dual 4K laser can fill 1.43' },
     ],
   },
 ]
 
-const MARKS = [1936, 1953, 1982, 1990, 2012, 2016]
+const MARKS = [1889, 1936, 1953, 1982, 1990, 2012, 2016]
 const LABEL_Y = TOP + THREADS.length * PITCH + 36
 const VB_H = LABEL_Y + 8
 
 function xOf(year: number): number {
-  return X0 + ((year - YEAR_MIN) / (YEAR_MAX - YEAR_MIN)) * (X1 - X0)
+  return X0 + yearToT(year) * (X1 - X0)
 }
 
 function triPoints(id: GamutId, cx: number, cy: number): string {
@@ -181,8 +183,8 @@ export function LineMap() {
     const matrix = svg.getScreenCTM()
     if (!matrix) return year
     const local = point.matrixTransform(matrix.inverse())
-    const next = YEAR_MIN + ((local.x - X0) / (X1 - X0)) * (YEAR_MAX - YEAR_MIN)
-    return Math.round(Math.min(YEAR_MAX, Math.max(YEAR_MIN, next)))
+    const t = (local.x - X0) / (X1 - X0)
+    return tToYear(t)
   }
 
   function onHitDown(event: React.PointerEvent<SVGRectElement>) {

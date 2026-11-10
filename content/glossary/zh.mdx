@@ -19,8 +19,9 @@ summary: "图上的站按线排列。过程在时间线里。滤镜名保持英�
 ## 模拟彩色
 
 - **NTSC**：1953 年加在 525 行上的彩色副载波。见 <TLink slug="ntsc" />。
+- **CVBS**：彩色、图像、消隐、同步在同一根线上。NTSC、PAL、SECAM 离开演播室时都可以是这根线。见 <TLink slug="ntsc" />。
 - **PAL 与 SECAM**：625 行上的两种副载波。见 <TLink slug="pal" />。
-- **停播**：地面模拟发射停止之后，空中不再有这路副载波。各国年份不同。已经录下的点爬和彩虹还在样点里。见 <TLink slug="composite" />。
+- **停播**：地面模拟发射停止之后，空中不再有这路副载波。各国年份不同。已经录下的点爬和彩虹还在样点里，见 <PLink id="composite-leftovers" />。停播本身见 <TLink slug="ntsc" />。
 
 ## 色域
 
@@ -39,9 +40,10 @@ summary: "图上的站按线排列。过程在时间线里。滤镜名保持英�
 
 ## 压缩
 
-- **MPEG-2**：1995 年的光盘和数字播出压缩。见 <TLink slug="compression" />。
-- **H.264（AVC）**：2003 年的高清交付压缩。见 <TLink slug="compression" />。
-- **HEVC（H.265）**：2013 年的超高清压缩。见 <TLink slug="compression" />。
+- **MPEG-2**：1995 年的光盘和数字播出压缩。sequence header 在码流里。见 <PLink id="parameter-sets" />。
+- **H.264（AVC）**：2003 年的高清交付压缩。SPS 是这一路，PPS 是这一幅的工具。见 <PLink id="parameter-sets" />。
+- **HEVC（H.265）**：2013 年的超高清压缩。VPS 说明有几层，每一层的宽高在自己的 SPS 里。见 <PLink id="parameter-sets" />。
+- **profile 与 level**：profile 是允许的工具，level 是样点、缓冲和码率的上限。超出解码器申报的档，头齐着也不亮。见 <PLink id="parameter-sets" />。
 - **AV1**：2018 年起在网上常见的后一代。见 <TLink slug="compression" />。
 
 ## 曲线
@@ -52,7 +54,9 @@ summary: "图上的站按线排列。过程在时间线里。滤镜名保持英�
 
 ## 胶片
 
-- **24 格**：电影的画格率。进 50 场会先加快到 25，进 60 场走 3:2。见 <TLink slug="film" />。
+- **四齿孔**：35 毫米一格四个齿孔，无声画面大约 24.9 × 18.7 毫米，4:3。见 <TLink slug="film" />。
+- **24 格**：有声以后锁死的放映速率。手摇见 <PLink id="hand-crank" />，锁死见 <PLink id="twenty-four" />。进 50 场见 <PLink id="film-to-50" />，进 60 场见 <PLink id="film-to-60" />。
+- **15/70**：1970 年的 IMAX。70 毫米横走，一格 15 个齿孔，约 1.43:1。见 <PLink id="imax-film" />。数字厅见 <PLink id="imax-digital" />。
 
 ## 隔行
 
@@ -68,7 +72,7 @@ summary: "图上的站按线排列。过程在时间线里。滤镜名保持英�
 ## 逐行
 
 - **PsF（Progressive segmented Frame，逐行分段帧）**：同一帧拆成两场，装在隔行壳里。两场是同一时刻。
-- **3:2 下拉（pulldown）**：24 格铺到 60 场，占场数是 2、3、2、3。
+- **3:2 下拉（pulldown）**：24 格铺到 60 场，占场数是 2、3、2、3。见 <PLink id="film-to-60" />。
 
 ## 频闪
 

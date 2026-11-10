@@ -7,14 +7,14 @@ export function Scope({
   controls,
   children,
 }: {
-  caveat: CaveatKind
+  caveat?: CaveatKind
   controls?: ReactNode
   children: ReactNode
 }) {
   const i18n = useI18n()
   return (
     <figure className="scope">
-      <p className="caveat">{i18n.caveat[caveat]}</p>
+      {caveat ? <p className="caveat">{i18n.caveat[caveat]}</p> : null}
       {controls ? <div className="controls">{controls}</div> : null}
       {children}
     </figure>

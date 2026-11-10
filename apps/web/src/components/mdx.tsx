@@ -9,15 +9,20 @@ import {
   DisplayPath,
   DividerChain,
   FieldLoom,
+  FilmGate,
   FrameCompare,
   GamutStack,
+  HandCrank,
+  ImaxGauge,
   LightBeat,
   MainsMap,
+  ParameterSets,
   Pulldown,
   Raster,
   TemporalWindow,
   ToneMap,
 } from '../lab'
+import { BandRamp, ChromaEdge, CodecMarks, EdgeLeftover, FrameBars, HanoverBars, PixelShape } from '../lab/Marks'
 
 export function TLink({ slug, children }: { slug: string; children?: ReactNode }) {
   const lang = useLang()
@@ -31,7 +36,7 @@ export function PLink({ id, children }: { id: string; children?: ReactNode }) {
   return <Link to={`/${lang}/phenomena/${id}`}>{children ?? item?.title ?? id}</Link>
 }
 
-export function Caveat({ kind = 'diagram' }: { kind?: CaveatKind }) {
+export function Caveat({ kind }: { kind: CaveatKind }) {
   const i18n = useI18n()
   return <p className="caveat">{i18n.caveat[kind]}</p>
 }
@@ -59,10 +64,21 @@ export const mdxComponents = {
   DividerChain,
   FieldLoom,
   DisplayPath,
+  FilmGate,
+  HandCrank,
+  ImaxGauge,
+  ParameterSets,
   Pulldown,
   LightBeat,
   TemporalWindow,
   GamutStack,
   ToneMap,
   FrameCompare,
+  BandRamp,
+  ChromaEdge,
+  CodecMarks,
+  EdgeLeftover,
+  FrameBars,
+  HanoverBars,
+  PixelShape,
 }

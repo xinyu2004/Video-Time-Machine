@@ -35,7 +35,6 @@ export function ToneMap({ kind = 'sdr' }: { kind?: Kind }) {
 
   return (
     <Scope
-      caveat="diagram"
       controls={
         kind === 'pq' ? (
           <>

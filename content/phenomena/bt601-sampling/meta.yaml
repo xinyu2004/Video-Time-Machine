@@ -12,7 +12,6 @@ related:
 labWidgets:
   - DividerChain
 recipeIds: []
-displayCaveat: diagram
 noRecipeReason:
   zh: 13.5 MHz 和 720 样点是采样规格。成片里改不回模拟行周期。幅面和矩阵的处理见相邻词条。
   en: >-

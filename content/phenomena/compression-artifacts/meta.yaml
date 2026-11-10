@@ -10,7 +10,6 @@ related:
   - composite-leftovers
 labWidgets: []
 recipeIds: []
-displayCaveat: diagram
 noRecipeReason:
   zh: 块、蚊噪、振铃是量化已经丢掉的变换系数。滤镜只能掩盖。这里不展开成编码教程。
   en: >-

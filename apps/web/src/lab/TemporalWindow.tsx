@@ -88,7 +88,6 @@ export function TemporalWindow() {
 
   return (
     <Scope
-      caveat="diagram"
       controls={
         <label>
           tmix / deflicker {lang === 'zh' ? '窗长' : 'window'} {size}

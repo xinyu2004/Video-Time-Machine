@@ -1,0 +1,36 @@
+---
+title: "24 frames into 60 fields"
+summary: "Four film frames occupy ten fields. The video frames are AA BB BC CD DD. 24 is first taken as 23.976, then spread across 59.94."
+---
+
+## What you see
+
+Motion hitches 2, 3, 2, 3. Some video frames take their two fields from different film frames, and a weave combs.
+
+## Where on the chain
+
+Sixty fields were already there. See <TLink slug="mains" />. 3:2 lays 24 frames onto those fields. The subcarrier did not invent it. After NTSC color pulled the field rate to 60000/1001, film is first pulled by the same 1000/1001 to 23.976 and then spread across 59.94 fields. See <TLink slug="ntsc" />.
+
+Four frames occupy ten fields: A for two, B for three, C for two, D for three. Paired into video frames that is AA, BB, BC, CD, DD. The two fields of BC and of CD come from different film frames, so a weave combs. That is not PsF, and it is not a camera field. See <PLink id="psf-vs-adjacent" />.
+
+## How to tell
+
+In the figure, AA, BB, and DD are repeats. BC and CD are mixed frames. The bar in telecine-23 pauses on the repeat.
+
+## Lab
+
+The pulldown figure lives on this page only.
+
+<Pulldown />
+
+## Can it be removed
+
+While the cadence is intact, the film frames can be recovered. See <PLink id="ivtc-vs-deinterlace" />. Interpolation only softens the hitch. See <PLink id="judder" />.
+
+## What to do
+
+Match this figure first, then decide whether to recover the film frames or leave the hitch.
+
+## What not to do
+
+Do not treat 3:2 as a product of the color subcarrier. Do not split BC and CD as if a camera had shot them.

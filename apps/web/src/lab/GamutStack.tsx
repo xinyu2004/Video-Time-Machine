@@ -53,7 +53,6 @@ export function GamutStack({ view = 'primaries' }: { view?: GamutView }) {
 
   return (
     <Scope
-      caveat="diagram"
       controls={
         view === 'matrix' ? (
           <>

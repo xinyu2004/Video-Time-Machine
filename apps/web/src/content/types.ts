@@ -2,7 +2,7 @@ import type { ComponentType } from 'react'
 
 export type Removability = 'prevent' | 'invert' | 'attenuate' | 'baked'
 export type Group = 'interlace' | 'progressive' | 'flicker' | 'color' | 'clean'
-export type CaveatKind = 'refresh' | 'crt' | 'diagram' | 'mechanism' | 'phase'
+export type CaveatKind = 'refresh' | 'crt' | 'mechanism' | 'phase'
 
 export type Frontmatter = {
   title?: string

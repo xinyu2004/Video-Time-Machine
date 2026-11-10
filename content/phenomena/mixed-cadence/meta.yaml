@@ -11,7 +11,6 @@ related:
 labWidgets:
   - Pulldown
 recipeIds: []
-displayCaveat: diagram
 noRecipeReason:
   zh: 没有一条命令能同时反电视电影和去隔行。必须按镜头切开，胶片段走 fieldmatch/decimate，视频段走 bwdif。
   en: >-

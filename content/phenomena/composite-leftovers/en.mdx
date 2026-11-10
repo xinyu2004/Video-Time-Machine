@@ -1,23 +1,31 @@
 ---
-title: "Composite leftovers"
+title: "Dot crawl, rainbows, cross-color"
 summary: "Dot crawl, rainbows, cross-color. After decoding you can only attenuate, and this is not 601."
 ---
 
 ## What you see
 
-Colored dots crawl beside a high-contrast vertical edge, or fine stripes show through a flat color.
+Colored dots beside a high-contrast vertical edge are dot crawl: chroma left in luma. Fine colored stripes in a flat area are a rainbow. Fine detail that picks up color is luma read as chroma. Adjacent lines with opposite hues that stay put are on <TLink slug="pal" />.
 
 ## Where on the chain
 
-Composite added the subcarrier to luma. After the decoder emits samples, the carrier is no longer a signal you can switch off. See <TLink slug="composite" />. 601 sampled component video and should not be blamed for this.
+Black-and-white already filled the wire. Color modulates chroma onto a subcarrier and adds it to luma. A notch or a comb splits them. What the split leaves behind stays in the samples. See <TLink slug="ntsc" />. 601 sampled component video.
+
+Dot crawl is chroma left in luma. The subcarrier phase walks from frame to frame, so the dots move. The picture can sit still.
+
+A rainbow, and color on fine detail, is luma energy near the subcarrier. The decoder reads it as chroma.
+
+A longer path turns the subcarrier phase, and the whole picture’s hue turns with it. See <TLink slug="ntsc" />.
 
 ## How to tell
 
-The dots follow the subcarrier beat, not an 8×8 compression block. They can show up on a still color-bar chart.
+The dots follow the subcarrier beat. An 8×8 compression block lines up differently. A still color-bar chart can show the dots.
 
 ## Lab
 
-There is no clean synthetic that stands in for every decoder. The recipe only attenuates chroma.
+The left side is one line of voltage. The right side is what the split leaves. Dot crawl steps a frame at a time: the edge stays, the phase moves, and the dots crawl. The rainbow state stays still, because the fine stripes were luma. The recipe only attenuates chroma.
+
+<EdgeLeftover />
 
 ## Can it be removed
 

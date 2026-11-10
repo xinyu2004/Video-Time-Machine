@@ -6,23 +6,14 @@ import { isLang } from './i18n'
 import { Decide } from './routes/Decide'
 import { Glossary } from './routes/Glossary'
 import { Home } from './routes/Home'
-import { phenomenonList } from './content/load'
 import { PhenomenonIndex, PhenomenonPage } from './routes/Phenomena'
+import { RecipeIndex, RecipePage } from './routes/Recipes'
 import { TimelineChapter, TimelineIndex } from './routes/Timeline'
 import './styles.css'
 
 function ToPhenomena() {
   const { lang } = useParams()
   return <Navigate to={isLang(lang) ? `/${lang}/phenomena` : '/en'} replace />
-}
-
-function ToRecipe() {
-  const { lang, id = '' } = useParams()
-  const home = isLang(lang) ? `/${lang}/phenomena` : '/en'
-  if (!isLang(lang)) return <Navigate to="/en" replace />
-  const items = phenomenonList(lang).filter((item) => item.meta.recipeIds.includes(id))
-  const owner = items.find((item) => item.meta.recipeIds[0] === id) ?? items[0]
-  return <Navigate to={owner ? `/${lang}/phenomena/${owner.meta.id}` : home} replace />
 }
 
 function LangGate() {
@@ -44,8 +35,8 @@ createRoot(document.getElementById('root')!).render(
           <Route path="phenomena/:id" element={<PhenomenonPage />} />
           <Route path="lab" element={<ToPhenomena />} />
           <Route path="lab/:widget" element={<ToPhenomena />} />
-          <Route path="recipes" element={<ToPhenomena />} />
-          <Route path="recipes/:id" element={<ToRecipe />} />
+          <Route path="recipes" element={<RecipeIndex />} />
+          <Route path="recipes/:id" element={<RecipePage />} />
           <Route path="decide" element={<Decide />} />
           <Route path="glossary" element={<Glossary />} />
         </Route>

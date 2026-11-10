@@ -6,7 +6,7 @@ const add = (e) => P.push(e)
 add({
   id: 'standard-names', group: 'color', era: 'digital', removability: 'prevent',
   tags: ['naming'], related: ['bt601-sampling', 'matrices', 'primaries'],
-  labWidgets: [], recipeIds: [], displayCaveat: 'diagram',
+  labWidgets: [], recipeIds: [],
   noRecipeReason: {
     zh: '这是文件名对照，没有要跑的滤镜。',
     en: 'This is a naming note. There is no filter to run.',
@@ -41,7 +41,7 @@ add({
 add({
   id: 'bt601-sampling', group: 'color', era: 'sd', removability: 'prevent',
   tags: ['601'], related: ['standard-names', 'pixel-aspect', 'levels', 'interlaced-chroma'],
-  labWidgets: ['DividerChain'], recipeIds: [], displayCaveat: 'diagram',
+  labWidgets: ['DividerChain'], recipeIds: [],
   noRecipeReason: {
     zh: '13.5 MHz 和 720 样点是采样规格。成片里改不回模拟行周期。幅面和矩阵的处理见相邻词条。',
     en: '13.5 MHz and 720 samples are the sampling spec. A finished file cannot grow its analog line period back. Raster and matrix repairs live on the neighboring entries.',
@@ -76,7 +76,7 @@ add({
 add({
   id: 'matrices', group: 'color', era: 'digital', removability: 'invert',
   tags: ['matrix'], related: ['primaries', 'levels', 'tag-2020-content-709'],
-  labWidgets: ['GamutStack', 'FrameCompare'], recipeIds: ['colorspace-convert', 'setparams-retag'], displayCaveat: 'diagram',
+  labWidgets: ['GamutStack', 'FrameCompare'], recipeIds: ['colorspace-convert', 'setparams-retag'],
   widget: '<GamutStack view="matrix" />\n\n<FrameCompare samples="bars-tag,bars-709-as-601,bars-709-as-2020" />',
   zh: {
     title: '三套矩阵', summary: '601 是 0.299/0.587/0.114。709 是 0.2126/0.7152/0.0722。2020 是 0.2627/0.6780/0.0593。',
@@ -107,7 +107,7 @@ add({
 add({
   id: 'primaries', group: 'color', era: 'digital', removability: 'invert',
   tags: ['primaries'], related: ['matrices', 'tag-2020-content-709', 'transfer-curves'],
-  labWidgets: ['GamutStack'], recipeIds: ['colorspace-convert'], displayCaveat: 'diagram',
+  labWidgets: ['GamutStack'], recipeIds: ['colorspace-convert'],
   widget: '<GamutStack view="primaries" />',
   zh: {
     title: '三基色', summary: '五套基色叠在一张色度图上。宽窄两列看同一景物里绿收回去多少。',
@@ -138,10 +138,10 @@ add({
 add({
   id: 'transfer-curves', group: 'color', era: 'digital', removability: 'invert',
   tags: ['gamma', 'srgb'], related: ['primaries', 'levels', 'bt2100-boundary'],
-  labWidgets: ['ToneMap'], recipeIds: ['transfer-srgb'], displayCaveat: 'diagram',
+  labWidgets: ['ToneMap'], recipeIds: ['transfer-srgb'],
   widget: '<ToneMap />',
   zh: {
-    title: '三条曲线', summary: '709 是摄像机曲线。1886 是显示伽马。sRGB 三基色相同，曲线和范围不同。',
+    title: '暗部不对，像曲线', summary: '709 是摄像机曲线。1886 是显示伽马。sRGB 三基色相同，曲线和范围不同。',
     parts: [
       '同一文件在视频监视器和网页上看，暗部不一样。有的发灰，有的发闷。',
       'BT.709 的 OETF 是拍摄端的分段曲线，亮部大约 0.45 次方。BT.1886 是参考显示器的 EOTF，大约 2.4。sRGB 抄了 709 的三基色，传输曲线是另一组常数，并且使用 0–255。三件事不是一条伽马。',
@@ -153,7 +153,7 @@ add({
     ],
   },
   en: {
-    title: 'Three curves', summary: '709 is the camera curve. 1886 is the display gamma. sRGB shares the primaries and not the curve or the range.',
+    title: 'Shadows are wrong, like the curve', summary: '709 is the camera curve. 1886 is the display gamma. sRGB shares the primaries and not the curve or the range.',
     parts: [
       'The same file looks different in the shadows on a video monitor and in a browser. One is gray, the other is dull.',
       'The BT.709 OETF is the camera’s piecewise curve, about a 0.45 power in the highlights. BT.1886 is the reference display EOTF, about 2.4. sRGB copied the 709 primaries, uses a different set of constants, and uses 0–255. Those are not one gamma.',
@@ -169,7 +169,7 @@ add({
 add({
   id: 'tag-2020-content-709', group: 'color', era: 'uhd', removability: 'invert',
   tags: ['2020'], related: ['primaries', 'matrices', 'bt2100-boundary'],
-  labWidgets: ['GamutStack'], recipeIds: ['setparams-retag'], displayCaveat: 'diagram',
+  labWidgets: ['GamutStack'], recipeIds: ['setparams-retag'],
   widget: '<GamutStack view="matrix" />',
   zh: {
     title: '2020 标签里的 709 内容', summary: '交付规格要求标 2020 时，分级仍可能全部落在 709 三角形里。',
@@ -200,7 +200,7 @@ add({
 add({
   id: 'bt2100-boundary', group: 'color', era: 'hdr', removability: 'prevent',
   tags: ['hdr', 'pq', 'hlg'], related: ['tag-2020-content-709', 'transfer-curves', 'primaries'],
-  labWidgets: ['ToneMap'], recipeIds: [], displayCaveat: 'diagram',
+  labWidgets: ['ToneMap'], recipeIds: [],
   noRecipeReason: {
     zh: 'PQ 和 HLG 的色调映射不在本期配方里。要换的是曲线，不是再套一次 2020 矩阵。',
     en: 'PQ and HLG tone mapping is not a recipe in this pass. What changes is the curve, not another 2020 matrix.',
@@ -235,10 +235,10 @@ add({
 add({
   id: 'levels', group: 'color', era: 'digital', removability: 'invert',
   tags: ['range'], related: ['matrices', 'bt601-sampling', 'transfer-curves'],
-  labWidgets: ['FrameCompare'], recipeIds: ['range-scale'], displayCaveat: 'diagram',
+  labWidgets: ['FrameCompare'], recipeIds: ['range-scale'],
   widget: '<FrameCompare samples="bars-limited-ok,bars-limited-as-full" />',
   zh: {
-    title: '演播范围和全幅', summary: '601 和 709 的 8 bit 黑是 16、白是 235。10 bit 是 64 到 940。',
+    title: '整幅发灰或暗部死黑', summary: '601 和 709 的 8 bit 黑是 16、白是 235。10 bit 是 64 到 940。',
     parts: [
       '发灰：黑抬起来，白不白。发黑：对比过重，暗部死掉。',
       '演播范围把 0 和 255 留给接口。计算机图形常用 0–255。把 16–235 当成 0–255 来显示，黑是 16，看起来发灰。把 0–255 当成 16–235 再拉伸，会裁掉两端。',
@@ -250,7 +250,7 @@ add({
     ],
   },
   en: {
-    title: 'Studio range and full range', summary: 'In 8-bit 601 and 709, black is 16 and white is 235. In 10-bit, 64 to 940.',
+    title: 'Gray picture or dead blacks', summary: 'In 8-bit 601 and 709, black is 16 and white is 235. In 10-bit, 64 to 940.',
     parts: [
       'Gray: black is lifted and white is not white. Crushed: contrast is heavy and the shadows die.',
       'Studio range reserves 0 and 255 for the interface. Computer graphics often use 0–255. Displaying 16–235 as 0–255 leaves black at 16, so the picture looks gray. Stretching 0–255 as if it were 16–235 clips both ends.',
@@ -266,27 +266,27 @@ add({
 add({
   id: 'chroma-siting', group: 'color', era: 'digital', removability: 'attenuate',
   tags: ['chroma'], related: ['interlaced-chroma', 'matrices'],
-  labWidgets: [], recipeIds: ['chroma-loc'], displayCaveat: 'diagram',
-  widget: '',
+  labWidgets: [], recipeIds: ['chroma-loc'],
+  widget: '<ChromaEdge view="still" />',
   zh: {
-    title: '色度位置', summary: '左对齐和中对齐用错时，彩色边会镶出一条。',
+    title: '彩色边镶出一条', summary: '左对齐和中对齐用错时，彩色边会镶出一条。',
     parts: [
       '高对比文字或斜边旁边有一条固定方向的色边，运动与否都在。',
       '4:2:0 的色度样点可以靠左，也可以在格子中间。MPEG-2 和 MPEG-1 的习惯不同。放大到 RGB 时用错站点，色度相对亮度平移半个像素。',
       '色边在静止的竖边上就有，不像隔行色度那样只跟运动走。',
-      '没有单独的动画。配方用 scale 的 in_chroma_loc 和 out_chroma_loc。',
+      '静止竖边上的色边。运动时才错的是 <PLink id="interlaced-chroma" />。配方用 scale 的 in_chroma_loc 和 out_chroma_loc。',
       '站点只标错、还没重采样：可以靠正确的上采样减轻或还原。已经合成进 RGB 再编码：写进样点。',
       '知道源的站点再放大。不确定时先看一条高对比竖边。',
       '不要用锐化去「修」这条色边。',
     ],
   },
   en: {
-    title: 'Chroma siting', summary: 'Left and center siting, used the wrong way, leaves a colored fringe.',
+    title: 'A colored fringe on an edge', summary: 'Left and center siting, used the wrong way, leaves a colored fringe.',
     parts: [
       'High-contrast type or a diagonal carries a fringe of fixed direction, whether or not anything moves.',
       'A 4:2:0 chroma sample can sit to the left or in the center of the grid. MPEG-2 and MPEG-1 conventions differ. Upsampling to RGB with the wrong site shifts chroma by half a pixel against luma.',
       'The fringe is on a still vertical edge. Interlaced chroma, by contrast, shows up where things moved.',
-      'There is no separate animation. The recipe sets scale in_chroma_loc and out_chroma_loc.',
+      'A fringe on a still vertical edge. The fault that appears only where things moved is <PLink id="interlaced-chroma" />. The recipe sets scale in_chroma_loc and out_chroma_loc.',
       'A wrong site that has not been resampled yet can be repaired by upsampling correctly. Chroma already baked into RGB and re-encoded is in the samples.',
       'Upsample only after you know the source site. If you do not, look at one high-contrast vertical edge first.',
       'Do not sharpen the fringe away.',
@@ -297,27 +297,27 @@ add({
 add({
   id: 'pixel-aspect', group: 'color', era: 'sd', removability: 'invert',
   tags: ['sar', 'dar'], related: ['bt601-sampling', 'standard-names'],
-  labWidgets: [], recipeIds: ['setsar-169'], displayCaveat: 'diagram',
-  widget: '',
+  labWidgets: [], recipeIds: ['setsar-169'],
+  widget: '<PixelShape />',
   zh: {
-    title: '非方像素', summary: '601 的 16:9 是把 720 个样点变宽，不是再加样点。',
+    title: '拉高压扁，或窗口另垫黑边', summary: '601 的 16:9 是把 720 个样点变宽，不是再加样点。',
     parts: [
       '人被拉高或压扁。圆变成椭圆。',
       '显示宽高比 DAR、样点宽高比 SAR、存储宽高，三件事一起决定画面。720×576 可以是 4:3 也可以是 16:9。709 起的高清节目交换改为方像素，SAR 是 1。',
       'ffprobe 同时看 sample_aspect_ratio 和 display_aspect_ratio。只改播放器里的拉伸，文件标签可能还是错的。',
-      '这一条是标签和显示几何，没有场动画。',
+      '这一条是标签和显示几何。样点里的圆被拉高；播放器把圆放正时，黑边垫在窗口上。',
       'SAR 标错、样点网格没被重采样：可以还原。已经按错误 SAR 缩成方像素再编码：写进样点。',
       '用 setsar 和 setdar 改标签。要真正变成方像素再 scale。',
       '不要只 setdar 而让 SAR 和存储宽度互相矛盾。',
     ],
   },
   en: {
-    title: 'Non-square pixels', summary: '601 widescreen makes the 720 samples wider. It does not add samples.',
+    title: 'Stretched, or bars the player adds', summary: '601 widescreen makes the 720 samples wider. It does not add samples.',
     parts: [
       'People are stretched tall or squashed. Circles become ellipses.',
       'Display aspect, sample aspect, and stored width decide the picture together. 720×576 can be 4:3 or 16:9. From 709 onward, HDTV program exchange uses square pixels, SAR 1.',
       'Read both sample_aspect_ratio and display_aspect_ratio. A player stretch can hide a tag that is still wrong.',
-      'This is tag and display geometry. There is no field animation.',
+      'This is tag and display geometry. A circle in the samples is drawn tall. When the player keeps it round, the bars sit in the window.',
       'A wrong SAR on a grid that has not been resampled is reversible. A file already scaled to square pixels with the wrong SAR and re-encoded is in the samples.',
       'Change the tag with setsar and setdar. Scale only when you actually want square pixels.',
       'Do not setdar alone and leave SAR and stored width contradicting each other.',
@@ -328,27 +328,27 @@ add({
 add({
   id: 'composite-leftovers', group: 'color', era: 'analog', removability: 'attenuate',
   tags: ['composite'], related: ['bt601-sampling', 'denoise-limits'],
-  labWidgets: [], recipeIds: ['chroma-denoise'], displayCaveat: 'diagram',
-  widget: '',
+  labWidgets: [], recipeIds: ['chroma-denoise'],
+  widget: '<EdgeLeftover />',
   zh: {
-    title: '复合编码的残留', summary: '点爬、彩虹、亮色互串。解码之后只能减轻，而且这不是 601。',
+    title: '点爬、彩虹、亮色互串', summary: '点爬、彩虹、亮色互串。解码之后只能减轻，而且这不是 601。',
     parts: [
-      '高对比竖边旁边爬着彩色点子，或大块色里透出细条纹。',
-      '复合信号把色副载波和亮度加在一起。解码器收成样点之后，载波不再是一条可以关掉的副载波。见 <TLink slug="composite" />。601 采样的是分量，不应背这些锅。',
-      '点子跟着副载波的节拍，不是 8×8 的压缩块。静止的彩条测试图上也能看见。',
-      '没有干净的合成样片可以代表每一种解码器。配方只做色度方向的减轻。',
+      '高对比竖边旁边爬着彩色点，是点爬。平色里透出细彩条，是彩虹。细线本身带上颜色，是亮被当成了色。亮色互串是这两个方向的总称。相邻行色相相反、停着不爬，见 <TLink slug="pal" />。',
+      '黑白已经占满这根线。彩色把色度调制到副载波上，加进亮度。解码器用陷波或梳状滤波拆开。拆不净的留在样点里。见 <TLink slug="ntsc" />。601 采样的是分量。\n\n点爬是色度留在亮度里。副载波相对每一帧走相位，点子就爬。画面可以不动。\n\n彩虹和细线上的颜色，是亮度里靠近副载波的频率被当成了色度。\n\n通路变长改变的是副载波相位，整幅颜色偏转。见 <TLink slug="ntsc" />。',
+      '点子跟着副载波的节拍走。压缩块是 8×8 的方格。静止的彩条测试图上也能看见。',
+      '左边是这一行的电压，右边是拆剩的样子。点爬可以逐帧走：边不动，相位走，点子才爬。彩虹停着，细条纹本来就是亮度。配方只做色度方向的减轻。',
       '只能减轻。信息已经和亮度叠在同一批样点里。',
       '轻度色度降噪，接受细节损失。',
       '不要把点爬当蚊噪去大力 hqdn3d 整幅亮度。',
     ],
   },
   en: {
-    title: 'Composite leftovers', summary: 'Dot crawl, rainbows, cross-color. After decoding you can only attenuate, and this is not 601.',
+    title: 'Dot crawl, rainbows, cross-color', summary: 'Dot crawl, rainbows, cross-color. After decoding you can only attenuate, and this is not 601.',
     parts: [
-      'Colored dots crawl beside a high-contrast vertical edge, or fine stripes show through a flat color.',
-      'Composite added the subcarrier to luma. After the decoder emits samples, the carrier is no longer a signal you can switch off. See <TLink slug="composite" />. 601 sampled component video and should not be blamed for this.',
-      'The dots follow the subcarrier beat, not an 8×8 compression block. They can show up on a still color-bar chart.',
-      'There is no clean synthetic that stands in for every decoder. The recipe only attenuates chroma.',
+      'Colored dots beside a high-contrast vertical edge are dot crawl: chroma left in luma. Fine colored stripes in a flat area are a rainbow. Fine detail that picks up color is luma read as chroma. Adjacent lines with opposite hues that stay put are on <TLink slug="pal" />.',
+      'Black-and-white already filled the wire. Color modulates chroma onto a subcarrier and adds it to luma. A notch or a comb splits them. What the split leaves behind stays in the samples. See <TLink slug="ntsc" />. 601 sampled component video.\n\nDot crawl is chroma left in luma. The subcarrier phase walks from frame to frame, so the dots move. The picture can sit still.\n\nA rainbow, and color on fine detail, is luma energy near the subcarrier. The decoder reads it as chroma.\n\nA longer path turns the subcarrier phase, and the whole picture’s hue turns with it. See <TLink slug="ntsc" />.',
+      'The dots follow the subcarrier beat. An 8×8 compression block lines up differently. A still color-bar chart can show the dots.',
+      'The left side is one line of voltage. The right side is what the split leaves. Dot crawl steps a frame at a time: the edge stays, the phase moves, and the dots crawl. The rainbow state stays still, because the fine stripes were luma. The recipe only attenuates chroma.',
       'Attenuation only. The information already shares samples with luma.',
       'A light chroma denoise, and accept the detail loss.',
       'Do not treat dot crawl as mosquito noise and hit the whole luma plane with hqdn3d.',
@@ -359,15 +359,15 @@ add({
 add({
   id: 'banding', group: 'clean', era: 'digital', removability: 'attenuate',
   tags: ['banding'], related: ['denoise-limits', 'levels'],
-  labWidgets: [], recipeIds: ['gradfun-fix'], displayCaveat: 'diagram',
-  widget: '',
+  labWidgets: [], recipeIds: ['gradfun-fix'],
+  widget: '<BandRamp />',
   zh: {
     title: '色带', summary: '平滑渐变变成一圈一圈。gradfun 和 deband 用抖动换掉台阶。',
     parts: [
       '天空或暗部渐变有明显的等高线。',
       '位深不够或反复量化之后，相邻码值之间的台阶变得可见。宽色域用 8 bit 时更容易看见，这也是 2020 要求 10 或 12 bit 的原因之一。',
       '在渐变上能数出台阶，块边缘则更像压缩。',
-      '没有单独的实验室。配方是 gradfun 或 deband。',
+      '渐变被收成台阶。块的边缘更像压缩，见 <PLink id="compression-artifacts" />。',
       '只能减轻。抖动盖住台阶，也加上细噪声。原来的中间码值回不来。',
       '轻度使用，看暗部。',
       '不要把色带当成可以用锐化解决的模糊。',
@@ -379,7 +379,7 @@ add({
       'Sky or a shadow ramp shows contour lines.',
       'After too little bit depth, or after quantizing again and again, the steps between code values become visible. Wide gamut in 8 bits shows them sooner, which is one reason 2020 asks for 10 or 12 bits.',
       'You can count the steps on a ramp. A block edge looks more like compression.',
-      'There is no separate lab. The recipe is gradfun or deband.',
+      'The ramp is drawn as steps. A block edge looks more like compression. See <PLink id="compression-artifacts" />.',
       'Attenuation only. Dither hides the steps and adds fine noise. The missing code values do not come back.',
       'Use a light pass and look at the shadows.',
       'Do not treat banding as blur to be sharpened.',
@@ -390,19 +390,19 @@ add({
 add({
   id: 'compression-artifacts', group: 'clean', era: 'digital', removability: 'baked',
   tags: ['compression'], related: ['banding', 'denoise-limits', 'composite-leftovers'],
-  labWidgets: [], recipeIds: [], displayCaveat: 'diagram',
+  labWidgets: [], recipeIds: [],
   noRecipeReason: {
     zh: '块、蚊噪、振铃是量化已经丢掉的变换系数。滤镜只能掩盖。这里不展开成编码教程。',
     en: 'Blocks, mosquito noise, and ringing are transform coefficients quantization already discarded. A filter can only hide them. This is not a codec tutorial.',
   },
-  widget: '',
+  widget: '<CodecMarks />',
   zh: {
     title: '块、蚊噪、振铃', summary: '量化写进样点之后，滤镜只能盖住，不能把系数找回来。',
     parts: [
       '平区有方块。高对比边缘冒出细碎的蚊子。锐边旁边有一圈过冲。',
       '这是变换编码的量化，不是隔行，也不是复合副载波。块边界按宏块或变换单元对齐。MPEG-2、H.264、HEVC、AV1 各从哪一年写进文件，见 <TLink slug="compression" />。',
-      '块是方的，点爬是沿着边爬的彩色点。两者可以同时存在，但来源不同。',
-      '没有滤镜对照，避免做成「一条命令修复压缩」。',
+      '块是方的。<PLink id="composite-leftovers">点爬</PLink>是沿着边爬的彩色点。两者可以同时存在，但来源不同。',
+      '方块、灰点的蚊噪、边上的一圈过冲。彩色点沿着边爬是另一页。这张图只用于辨认。',
       '已经写进样点。',
       '若必须减轻，走 <PLink id="denoise-limits" />，并接受细节损失。',
       '不要把去块当成去隔行，也不要承诺能恢复原图。',
@@ -413,8 +413,8 @@ add({
     parts: [
       'Flat areas break into squares. High-contrast edges shed fine mosquitoes. A sharp edge grows an overshoot.',
       'That is quantization of a transform code, not interlace and not a composite subcarrier. Block edges line up with macroblocks or transform units. When MPEG-2, H.264, HEVC, and AV1 each entered the file is on <TLink slug="compression" />.',
-      'Blocks are square. Dot crawl is colored dots walking an edge. Both can be present. The sources differ.',
-      'There is no filter contact sheet, so this does not become “one command repairs compression”.',
+      'Blocks are square. <PLink id="composite-leftovers">Dot crawl</PLink> is colored dots walking an edge. Both can be present. The sources differ.',
+      'Squares, gray mosquitoes, and an overshoot beside an edge. Colored dots walking an edge are the other page. This figure is for recognition.',
       'Already in the samples.',
       'If you must attenuate, use <PLink id="denoise-limits" /> and accept the detail loss.',
       'Do not treat a deblocker as a deinterlacer, and do not promise the original picture back.',
@@ -425,10 +425,10 @@ add({
 add({
   id: 'denoise-limits', group: 'clean', era: 'digital', removability: 'attenuate',
   tags: ['denoise'], related: ['compression-artifacts', 'banding', 'composite-leftovers'],
-  labWidgets: [], recipeIds: ['denoise-light'], displayCaveat: 'diagram',
+  labWidgets: [], recipeIds: ['denoise-light'],
   widget: '',
   zh: {
-    title: '降噪的边界', summary: 'hqdn3d、nlmeans、atadenoise 都会吃掉细节。先问噪声是不是你要留的。',
+    title: '画面发糊，像被涂过', summary: 'hqdn3d、nlmeans、atadenoise 都会吃掉细节。先问噪声是不是你要留的。',
     parts: [
       '噪点少了，头发、布料、胶片颗粒也少了。运动区可能拖脏。',
       'hqdn3d 是空域加时域的平滑。nlmeans 用相似块平均，更慢，仍会抹掉和噪声同尺度的纹理。atadenoise 沿时间平均，运动处若没有好好补偿就会拖影。',
@@ -440,7 +440,7 @@ add({
     ],
   },
   en: {
-    title: 'Where denoise stops', summary: 'hqdn3d, nlmeans, and atadenoise all eat detail. Ask whether the noise is something you meant to keep.',
+    title: 'The picture looks smeared', summary: 'hqdn3d, nlmeans, and atadenoise all eat detail. Ask whether the noise is something you meant to keep.',
     parts: [
       'There is less noise, and less hair, cloth, and film grain. Motion can smear.',
       'hqdn3d smooths in space and time. nlmeans averages similar patches. It is slower, and it still removes texture the size of the noise. atadenoise averages along time and smears motion it does not compensate.',

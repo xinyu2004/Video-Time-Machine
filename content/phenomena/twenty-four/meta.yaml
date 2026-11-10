@@ -1,0 +1,16 @@
+id: twenty-four
+group: progressive
+era: film
+removability: prevent
+tags:
+  - 24fps
+  - academy
+related:
+  - hand-crank
+  - film-to-60
+  - film-to-50
+labWidgets: []
+recipeIds: []
+noRecipeReason:
+  zh: 24 格是有声以后锁死的放映速率。这里没有要跑的滤镜。
+  en: 24 fps is the projection rate locked in with sound. There is no filter to run here.

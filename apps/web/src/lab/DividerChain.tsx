@@ -40,7 +40,6 @@ export function DividerChain() {
 
   return (
     <Scope
-      caveat="diagram"
       controls={
         <>
           {SYSTEMS.map((item) => (

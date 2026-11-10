@@ -10,7 +10,6 @@ related:
   - primaries
 labWidgets: []
 recipeIds: []
-displayCaveat: diagram
 noRecipeReason:
   zh: 这是文件名对照，没有要跑的滤镜。
   en: This is a naming note. There is no filter to run.

@@ -1,10 +1,9 @@
 ---
 title: "Compression into the file"
 summary: "MPEG-2, H.264, HEVC, and AV1 entered the file in that order. A later one does not retire the earlier one. Compression does not change the gamut."
-order: 9
 ---
 
-Compression is the layer after digital component. It turns sampled pictures into transform coefficients and quantizes them. Blocks, mosquito noise, and ringing are the coefficients quantization discarded. See <PLink id="compression-artifacts" />. This layer does not set new primaries and does not solve the luma row again. Gamut and the curve stay tags in the file.
+Compression is the layer after digital component. It turns sampled pictures into transform coefficients and quantizes them. Blocks, mosquito noise, and ringing are the coefficients quantization discarded. See <PLink id="compression-artifacts" />. The sequence header, SPS, PPS, VPS, and profile and level are on <PLink id="parameter-sets" />. This layer does not set new primaries and does not solve the luma row again. Gamut and the curve stay tags in the file.
 
 MPEG-2, from 1995 (ISO/IEC 13818, the video part also called H.262), is the disc and digital-broadcast generation. It can code 4:2:0 by frame or by field. Whether the chroma sample sits left or center differs from the MPEG-1 habit. See <PLink id="chroma-siting" />. The tag is often still the 601-era matrix.
 

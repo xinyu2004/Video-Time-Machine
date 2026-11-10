@@ -1,0 +1,21 @@
+id: film-to-60
+group: progressive
+era: film
+removability: invert
+tags:
+  - pulldown
+  - telecine
+related:
+  - judder
+  - ivtc-vs-deinterlace
+  - mixed-cadence
+  - film-to-50
+  - psf-vs-adjacent
+labWidgets:
+  - Pulldown
+recipeIds: []
+noRecipeReason:
+  zh: 找回胶片格的命令在「反电视电影还是去隔行」。这一页只说明场是怎么铺的。
+  en: >-
+    The command that recovers the film frames is on Inverse telecine or deinterlace. This page only shows how the
+    fields are spread.

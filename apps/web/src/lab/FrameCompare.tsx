@@ -38,7 +38,6 @@ export function FrameCompare({ samples = 'adjacent-weave,adjacent-bob,adjacent-y
 
   return (
     <Scope
-      caveat="diagram"
       controls={
         max > 1 ? (
           <>

@@ -1,0 +1,17 @@
+id: hand-crank
+group: progressive
+era: film
+removability: invert
+tags:
+  - crank
+  - 16fps
+related:
+  - twenty-four
+  - film-to-60
+  - film-to-50
+labWidgets:
+  - HandCrank
+recipeIds: []
+noRecipeReason:
+  zh: 快慢来自拍摄时摇得不均匀。放回拍摄那一格的时长，不是 3:2 的 fieldmatch。
+  en: The speed change comes from an uneven crank. Restoring it is the duration of each shot frame, not a 3:2 fieldmatch.

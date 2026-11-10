@@ -1,8 +1,9 @@
 ---
 title: "BT.709, BT.2020, and the HDR boundary"
 summary: "The luma row is solved from the primaries and the white point. 1953 solved it once. 709 and 2020 each solve it again. The curve changes only at BT.2100."
-order: 8
 ---
+
+High definition fixes the frame at 1920×1080, 16:9, square pixels. The luma row is solved again from those primaries and D65. The curve changes only at BT.2100.
 
 A code becomes light in three steps. The primaries and the white point place (1, 0, 0) on the chromaticity diagram. Solving that set produces the luma row, the share of R, G, and B inside Y. The opto-electronic curve writes light as code and turns code back into light. Peak brightness belongs to the third step.
 
@@ -28,4 +29,4 @@ A file tagged 2020 may have been graded entirely inside the 709 triangle. Conver
 
 BT.2100 keeps the 2020 primaries and replaces the curve with PQ or HLG. A file that says 2020 can be any of three: the SDR curve, PQ, or HLG. Recipes in this project stop at the SDR matrices. See <PLink id="bt2100-boundary" />.
 
-Interlace still exists as a shell in HD. 1080p25 can travel as 1080i50 PsF. A 1080i50 camera really did expose two times. 24p into 1080i60 is usually 3:2. See <PLink id="psf-vs-adjacent" />.
+Interlace still exists as a shell in HD. One frame split into fields is <PLink id="psf-vs-adjacent" />. 24p into 60 fields is <PLink id="film-to-60" />.

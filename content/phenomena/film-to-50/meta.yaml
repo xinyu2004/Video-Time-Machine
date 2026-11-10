@@ -1,0 +1,18 @@
+id: film-to-50
+group: progressive
+era: film
+removability: invert
+tags:
+  - pulldown
+  - 25fps
+related:
+  - film-to-60
+  - judder
+  - mixed-cadence
+labWidgets: []
+recipeIds: []
+noRecipeReason:
+  zh: 放回 24 是整段按 24/25 缩放。这里不给滤镜命令，避免拿 3:2 的 fieldmatch 去套匀速的 2:2。
+  en: >-
+    Putting it back to 24 is a 24/25 stretch of the whole reel. There is no filter command here, so fieldmatch is not
+    used on even 2:2.

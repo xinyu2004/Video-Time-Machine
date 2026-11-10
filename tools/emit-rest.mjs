@@ -131,7 +131,7 @@ add({
 add({
   id: 'weave-blend-bob', group: 'interlace', era: 'interlace', removability: 'attenuate',
   tags: ['interlace'], related: ['combing', 'yadif-bwdif', 'psf-vs-adjacent'],
-  labWidgets: ['FrameCompare'], recipeIds: ['bob-blend', 'psf-weave'], displayCaveat: 'diagram',
+  labWidgets: ['FrameCompare'], recipeIds: ['bob-blend', 'psf-weave'],
   widget: '<FrameCompare samples="adjacent-weave,adjacent-bob,adjacent-yadif,adjacent-bwdif" />',
   zh: {
     title: '编织、混合、抛场', summary: '三种朴素做法各自丢掉不同的信息。',
@@ -162,7 +162,7 @@ add({
 add({
   id: 'yadif-bwdif', group: 'interlace', era: 'digital', removability: 'attenuate',
   tags: ['deinterlace', 'yadif', 'bwdif'], related: ['combing', 'weave-blend-bob', 'psf-vs-adjacent'],
-  labWidgets: ['FrameCompare'], recipeIds: ['bwdif-field', 'yadif-field'], displayCaveat: 'diagram',
+  labWidgets: ['FrameCompare'], recipeIds: ['bwdif-field', 'yadif-field'],
   widget: '<FrameCompare samples="adjacent-yadif,adjacent-bwdif,psf-yadif" />',
   zh: {
     title: 'yadif 与 bwdif', summary: '两者都假定输入是真隔行。FFmpeg 里优先 bwdif。',
@@ -193,7 +193,7 @@ add({
 add({
   id: 'ivtc-vs-deinterlace', group: 'progressive', era: 'film', removability: 'invert',
   tags: ['telecine', 'ivtc'], related: ['judder', 'combing', 'mixed-cadence', 'psf-vs-adjacent'],
-  labWidgets: ['Pulldown', 'FrameCompare'], recipeIds: ['fieldmatch-decimate', 'detect-idet'], displayCaveat: 'diagram',
+  labWidgets: ['Pulldown', 'FrameCompare'], recipeIds: ['fieldmatch-decimate', 'detect-idet'],
   widget: '<Pulldown />\n\n<FrameCompare samples="telecine-23,adjacent-weave" />',
   zh: {
     title: '反电视电影还是去隔行', summary: '重复场走 fieldmatch 和 decimate。真隔行走 bwdif。',
@@ -224,15 +224,15 @@ add({
 add({
   id: 'interlaced-chroma', group: 'interlace', era: 'digital', removability: 'attenuate',
   tags: ['chroma', '420'], related: ['combing', 'chroma-siting', 'bt601-sampling'],
-  labWidgets: [], recipeIds: ['scale-interl'], displayCaveat: 'diagram',
-  widget: '',
+  labWidgets: [], recipeIds: ['scale-interl'],
+  widget: '<ChromaEdge view="motion" />',
   zh: {
     title: '隔行色度', summary: '4:2:0 的隔行色度按场排。当逐行去缩放，彩色边缘会错位。',
     parts: [
       '运动物体的彩色边和亮度边错开，或者出现淡淡的彩色梳齿。',
       'MPEG 一类的 4:2:0 可以把色度按帧排，也可以按场排。隔行 4:2:0 的色度样点和场对齐。把整帧当成逐行去放大色度，就会拿错场的颜色。BT.601 本身是 4:2:2，4:2:0 是后来的播出格式。',
       '彩色边只在运动处错，静止处正常。`ffprobe` 看色度抽样和 field_order。',
-      '这一条没有单独的动画。缩放配方里的 `interl=1` 就是告诉 scale 按场处理。',
+      '只在运动处错开。静止竖边就有的色边是 <PLink id="chroma-siting" />。缩放配方里的 `interl=1` 就是告诉 scale 按场处理。',
       '只能减轻。色度在抽样时已经丢掉一半垂直分辨率，按场缩放只是不再用错那一半。',
       '隔行 4:2:0 缩放时加 `scale=interl=1`。先去隔行再缩放时，色度路径要和亮度路径一致。',
       '不要把隔行 4:2:0 直接 `scale=w=iw*2:h=ih*2` 当成逐行放大。',
@@ -244,7 +244,7 @@ add({
       'The color edge of a moving object separates from the luma edge, or a faint color comb appears.',
       'MPEG-style 4:2:0 can site chroma per frame or per field. Interlaced 4:2:0 aligns chroma with the fields. Upsampling the whole frame as progressive pulls color from the wrong field. BT.601 itself is 4:2:2. 4:2:0 came later, for emission.',
       'The color edge is wrong only where things moved. Stills look fine. `ffprobe` shows chroma subsampling and field_order.',
-      'There is no separate animation. `interl=1` on scale is the switch that processes fields.',
+      'The split shows up only where the picture moved. A fringe on a still edge is <PLink id="chroma-siting" />. `interl=1` on scale is the switch that processes fields.',
       'Attenuation only. Chroma already lost half its vertical resolution at sampling time. Field-aware scale merely stops using the wrong half.',
       'Scale interlaced 4:2:0 with `scale=interl=1`. If you deinterlace first, keep the chroma path consistent with luma.',
       'Do not `scale=w=iw*2:h=ih*2` an interlaced 4:2:0 frame as if it were progressive.',

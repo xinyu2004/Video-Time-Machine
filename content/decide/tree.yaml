@@ -49,10 +49,10 @@ nodes:
       - label:
           zh: 彩色边镶出一条
           en: A colored fringe along an edge
-        leaf: chroma-siting
+        next: fringe
       - label:
-          zh: 点爬、彩虹
-          en: Dots crawl, or a rainbow
+          zh: 点爬、彩虹、亮色互串
+          en: Dots crawl, a rainbow, or cross-color
         leaf: composite-leftovers
       - group:
           zh: 痕迹
@@ -154,6 +154,19 @@ nodes:
           zh: 要反电视电影
           en: Undo telecine
         leaf: ivtc-vs-deinterlace
+  fringe:
+    q:
+      zh: 这条色边什么时候在？
+      en: When is the fringe there?
+    choices:
+      - label:
+          zh: 静止的竖边就有
+          en: It is on a still vertical edge
+        leaf: chroma-siting
+      - label:
+          zh: 只在运动处错
+          en: It is wrong only where things moved
+        leaf: interlaced-chroma
   bars:
     q:
       zh: 黑带在哪？

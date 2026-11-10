@@ -1,0 +1,16 @@
+id: imax-film
+group: progressive
+era: film
+removability: prevent
+tags:
+  - imax
+  - 1570
+related:
+  - imax-digital
+  - twenty-four
+labWidgets:
+  - ImaxGauge
+recipeIds: []
+noRecipeReason:
+  zh: 15/70 是齿孔和画幅。这里没有要跑的滤镜。
+  en: 15/70 is the perforation and the frame. There is no filter to run here.

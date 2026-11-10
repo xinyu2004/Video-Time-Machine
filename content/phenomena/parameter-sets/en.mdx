@@ -1,0 +1,48 @@
+---
+title: "Sequence header, SPS, PPS, VPS"
+summary: "A picture lights only after the decoder already holds the headers that picture names. Profile is the tools. Level is the ceiling."
+---
+
+## What you see
+
+The picture data is still in the stream, and the picture stays dark. Or only the small layer lights, and the large one is black.
+
+## Where it sits in the chain
+
+This is the description at the start of a compressed stream, not blocks, mosquito noise, or ringing. Those are coefficients quantization discarded. See <PLink id="compression-artifacts" />. Which year each compression entered the file is on <TLink slug="compression" />.
+
+Complete means the decoder already holds the headers this picture names before the picture is meant to light. Miss one header and that picture stays dark. Older pictures that were already lost are not filled back in.
+
+MPEG-2 writes the sequence header in the stream, and often again before a group of pictures. It carries size, aspect, and frame rate. Profile and level are in its extension. A television that joins mid-stream waits for the next header and the next I picture. There is no set that lives outside the stream.
+
+H.264 puts the sequence in the SPS and the tools that can change for one picture in the PPS. A slice names its PPS. A file keeps the two sets in one place in the container. A broadcast writes them again before an I picture. With only slices left, size and chroma format are unknown. What gets sent again is the SPS and the PPS, not the lost P pictures. In a session the receiver asks again, and the other side sends the SPS and the PPS ahead of the next I picture. A broadcast and a file have nobody who can ask.
+
+H.265 adds a VPS above those. It says how many layers the stream has and which layer can be decoded alone. Each layer’s size lives in that layer’s own SPS. Two layers can be two resolutions. What usually ships is temporal layers: if the high frame-rate layer fails, the low one remains. Once the VPS is lost, the request and the resend follow the same time: the receiver asks again for the VPS and the base SPS, the sender returns them, and the small layer decodes. The enhancement layer still waits for its own SPS. A one-layer file still writes a VPS, because the order is VPS, then SPS, then PPS, then the slice.
+
+Profile is which tools are allowed. MPEG-2 Main Profile is I, P, B, and 4:2:0. H.264 High Profile adds arithmetic coding and the 8×8 transform on top of Baseline. Level is the ceiling: samples in a frame, samples per second, buffer, and bitrate. H.264 Level 4.1 covers ordinary 1920×1080 at about 30 pictures a second. H.265 adds a tier beside the level. Main and High are two bitrate ceilings at the same level. Level 5.1 covers 3840×2160.
+
+The headers can already be complete. If the stream’s profile or level is above the pair this decoder declares, resending the same headers still leaves the picture dark.
+
+The color tags sit in an extension or in the VUI, not in the samples. A wrong tag is another page. See <PLink id="tag-2020-content-709" />.
+
+## How to tell
+
+Slices without an SPS and a PPS stay dark, and the next I picture can light once those two sets arrive. An enhancement layer without a VPS or without the base leaves the large picture dark, while the base can still light alone. Headers already in hand, and a decoder whose declared level is lower, do not change when the headers are sent again.
+
+## Lab
+
+The sender is on the left and the client is on the right. One SPS and one PPS are followed by several SLICEs. After the signal drops, sending does not stop, and SLICEs keep going out. The request travels back from the client. The VPS uses the same two nodes, and what decodes is the small layer. MPEG-2 sends no request back.
+
+<ParameterSets />
+
+## Can it be removed
+
+The missing set can be sent again ahead of the next I picture. A stream above the decoder’s level needs another decoder, or a stream that sits inside the level.
+
+## What to do
+
+See whether the header is missing or the level is too high. Both leave the picture dark. What you send back is not the same.
+
+## Do not
+
+Do not treat a missing header as a compression block, and do not change the gamut on this page.
